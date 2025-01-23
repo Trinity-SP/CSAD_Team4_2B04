@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,18 @@
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
         /* Body Styles */
-        body {  
+        body {
             background: linear-gradient(180deg, #3c8aff 0%, #000000 31%);
             height: 100vh;
             color: #ffffff;
             font-family: sans-serif;
+            overflow-x: hidden;
         }
+
         /* Table Styles */
         #header {
             width: 92vw;
@@ -24,8 +29,8 @@
             margin-top: 20px;
             border-collapse: collapse; /* Ensure table borders collapse */
             table-layout: fixed; /* Fixed table layout */
-            
         }
+
         /* Table Cell Styles */
         #header td {
             text-align: center;
@@ -33,12 +38,16 @@
             position: relative; /* Ensure relative positioning for nested elements */
             border-bottom: 1.7px solid;
         }
+
         /* Last Row Cell Styles */
         #header tr:last-child {
             border-bottom: 1.7px solid #ffffff; /* Remove bottom border for last row */
         }
+
         /* Select Styles */
-        #header select, input[type="submit"], input[type="button"] {
+        #header select,
+        input[type="submit"],
+        input[type="button"] {
             background-color: transparent; /* Example background color */
             color: #ffffff;
             border: none;
@@ -50,52 +59,136 @@
             font-size: medium;
             font-weight: bold;
             height: 45px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
         #header option {
             color: black;
             font-size: small;
         }
+
         #header input[type="submit"] {
             background-color: #ffffff;
             border-radius: 100px;
             color: rgba(60, 138, 255, 1);
         }
+
         #header input[type="button"] {
-            background-color: #BCE3FD;;
+            background-color: #bce3fd;
             color: #000000;
             width: 150px;
             height: 40px;
         }
+
         #filter {
             background-color: transparent;
             margin-left: 3.5vw;
             margin-top: 60px;
             border-collapse: collapse;
         }
+
         #filter tr {
             border-bottom: 0;
-            
         }
+
         #filter td {
             margin: 0;
-            width: 250px;
+            width: 170px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             background-color: transparent;
             text-align: center;
             border-bottom: 1.7px solid;
         }
+
+        .movies{
+            margin-left: 3.5vw;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory;
+            display: inline-flex;
+        }
+
+        .movie{
+            margin-right: 20px; /* Adjust spacing between posters */
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease; /* Optional: Add hover effect */
+        }
+
+        .poster{
+            width: 250px;
+            height: 370px;
+            border-radius: 8px; /* Optional: Add rounded corners */
+            object-fit: cover; /* Ensure posters maintain their aspect ratio */
+        }
+
+        .movie:hover{
+            transform: scale(0.95); /* Optional: Scale up slightly on hover */
+        }
+
+        .imax_banner{
+            position: absolute;
+            margin-top: 0px; /* Adjust top positioning as needed */
+            margin-left: 0px; /* Adjust left positioning as needed */
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .imax_banner img{
+            width: 250px;
+            height: 370px;
+            border-radius: 8px; /* Optional: Add rounded corners */
+            object-fit: cover; /* Ensure posters maintain their aspect ratio */
+        }
+
+        .description {
+            margin-top: 10px;
+            height: 60px;
+        }
+
+        .movie_name {
+            text-align: left;
+            max-width: 190px;
+            width: 190px;
+            font-size: large;
+            font-family: 'Gill Sans MT';
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie_rating img{
+            max-width: 35px;
+            max-height: 25px;
+        }
+
+        .movie_time {
+            text-align: right;
+            color: #8b8b8b;
+        }
+        
     </style>
 </head>
+
 <body>
     <!-- Aspect Ratio of Laptop is 1061x898 -->
     <table id="header">
         <tr>
-            <td colspan="4" style="text-align: left;"><h1>Welcome to Sky Cinemas</h1></td>
-            <td rowspan="3"><img src="Images/SkyCinemaNEw.png" width="150px"></td>
+            <td colspan="4" style="text-align: left;">
+                <h1>Welcome to Sky Cinemas</h1>
+            </td>
+            <td rowspan="3">
+                <img src="Images/SkyCinemaNEw.png" width="150px">
+            </td>
             <td rowspan="2">
                 <div style="font-size: 25px; font-family:'Arial';">Staff Portal</div><br>
-                <form><input type="button" value="Login" name="Login Button"/></form>
+                <form><input type="button" value="Login" name="Login Button" /></form>
             </td>
         </tr>
         <tr>
@@ -135,34 +228,68 @@
                 </select>
             </td>
             <td>
-                <form><input type="submit" value="Showtimes"/></form>
+                <form><input type="submit" value="Showtimes" /></form>
             </td>
         </tr>
     </table>
     <table id="filter">
         <tr>
             <td id="nowShowing" style="background-color: #0066FF;" onclick="changeBackground('nowShowing')">
-                <form><input type="button" value="Now Showing"/></form>
+                <form><input type="button" value="Now Showing" /></form>
             </td>
             <td id="advanceSales" onclick="changeBackground('advanceSales')"> <!-- Added id for targeting -->
-                <form><input type="button" value="Advance Sales"/></form>
+                <form><input type="button" value="Advance Sales" /></form>
             </td>
             <td id="comingSoon" onclick="changeBackground('comingSoon')"> <!-- Added id for targeting -->
-                <form><input type="button" value="Coming Soon"/></form>
+                <form><input type="button" value="Coming Soon" /></form>
             </td>
         </tr>
     </table>
+    <section class="movies">
+
+
+        <div class="movie" id="movie1">
+            <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">  
+            <div class="imax_banner"><img src="Images/imax3d_banner.png"></div>              
+            <table class="description">
+                <tr>
+                    <td class="movie_name">Alien: Romulus</td>
+                    <td class="movie_rating"><img src="Images/nc16.png"></td>
+                </tr>
+                <tr class="movie_time">
+                    <td colspan="2"><span id="time">119</span>min</td>
+                </tr>
+            </table>                
+        </div>
+
+
+        <div class="movie" id="movie2">
+            <img src="Images/wicked.jpg" alt="alien_romulus" class="poster">  
+            <div class="imax_banner"></div>               
+            <table class="description">
+                <tr>
+                    <td class="movie_name">Wicked</td>
+                    <td class="movie_rating"><img src="Images/pg.png"></td>
+                </tr>
+                <tr class="movie_time">
+                    <td colspan="2"><span id="time">159</span>min</td>
+                </tr>
+            </table>                
+        </div>
+
+
+    </section>
     <script>
         let lastClickedId = null;
 
         function changeBackground(id) {
             const tdElements = document.querySelectorAll('#filter td');
-            
+
             // Reset all td background colors
             tdElements.forEach(td => {
                 td.style.backgroundColor = "transparent";
             });
-            
+
             // Set background color of the clicked td
             const clickedTd = document.getElementById(id);
             clickedTd.style.backgroundColor = "#0066FF";
@@ -171,8 +298,6 @@
             lastClickedId = id;
         }
     </script>
-    <table id="movie">
-        <t
-    </table>
 </body>
+
 </html>
