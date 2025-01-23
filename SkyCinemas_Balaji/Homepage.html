@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Cinemas Homepage</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /* Body Styles */
+        body {  
+            background: linear-gradient(180deg, #3c8aff 0%, #000000 31%);
+            height: 100vh;
+            color: #ffffff;
+            font-family: sans-serif;
+        }
+        /* Table Styles */
+        #header {
+            width: 92vw;
+            margin: 0 auto;
+            margin-top: 20px;
+            border-collapse: collapse; /* Ensure table borders collapse */
+            table-layout: fixed; /* Fixed table layout */
+            
+        }
+        /* Table Cell Styles */
+        #header td {
+            text-align: center;
+            vertical-align: middle; /* Align content vertically in the middle */
+            position: relative; /* Ensure relative positioning for nested elements */
+            border-bottom: 1.7px solid;
+        }
+        /* Last Row Cell Styles */
+        #header tr:last-child {
+            border-bottom: 1.7px solid #ffffff; /* Remove bottom border for last row */
+        }
+        /* Select Styles */
+        #header select, input[type="submit"], input[type="button"] {
+            background-color: transparent; /* Example background color */
+            color: #ffffff;
+            border: none;
+            width: calc(100% - 20px); /* Fill the entire width of the table cell, minus padding */
+            height: 100%; /* Fill the entire height of the table cell */
+            padding: 10px; /* Adjust padding for better appearance */
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+            text-align: center;
+            font-size: medium;
+            font-weight: bold;
+            height: 45px;
+        }
+        #header option {
+            color: black;
+            font-size: small;
+        }
+        #header input[type="submit"] {
+            background-color: #ffffff;
+            border-radius: 100px;
+            color: rgba(60, 138, 255, 1);
+        }
+        #header input[type="button"] {
+            background-color: #BCE3FD;;
+            color: #000000;
+            width: 150px;
+            height: 40px;
+        }
+        #filter {
+            background-color: transparent;
+            margin-left: 3.5vw;
+            margin-top: 60px;
+            border-collapse: collapse;
+        }
+        #filter tr {
+            border-bottom: 0;
+            
+        }
+        #filter td {
+            margin: 0;
+            width: 250px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background-color: transparent;
+            text-align: center;
+            border-bottom: 1.7px solid;
+        }
+    </style>
+</head>
+<body>
+    <!-- Aspect Ratio of Laptop is 1061x898 -->
+    <table id="header">
+        <tr>
+            <td colspan="4" style="text-align: left;"><h1>Welcome to Sky Cinemas</h1></td>
+            <td rowspan="3"><img src="Images/SkyCinemaNEw.png" width="150px"></td>
+            <td rowspan="2">
+                <div style="font-size: 25px; font-family:'Arial';">Staff Portal</div><br>
+                <form><input type="button" value="Login" name="Login Button"/></form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select name="date">
+                    <option value="16/25" selected>Today, 16 Jan 2025</option>
+                    <option value="17/25">Tomorrow, 17 Jan 2025</option>
+                    <option value="18/25">Saturday, 18 Jan 2025</option>
+                    <option value="19/25">Sunday, 19 Jan 2025</option>
+                    <option value="20/25">Monday, 20 Jan 2025</option>
+                    <option value="21/25">Tuesday, 21 Jan 2025</option>
+                    <option value="22/25">Wednesday, 22 Jan 2025</option>
+                </select>
+            </td>
+            <td>
+                <select name="movie">
+                    <option value="All Movies" selected>All Movies</option>
+                    <option value="Alien: Romulus">Alien: Romulus</option>
+                    <option value="Wicked">Wicked</option>
+                    <option value="Superman">Superman</option>
+                    <option value="Flow">Flow</option>
+                    <option value="Dune: Part Two">Dune: Part Two</option>
+                    <option value="Sonic the Hedgehog 3">Sonic the Hedgehog 3</option>
+                    <option value="Ballerina">Ballerina</option>
+                    <option value="Captain America: Brave New World">Captain America: Brave New World</option>
+                    <option value="Moana 2">Moana 2</option>
+                </select>
+            </td>
+            <td>
+                <select name="theater">
+                    <option value="All Theaters" selected>All Theaters</option>
+                    <option value="Lido">Sky Cinemas Lido</option>
+                    <option value="Balestier">Sky Cinemas Balestier</option>
+                    <option value="Waterway Point">Sky Cinemas Waterway Point</option>
+                    <option value="Nex">Sky Cinemas Nex</option>
+                    <option value="Northpoint City">Sky Cinemas Northpoint City</option>
+                </select>
+            </td>
+            <td>
+                <form><input type="submit" value="Showtimes"/></form>
+            </td>
+        </tr>
+    </table>
+    <table id="filter">
+        <tr>
+            <td id="nowShowing" style="background-color: #0066FF;" onclick="changeBackground('nowShowing')">
+                <form><input type="button" value="Now Showing"/></form>
+            </td>
+            <td id="advanceSales" onclick="changeBackground('advanceSales')"> <!-- Added id for targeting -->
+                <form><input type="button" value="Advance Sales"/></form>
+            </td>
+            <td id="comingSoon" onclick="changeBackground('comingSoon')"> <!-- Added id for targeting -->
+                <form><input type="button" value="Coming Soon"/></form>
+            </td>
+        </tr>
+    </table>
+    <script>
+        let lastClickedId = null;
+
+        function changeBackground(id) {
+            const tdElements = document.querySelectorAll('#filter td');
+            
+            // Reset all td background colors
+            tdElements.forEach(td => {
+                td.style.backgroundColor = "transparent";
+            });
+            
+            // Set background color of the clicked td
+            const clickedTd = document.getElementById(id);
+            clickedTd.style.backgroundColor = "#0066FF";
+
+            // Update last clicked id
+            lastClickedId = id;
+        }
+    </script>
+    <table id="movie">
+        <t
+    </table>
+</body>
+</html>
