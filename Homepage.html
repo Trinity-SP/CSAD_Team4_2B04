@@ -104,40 +104,51 @@
             border-bottom: 1.7px solid;
         }
 
-        .movies{
+        .movies {
             margin-left: 3.5vw;
-            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-x: hidden; /* Enable horizontal scrolling */
             scroll-snap-type: x mandatory;
-            display: inline-flex;
+            display: flex; /* Use flexbox for layout */
+            height: 500px;
+            width: 91vw; /* Set a fixed height for the movie section */
+            justify-content: flex-start;
+            flex-wrap: nowrap;
         }
 
-        .movie{
-            margin-right: 20px; /* Adjust spacing between posters */
+        .movies:active {
+            cursor: grabbing;
+        }
+
+        .movie {
+            margin-right: 10px; /* Adjust spacing between posters */
             margin-top: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s ease; /* Optional: Add hover effect */
+            width: 270px; /* Adjust width to accommodate poster and spacing */
         }
 
-        .poster{
-            width: 250px;
-            height: 370px;
-            border-radius: 8px; /* Optional: Add rounded corners */
-            object-fit: cover; /* Ensure posters maintain their aspect ratio */
+        .movie.dragging {
+            pointer-events: none; /* Disable pointer events when dragging */
         }
 
         .movie:hover{
             transform: scale(0.95); /* Optional: Scale up slightly on hover */
         }
 
+        .poster {
+            width: 250px; /* Fixed width */
+            height: 370px; /* Fixed height */
+            border-radius: 8px; /* Optional: Add rounded corners */
+            object-fit: cover; /* Ensure posters maintain their aspect ratio */
+        }
+
         .imax_banner{
-            position: absolute;
-            margin-top: 0px; /* Adjust top positioning as needed */
+            margin-top: -441px; /* Adjust top positioning as needed */
             margin-left: 0px; /* Adjust left positioning as needed */
             display: flex;
             align-items: center;
-            pointer-events: none;
         }
 
         .imax_banner img{
@@ -150,11 +161,12 @@
         .description {
             margin-top: 10px;
             height: 60px;
+            width: 240px;
         }
 
         .movie_name {
             text-align: left;
-            max-width: 190px;
+            max-width: 170px;
             width: 190px;
             font-size: large;
             font-family: 'Gill Sans MT';
@@ -164,6 +176,9 @@
             text-overflow: ellipsis;
         }
 
+        .movie_rating {
+            text-align: right;
+        }
         .movie_rating img{
             max-width: 35px;
             max-height: 25px;
@@ -173,7 +188,17 @@
             text-align: right;
             color: #8b8b8b;
         }
-        
+  
+        .expand input {
+            position: absolute;
+            top: 283px;
+            background-color: white;
+            width: 30px;
+            height: 370px;
+            padding: 0;
+            color: #000000;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -246,40 +271,152 @@
             </td>
         </tr>
     </table>
-    <section class="movies">
+    <table>
+    <tr>
+        <td colspan="9">
+            <section class="movies">
+
+                <div class="movie" id="movie1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Alien: Romulus</td>
+                            <td class="movie_rating"><img src="Images/nc16.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">119</span>mins</td>
+                        </tr>
+                    </table> 
+                    <div class="imax_banner"><img src="Images/imax_banner.png"></div>                
+                </div>
 
 
-        <div class="movie" id="movie1">
-            <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">  
-            <div class="imax_banner"><img src="Images/imax3d_banner.png"></div>              
-            <table class="description">
-                <tr>
-                    <td class="movie_name">Alien: Romulus</td>
-                    <td class="movie_rating"><img src="Images/nc16.png"></td>
-                </tr>
-                <tr class="movie_time">
-                    <td colspan="2"><span id="time">119</span>min</td>
-                </tr>
-            </table>                
-        </div>
+                <div class="movie" id="movie2">
+                    <img src="Images/wicked.jpg" alt="wicked" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Wicked</td>
+                            <td class="movie_rating"><img src="Images/pg.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">159</span>mins</td>
+                        </tr>
+                    </table>
+                    <div class="imax_banner"></div>                  
+                </div>
 
 
-        <div class="movie" id="movie2">
-            <img src="Images/wicked.jpg" alt="alien_romulus" class="poster">  
-            <div class="imax_banner"></div>               
-            <table class="description">
-                <tr>
-                    <td class="movie_name">Wicked</td>
-                    <td class="movie_rating"><img src="Images/pg.png"></td>
-                </tr>
-                <tr class="movie_time">
-                    <td colspan="2"><span id="time">159</span>min</td>
-                </tr>
-            </table>                
-        </div>
+                <div class="movie" id="movie3">
+                    <img src="Images/superman.jpg" alt="superman" class="poster">              
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Superman</td>
+                            <td class="movie_rating"><img src="Images/pg13.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">128</span>mins</td>
+                        </tr>
+                    </table>
+                    <div class="imax_banner"><img src="Images/imax3d_banner.png"></div>                   
+                </div>
 
 
-    </section>
+                <div class="movie" id="movie4">
+                    <img src="Images/flow.jpg" alt="flow" class="poster">                          
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Flow</td>
+                            <td class="movie_rating"><img src="Images/pg.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">84</span>mins</td>
+                        </tr>
+                    </table>              
+                    <div class="imax_banner"></div>   
+                </div>
+
+
+                <div class="movie" id="movie5">
+                    <img src="Images/dune.jpg" alt="dune" class="poster">      
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Dune: Part Two</td>
+                            <td class="movie_rating"><img src="Images/pg13.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">166</span>mins</td>
+                        </tr>
+                    </table>     
+                    <div class="imax_banner"></div>                      
+                </div>
+
+
+                <div class="movie" id="movie6">
+                    <img src="Images/sonic.jpg" alt="sonic" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Sonic the Hedgehog 3</td>
+                            <td class="movie_rating"><img src="Images/pg.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">110</span>mins</td>
+                        </tr>
+                    </table> 
+                    <div class="imax_banner"></div>                         
+                </div>
+
+
+                <div class="movie" id="movie7">
+                    <img src="Images/smile.jpg" alt="smile" class="poster">  
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Smile 2</td>
+                            <td class="movie_rating"><img src="Images/m18.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">132</span>mins</td>
+                        </tr>
+                    </table>
+                    <div class="imax_banner"></div>               
+                </div>
+
+
+                <div class="movie" id="movie8">
+                    <img src="Images/captain.jpg" alt="captain" class="poster">  
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Captain America: Brave New World</td>
+                            <td class="movie_rating"><img src="Images/pg13.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">118</span>mins</td>
+                        </tr>
+                    </table>
+                    <div class="imax_banner"></div>               
+                </div>
+
+
+                <div class="movie" id="movie9">
+                    <img src="Images/moana.jpg" alt="moana" class="poster">  
+                    <table class="description">
+                        <tr>
+                            <td class="movie_name">Moana 2</td>
+                            <td class="movie_rating"><img src="Images/pg.png"></td>
+                        </tr>
+                        <tr class="movie_time">
+                            <td colspan="2"><span id="time">100</span>mins</td>
+                        </tr>
+                    </table>
+                    <div class="imax_banner"></div>               
+                </div>
+
+            </section>
+        </td>
+        <td class="expand">
+            <input type="button" value="▼" onclick="expandMovies()" />
+        </td>
+    </tr>
+</table>
     <script>
         let lastClickedId = null;
 
@@ -299,6 +436,75 @@
             lastClickedId = id;
         }
     </script>
+    <script>
+        window.onload = function() {
+            // Select all movie elements
+            const movies = document.querySelectorAll('.movie');
+
+            // Loop through each movie
+            movies.forEach(movie => {
+                // Check if IMAX banner exists inside the current movie
+                const imaxBanner = movie.querySelector('.imax_banner img');
+
+                // Adjust movie container based on IMAX banner existence
+                if (imaxBanner) {
+                    // Select elements within the movie container
+                    const posterElement = movie.querySelector('.poster');
+                    const descriptionElement = movie.querySelector('.description');
+
+                    // Adjust styles for poster and description
+                    posterElement.style.width = '237px';
+                    posterElement.style.height = '330px';
+                    posterElement.style.marginTop = '34px';
+                    posterElement.style.borderRadius = '0';
+                    descriptionElement.style.marginTop = '16px'; // Adjust margin top for positioning
+                }
+            });
+        };
+    </script>
+    <script>
+        const movies = document.querySelectorAll('.movie');
+        const slider = document.querySelector('.movies');
+
+        let mouseDown = false;
+        let startX, scrollLeft;
+
+        const startDragging = (e) => {
+            mouseDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            
+            // Add a class to disable pointer events on movie posters
+            movies.forEach(movie => {
+                movie.classList.add('dragging');
+            });
+        }
+
+        const stopDragging = () => {
+            mouseDown = false;
+            
+            // Remove the class to enable pointer events back
+            movies.forEach(movie => {
+                movie.classList.remove('dragging');
+            });
+        }
+
+        const move = (e) => {
+            e.preventDefault();
+            if (!mouseDown) return;
+            const x = e.pageX - slider.offsetLeft;
+            const scroll = x - startX;
+            slider.scrollLeft = scrollLeft - scroll;
+        }
+
+        // Add event listeners to handle dragging
+        slider.addEventListener('mousedown', startDragging);
+        slider.addEventListener('mousemove', move);
+        slider.addEventListener('mouseup', stopDragging);
+        slider.addEventListener('mouseleave', stopDragging);
+
+        
+  </script>
 </body>
 
 </html>
