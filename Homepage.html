@@ -105,14 +105,14 @@
         }
 
         .movies {
-            margin-left: 3.5vw;
+            margin-left: 2.5vw;
             overflow-x: hidden; /* Enable horizontal scrolling */
             scroll-snap-type: x mandatory;
             display: flex; /* Use flexbox for layout */
             height: 500px;
-            width: 91vw; /* Set a fixed height for the movie section */
+            width: 92.5vw; /* Set a fixed height for the movie section */
             justify-content: flex-start;
-            flex-wrap: nowrap;
+            
         }
 
         .movies:active {
@@ -120,13 +120,16 @@
         }
 
         .movie {
-            margin-right: 10px; /* Adjust spacing between posters */
+            margin-right: 1px; /* Adjust spacing between posters */
             margin-top: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s ease; /* Optional: Add hover effect */
-            width: 270px; /* Adjust width to accommodate poster and spacing */
+            width: 262px; /* Adjust width to accommodate poster and spacing */
+            margin-bottom: 100px;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
         }
 
         .movie.dragging {
@@ -191,7 +194,7 @@
   
         .expand input {
             position: absolute;
-            margin-left: 10px;
+            margin-left: 6px;
             top: 283px;
             background-color: rgba(255, 255, 255, 0.65);
             width: 30px;
@@ -199,6 +202,12 @@
             padding: 0;
             color: #000000;
             text-align: center;
+        }
+
+        .expanded {
+            flex-wrap: wrap;        
+            overflow: visible;     
+            margin-bottom: 600px;       
         }
 
         .movie_link {
@@ -486,7 +495,7 @@
         let mouseDown = false;
         let startX, scrollLeft;
         let dragStartTimer = null;
-        const dragDelay =70; // Adjust delay in milliseconds as needed
+        const dragDelay =120; // Adjust delay in milliseconds as needed
 
         const startDragging = (e) => {
             // Set a timer to start dragging after a delay
@@ -528,6 +537,27 @@
         slider.addEventListener('mousemove', move);
         slider.addEventListener('mouseup', stopDragging);
         slider.addEventListener('mouseleave', stopDragging);
+    </script>
+    <script>
+        const expandButton = document.getElementsByClassName('expand');
+        const imageSection = document.querySelector('.movies');
+
+        expandButton.addEventListener('click', function() {
+            imageSection.classList.toggle('expanded');
+        });
+        
+        function expandMovies() {
+            const moviesSection = document.querySelector('.movies');
+            moviesSection.classList.toggle('expanded');
+
+            const Button = document.querySelector('.expand input[type="button"]')
+
+            if (Button.value === "▼") {
+                Button.value = "▲";
+            } else {
+                Button.value = "▼";
+            }
+        }
     </script>
 </body>
 
