@@ -177,7 +177,7 @@
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis;    
         }
 
         .movie_rating {
@@ -207,7 +207,6 @@
 
         .expanded {
             flex-wrap:wrap;  
-            flex-flow: row wrap; 
             overflow: visible;     
           
         }
@@ -221,12 +220,13 @@
         .promoHeader {  
             margin-left: 3.5vw;
             font-size: 30px;
-            margin-top: 60px;
+            text-align: left;
         }
 
         hr {
             background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-            margin-top: 10px;
+            position: relative;
+            top: 15px;
             margin-left: 3.5vw;
             border: 0;
             height: 1px;
@@ -249,6 +249,7 @@
             width: 92.5vw; /* Set a fixed height for the movie section */
             justify-content: flex-start;
             margin-top: 25px;
+            overflow-y: hidden;
             
         }
 
@@ -294,6 +295,7 @@
             margin-bottom: 100px;
         }
 
+        
     </style>
 </head>
 
@@ -369,7 +371,7 @@
     <table class="movie-block">
     <tr>
         <td colspan="9">
-            <section class="movies">
+            <div class="movies">
                 
                 <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie1">
                     <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
@@ -678,9 +680,8 @@
     </tr>
 </table>
 <table class="promo-block">
-    <div>
-        Promotions
-    </div>
+    <caption class="promoHeader">Promotions</caption>
+    <tr><td><hr></td></tr>
     <tr>
         <td colspan="9">
             <section class="promos">
@@ -794,27 +795,42 @@
         slider.addEventListener('mouseup', stopDragging);
         slider.addEventListener('mouseleave', stopDragging);
     </script>
-    <script>
-        const expandButton = document.getElementsByClassName('expand');
-        const imageSection = document.querySelector('.movies');
+<script>
+    function expandMovies() {
+        const moviesSection = document.querySelector('.movies');
+        const promoBlockTable = document.querySelector('.promo-block');
+        const lastMovie = moviesSection.querySelector('.movie:last-child');
 
-        expandButton.addEventListener('click', function() {
-            imageSection.classList.toggle('expanded');
-        });
-        
-        function expandMovies() {
-            const moviesSection = document.querySelector('.movies');
-            moviesSection.classList.toggle('expanded');
+        moviesSection.classList.toggle('expanded');
+        promoBlockTable.classList.toggle('expanded');
 
-            const Button = document.querySelector('.expand input[type="button"]')
+        const expandButton = document.querySelector('.expand input[type="button"]');
 
-            if (Button.value === "▼") {
-                Button.value = "▲";
-            } else {
-                Button.value = "▼";
-            }
+        if (expandButton.value === "▼") {
+            expandButton.value = "▲";
+        } else {
+            expandButton.value = "▼";
         }
-    </script>
+
+        // Adjust the top position of promo-block based on expanded state
+        if (moviesSection.classList.contains('expanded')) {
+            // Retrieve position of last .movie element
+            const lastMovieRect = lastMovie.getBoundingClientRect();
+
+            // Calculate new top position for promo-block
+            const promoBlockTop = lastMovieRect.bottom - 400; // 100px lower than last .movie
+
+            promoBlockTable.style.top = `${promoBlockTop}px`;
+        } else {
+            // Reset position to default or remove styles
+            promoBlockTable.removeAttribute('style');
+        }
+    }
+</script>
+
+
+
+
 </body>
 
 </html>
