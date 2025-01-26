@@ -128,7 +128,6 @@
             align-items: center;
             transition: transform 0.2s ease; /* Optional: Add hover effect */
             width: 262px; /* Adjust width to accommodate poster and spacing */
-            margin-bottom: 0px;
             padding-left: 0.5em;
             padding-right: 0.5em;
             height: 100%;
@@ -218,6 +217,83 @@
             text-decoration: none;
             -webkit-user-drag: none;
         }
+
+        .promoHeader {  
+            margin-left: 3.5vw;
+            font-size: 30px;
+            margin-top: 60px;
+        }
+
+        hr {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            margin-top: 10px;
+            margin-left: 3.5vw;
+            border: 0;
+            height: 1px;
+            width: 1000px;
+        }
+        
+        .promo-block {
+            position: relative;
+            margin-top: 100px;
+
+        }
+
+
+        .promos {
+            margin-left: 2.5vw;
+            overflow-x: hidden; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory;
+            display: flex; /* Use flexbox for layout */
+            height: 500px;
+            width: 92.5vw; /* Set a fixed height for the movie section */
+            justify-content: flex-start;
+            margin-top: 25px;
+            
+        }
+
+        .promos:active {
+            cursor: grabbing;
+        }
+
+        .promo {
+            margin-right: 1px; /* Adjust spacing between posters */
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease; /* Optional: Add hover effect */
+            width: 262px; /* Adjust width to accommodate poster and spacing */
+            margin-bottom: 10px;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            height: 100%;
+        }
+
+        .promo.dragging {
+            pointer-events: none; /* Disable pointer events when dragging */
+        }
+
+        .promo:hover{
+            transform: scale(0.95); /* Optional: Scale up slightly on hover */
+        }
+
+        .promo_name {
+            text-align: left;
+            max-width: 170px;
+            width: 190px;
+            font-size: large;
+            font-family: 'Gill Sans MT';
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-block {
+            margin-bottom: 100px;
+        }
+
     </style>
 </head>
 
@@ -290,7 +366,7 @@
             </td>
         </tr>
     </table>
-    <table>
+    <table class="movie-block">
     <tr>
         <td colspan="9">
             <section class="movies">
@@ -598,6 +674,28 @@
         </td>
         <td class="expand">
             <input type="button" value="▼" onclick="expandMovies()" />
+        </td>
+    </tr>
+</table>
+<table class="promo-block">
+    <div>
+        Promotions
+    </div>
+    <tr>
+        <td colspan="9">
+            <section class="promos">
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="promo_name">Alien: Romulus</td>
+                        </tr>
+                    </table>              
+                </div>
+                
+
+            </section>
         </td>
     </tr>
 </table>

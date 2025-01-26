@@ -128,7 +128,6 @@
             align-items: center;
             transition: transform 0.2s ease; /* Optional: Add hover effect */
             width: 262px; /* Adjust width to accommodate poster and spacing */
-            margin-bottom: 0px;
             padding-left: 0.5em;
             padding-right: 0.5em;
             height: 100%;
@@ -193,8 +192,9 @@
             text-align: right;
             color: #8b8b8b;
         }
+
   
-        .expand input {
+        #expand1 input {
             position: absolute;
             margin-left: 6px;
             top: 283px;
@@ -206,17 +206,95 @@
             text-align: center;
         }
 
-        .expanded {
-            flex-wrap:wrap;  
-            flex-flow: row wrap; 
+        .expanded1 {
+            flex-wrap: wrap;        
             overflow: visible;     
-          
+            margin-bottom: 470px;       
         }
 
-        .movie_link {
-            color: inherit;
-            text-decoration: none;
-            -webkit-user-drag: none;
+
+        .promoHeader {  
+            margin-left: 3.5vw;
+            font-size: 30px;
+            margin-top: 60px;
+        }
+
+        hr {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            margin-top: 10px;
+            margin-left: 3.5vw;
+            border: 0;
+            height: 1px;
+            width: 1000px;
+        }
+        
+        .promos {
+            margin-left: 2.5vw;
+            overflow-x: hidden; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory;
+            display: flex; /* Use flexbox for layout */
+            height: 100%;
+            width: 92.5vw; /* Set a fixed height for the movie section */
+            justify-content: flex-start;
+            margin-top: 25px;
+            
+        }
+
+        .promos:active {
+            cursor: grabbing;
+        }
+
+        .promo {
+            margin-right: 1px; /* Adjust spacing between posters */
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease; /* Optional: Add hover effect */
+            width: 262px; /* Adjust width to accommodate poster and spacing */
+            margin-bottom: 10px;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            height: 100%;
+        }
+
+        .promo.dragging {
+            pointer-events: none; /* Disable pointer events when dragging */
+        }
+
+        .promo:hover{
+            transform: scale(0.95); /* Optional: Scale up slightly on hover */
+        }
+
+        .promo_name {
+            text-align: left;
+            max-width: 170px;
+            width: 190px;
+            font-size: large;
+            font-family: 'Gill Sans MT';
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #expand2 input {
+            position: relative;
+            margin-left: 6px;
+            bottom: 40px;
+            background-color: rgba(255, 255, 255, 0.65);
+            width: 30px;
+            height: 370px;
+            padding: 0;
+            color: #000000;
+            text-align: center;
+        }
+
+
+        .expanded2 {
+            flex-wrap: wrap;        
+            overflow: visible;     
+            margin-bottom: 470px;       
         }
     </style>
 </head>
@@ -436,102 +514,8 @@
                     </table>
                     <div class="imax_banner"></div>               
                 </div>
-                
 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie6">
-                    <img src="Images/sonic.jpg" alt="sonic" class="poster">               
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Sonic the Hedgehog 3</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">110</span>mins</td>
-                        </tr>
-                    </table> 
-                    <div class="imax_banner"></div>                         
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie7">
-                    <img src="Images/smile.jpg" alt="smile" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Smile 2</td>
-                            <td class="movie_rating"><img src="Images/m18.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">132</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
-                    <img src="Images/moana.jpg" alt="moana" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Moana 2</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">100</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
-                    <img src="Images/moana.jpg" alt="moana" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Moana 2</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">100</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
+                                
                 <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie6">
                     <img src="Images/sonic.jpg" alt="sonic" class="poster">               
                     <table class="description">
@@ -596,9 +580,138 @@
 
             </section>
         </td>
-        <td class="expand">
+        <td class="expand" id="expand1">
             <input type="button" value="▼" onclick="expandMovies()" />
         </td>
+    </tr>
+</table>
+<div class="promoHeader">
+    Promotions
+</div>
+<hr>
+<table>
+        <tr>
+        <td colspan="9">
+            <section class="promos">
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">      
+                        <tr>        
+                        <td class="promo_name">Alien: Romulus</td> 
+                        </tr>
+                    </table>         
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">      
+                        <tr>        
+                        <td class="promo_name">Alien: Romulus</td> 
+                        </tr>
+                    </table>         
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">      
+                        <tr>        
+                        <td class="promo_name">Alien: Romulus</td> 
+                        </tr>
+                    </table>         
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">      
+                        <tr>        
+                        <td class="promo_name">Alien: Romulus</td> 
+                        </tr>
+                    </table>         
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">      
+                        <tr>        
+                        <td class="promo_name">Alien: Romulus</td> 
+                        </tr>
+                    </table>         
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster"> 
+                    <table class="description">              
+                        <td class="promo_name">Alien: Romulus</td> 
+                    </table>         
+                </div>
+                
+                
+            </section>
+        </td>
+        <td class="expand" id="expand2">
+                    <input type="button" value="▼" />
+                </td>
     </tr>
 </table>
     <script>
@@ -620,6 +733,8 @@
             lastClickedId = id;
         }
     </script>
+
+
     <script>
         window.onload = function() {
             // Select all movie elements
@@ -646,69 +761,75 @@
             });
         };
     </script>
+
+
     <script>
-        const movies = document.querySelectorAll('.movie');
-        const slider = document.querySelector('.movies');
+        // Select all elements with classes .movies and .promos for sliders
+        const sliders = document.querySelectorAll('.movies, .promos');
 
-        let mouseDown = false;
-        let startX, scrollLeft;
-        let dragStartTimer = null;
-        const dragDelay =120; // Adjust delay in milliseconds as needed
+        sliders.forEach(slider => {
+            // Select all elements with class .movie inside each slider
+            const movies = slider.querySelectorAll('.movie, .promo');
 
-        const startDragging = (e) => {
-            // Set a timer to start dragging after a delay
-            dragStartTimer = setTimeout(() => {
-                mouseDown = true;
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
+            let mouseDown = false;
+            let startX, scrollLeft;
+            let dragStartTimer = null;
+            const dragDelay = 120; // Adjust delay in milliseconds as needed
 
-                // Add a class to disable pointer events on movie posters
+            const startDragging = (e) => {
+                dragStartTimer = setTimeout(() => {
+                    mouseDown = true;
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+
+                    movies.forEach(movie => {
+                        movie.classList.add('dragging');
+                    });
+                }, dragDelay);
+            }
+
+            const stopDragging = () => {
+                clearTimeout(dragStartTimer);
+                mouseDown = false;
                 movies.forEach(movie => {
-                    movie.classList.add('dragging');
+                    movie.classList.remove('dragging');
                 });
-            }, dragDelay);
-        }
+            }
 
-        const stopDragging = () => {
-            // Clear the timer if dragging stops before delay
-            clearTimeout(dragStartTimer);
-            
-            mouseDown = false;
+            const move = (e) => {
+                e.preventDefault();
+                if (!mouseDown) return;
 
-            // Remove the class to enable pointer events back
-            movies.forEach(movie => {
-                movie.classList.remove('dragging');
-            });
-        }
+                const x = e.pageX - slider.offsetLeft;
+                const scroll = x - startX;
+                slider.scrollLeft = scrollLeft - scroll;
+            }
 
-        const move = (e) => {
-            e.preventDefault();
-            if (!mouseDown) return;
+            // Add event listeners to handle dragging
+            slider.addEventListener('mousedown', startDragging);
+            slider.addEventListener('mousemove', move);
+            slider.addEventListener('mouseup', stopDragging);
+            slider.addEventListener('mouseleave', stopDragging);
 
-            const x = e.pageX - slider.offsetLeft;
-            const scroll = x - startX;
-            slider.scrollLeft = scrollLeft - scroll;
-        }
+        });
 
-        // Add event listeners to handle dragging
-        slider.addEventListener('mousedown', startDragging);
-        slider.addEventListener('mousemove', move);
-        slider.addEventListener('mouseup', stopDragging);
-        slider.addEventListener('mouseleave', stopDragging);
     </script>
+
+
+    
     <script>
         const expandButton = document.getElementsByClassName('expand');
         const imageSection = document.querySelector('.movies');
 
         expandButton.addEventListener('click', function() {
-            imageSection.classList.toggle('expanded');
+            imageSection.classList.toggle('expanded1');
         });
         
         function expandMovies() {
             const moviesSection = document.querySelector('.movies');
-            moviesSection.classList.toggle('expanded');
+            moviesSection.classList.toggle('expanded1');
 
-            const Button = document.querySelector('.expand input[type="button"]')
+            const Button = document.querySelector('#expand1 input[type="button"]')
 
             if (Button.value === "▼") {
                 Button.value = "▲";
@@ -717,6 +838,52 @@
             }
         }
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const expandButton = document.getElementById('expand2');
+    const promosSection = document.querySelector('.promos');
+    const button2 = document.querySelector('#expand2 input[type="button"]');
+
+    // Store the original position of the button
+    const originalPosition = button2.style.bottom;
+
+    expandButton.addEventListener('click', function() {
+        promosSection.classList.toggle('expanded2');
+        toggleExpandButton();
+    });
+
+    function toggleExpandButton() {
+        if (promosSection.classList.contains('expanded2')) {
+            // New position when expanded
+            button2.style.position = 'relative'; // Using relative position for adjustments
+            button2.style.bottom = '275px'; // Adjust bottom position as needed
+            button2.style.display = 'block';
+            expandPromos();
+        } else {
+            // Revert to original position
+            button2.style.position = 'static'; // Or any default position you want to revert to
+            button2.style.bottom = originalPosition; // Restore original bottom position
+            // Only hide if the promosSection is not wider than its container
+            if (promosSection.scrollWidth > promosSection.clientWidth) {
+                button2.style.display = 'block';
+            } else {
+                button2.style.display = 'none';
+            }
+        }
+    }
+});
+
+
+
+</script>
+
+
+
+
+
+
+
 </body>
 
 </html>
