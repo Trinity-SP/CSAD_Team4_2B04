@@ -104,6 +104,10 @@
             border-bottom: 1.7px solid;
         }
 
+        .movie-block {
+            margin-bottom: 100px;
+        }
+
         .movies {
             margin-left: 2.5vw;
             overflow-x: hidden; /* Enable horizontal scrolling */
@@ -128,7 +132,6 @@
             align-items: center;
             transition: transform 0.2s ease; /* Optional: Add hover effect */
             width: 262px; /* Adjust width to accommodate poster and spacing */
-            margin-bottom: 0px;
             padding-left: 0.5em;
             padding-right: 0.5em;
             height: 100%;
@@ -178,7 +181,7 @@
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis;    
         }
 
         .movie_rating {
@@ -208,7 +211,6 @@
 
         .expanded {
             flex-wrap:wrap;  
-            flex-flow: row wrap; 
             overflow: visible;     
           
         }
@@ -218,6 +220,102 @@
             text-decoration: none;
             -webkit-user-drag: none;
         }
+
+        .promoHeader {  
+            margin-left: 3.5vw;
+            font-size: 30px;
+            text-align: left;
+        }
+
+        hr {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            position: relative;
+            top: 15px;
+            margin-left: 3.5vw;
+            border: 0;
+            height: 1px;
+            width: 1000px;
+        }
+        
+        .promo-block {
+            position: relative;
+            margin-top: 100px;
+
+        }
+
+
+        .promos {
+            margin-left: 2.5vw;
+            overflow-x: hidden; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory;
+            display: flex; /* Use flexbox for layout */
+            height: 500px;
+            width: 92.5vw; /* Set a fixed height for the movie section */
+            justify-content: flex-start;
+            margin-top: 25px;
+            overflow-y: hidden;
+            
+        }
+
+        .promos:active {
+            cursor: grabbing;
+        }
+
+        .promo {
+            margin-right: 1px; /* Adjust spacing between posters */
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease; /* Optional: Add hover effect */
+            width: 262px; /* Adjust width to accommodate poster and spacing */
+            margin-bottom: 10px;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            height: 100%;
+        }
+
+        .promo.dragging {
+            pointer-events: none; /* Disable pointer events when dragging */
+        }
+
+        .promo:hover{
+            transform: scale(0.95); /* Optional: Scale up slightly on hover */
+        }
+
+        .promo_name {
+            text-align: left;
+            max-width: 170px;
+            width: 190px;
+            font-size: large;
+            font-family: 'Gill Sans MT';
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .expand2 input {
+            position: absolute;
+            margin-left: 6px;
+            top: 283px;
+            background-color: rgba(255, 255, 255, 0.65);
+            width: 30px;
+            height: 370px;
+            padding: 0;
+            margin-top: -200px;
+            color: #000000;
+            text-align: center;
+        }
+
+        .expanded2 {
+            flex-wrap:wrap;  
+            overflow: visible;     
+          
+        }
+
+
+        
     </style>
 </head>
 
@@ -290,10 +388,10 @@
             </td>
         </tr>
     </table>
-    <table>
+    <table class="movie-block">
     <tr>
         <td colspan="9">
-            <section class="movies">
+            <div class="movies">
                 
                 <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie1">
                     <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
@@ -437,167 +535,49 @@
                     <div class="imax_banner"></div>               
                 </div>
                 
-
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie6">
-                    <img src="Images/sonic.jpg" alt="sonic" class="poster">               
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Sonic the Hedgehog 3</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">110</span>mins</td>
-                        </tr>
-                    </table> 
-                    <div class="imax_banner"></div>                         
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie7">
-                    <img src="Images/smile.jpg" alt="smile" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Smile 2</td>
-                            <td class="movie_rating"><img src="Images/m18.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">132</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
-                    <img src="Images/moana.jpg" alt="moana" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Moana 2</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">100</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
-                    <img src="Images/moana.jpg" alt="moana" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Moana 2</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">100</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie6">
-                    <img src="Images/sonic.jpg" alt="sonic" class="poster">               
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Sonic the Hedgehog 3</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">110</span>mins</td>
-                        </tr>
-                    </table> 
-                    <div class="imax_banner"></div>                         
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie7">
-                    <img src="Images/smile.jpg" alt="smile" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Smile 2</td>
-                            <td class="movie_rating"><img src="Images/m18.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">132</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-                
-
-                
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
-                    <img src="Images/moana.jpg" alt="moana" class="poster">  
-                    <table class="description">
-                        <tr>
-                            <td class="movie_name">Moana 2</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
-                        </tr>
-                        <tr class="movie_time">
-                            <td colspan="2"><span id="time">100</span>mins</td>
-                        </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
-                </div>
-
             </section>
         </td>
         <td class="expand">
             <input type="button" value="▼" onclick="expandMovies()" />
+        </td>
+    </tr>
+</table>
+<table class="promo-block">
+    <caption class="promoHeader">Promotions</caption>
+    <tr><td><hr></td></tr>
+    <tr>
+        <td colspan="9">
+            <section class="promos">
+                
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="promo_name">Alien: Romulus</td>
+                        </tr>
+                    </table>              
+                </div>
+
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="promo_name">Alien: Romulus</td>
+                        </tr>
+                    </table>              
+                </div>
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <table class="description">
+                        <tr>
+                            <td class="promo_name">Alien: Romulus</td>
+                        </tr>
+                    </table>              
+                </div>
+            </section>
+        </td>
+        <td class="expand2">
+            <input type="button" value="▼" onclick="expandPromos()" />
         </td>
     </tr>
 </table>
@@ -690,33 +670,168 @@
             slider.scrollLeft = scrollLeft - scroll;
         }
 
+        const checkMovieCountAndToggleExpand = () => {
+            const expandButton = document.querySelector('.expand input[type="button"]');
+            // Check number of promos
+            if (movies.length <= 6) {
+                expandButton.style.display = 'none'; // Hide expand button if 6 or fewer promos
+            } else {
+                expandButton.style.display = 'block'; // Show expand button if more than 6 promos
+            }
+        }
+
+        // Initial check on page load
+        checkMovieCountAndToggleExpand();
+        
         // Add event listeners to handle dragging
         slider.addEventListener('mousedown', startDragging);
         slider.addEventListener('mousemove', move);
         slider.addEventListener('mouseup', stopDragging);
         slider.addEventListener('mouseleave', stopDragging);
     </script>
+    
+
     <script>
-        const expandButton = document.getElementsByClassName('expand');
-        const imageSection = document.querySelector('.movies');
-
-        expandButton.addEventListener('click', function() {
-            imageSection.classList.toggle('expanded');
-        });
+        const promos = document.querySelectorAll('.promo');
+        const promosContainer = document.querySelector('.promos');
+    
+        let isMouseDown2 = false;
+        let startX2, startScrollLeft2;
+        let dragStartTimer2 = null;
+        const dragDelay2 = 122; // Adjust delay in milliseconds as needed
+    
+        const startDragging2 = (e) => {
+            // Set a timer to start dragging after a delay
+            dragStartTimer2 = setTimeout(() => {
+                isMouseDown2 = true;
+                startX2 = e.pageX - promosContainer.offsetLeft;
+                startScrollLeft2 = promosContainer.scrollLeft;
+    
+                // Add a class to disable pointer events on promo items
+                promos.forEach(promo => {
+                    promo.classList.add('dragging');
+                });
+            }, dragDelay2);
+        }
+    
+        const stopDragging2 = () => {
+            // Clear the timer if dragging stops before delay
+            clearTimeout(dragStartTimer2);
+            isMouseDown2 = false;
+    
+            // Remove the class to enable pointer events back
+            promos.forEach(promo => {
+                promo.classList.remove('dragging');
+            });
+        }
+    
+        const move2 = (e) => {
+            e.preventDefault();
+            if (!isMouseDown2) return;
+    
+            const x = e.pageX - promosContainer.offsetLeft;
+            const scroll = x - startX2;
+            promosContainer.scrollLeft = startScrollLeft2 - scroll;
+        }
         
-        function expandMovies() {
-            const moviesSection = document.querySelector('.movies');
-            moviesSection.classList.toggle('expanded');
-
-            const Button = document.querySelector('.expand input[type="button"]')
-
-            if (Button.value === "▼") {
-                Button.value = "▲";
+        const checkPromoCountAndToggleExpand = () => {
+            const expand2Button = document.querySelector('.expand2 input[type="button"]');
+            // Check number of promos
+            if (promos.length <= 6) {
+                expand2Button.style.display = 'none'; // Hide expand button if 6 or fewer promos
             } else {
-                Button.value = "▼";
+                expand2Button.style.display = 'block'; // Show expand button if more than 6 promos
             }
         }
+
+        // Initial check on page load
+        checkPromoCountAndToggleExpand();
+
+        // Add event listeners to handle dragging
+        promosContainer.addEventListener('mousedown', startDragging2);
+        promosContainer.addEventListener('mousemove', move2);
+        promosContainer.addEventListener('mouseup', stopDragging2);
+        promosContainer.addEventListener('mouseleave', stopDragging2);
     </script>
+    
+
+    
+
+<script>
+    function expandMovies() {
+        const moviesSection = document.querySelector('.movies');
+        
+        const lastMovie = moviesSection.querySelector('.movie:last-child');
+
+        moviesSection.classList.toggle('expanded');
+        
+
+        const expandButton = document.querySelector('.expand input[type="button"]');
+
+        if (expandButton.value === "▼") {
+            expandButton.value = "▲";
+        } else {
+            expandButton.value = "▼";
+        }
+
+        if (moviesSection.classList.contains('expanded')) {
+            // Retrieve position of last .movie element
+            const lastMovieRect = lastMovie.getBoundingClientRect();
+
+            document.getElementsByClassName("movie-block")[0].style.marginBottom
+                = `${lastMovieRect.bottom - moviesSection.getBoundingClientRect().bottom + 100}px`;
+            // Calculate new top position for promo-block
+        } else {
+            // Reset position to default or remove styles
+            document.getElementsByClassName("movie-block")[0].style.marginBottom = `100px`;
+        }
+        window.addEventListener("resize", () => {
+                const moviesSection = document.querySelector('.movies');
+                if (moviesSection.classList.contains('expanded')) {
+                    expandMovies();
+                }
+            });
+    }
+</script>
+
+
+<script>
+    function expandPromos() {
+        const promosSection = document.querySelector('.promos');
+        
+        const lastPromo = promosSection.querySelector('.promo:last-child');
+
+        promosSection.classList.toggle('expanded2');
+        
+
+        const expand2Button = document.querySelector('.expand2 input[type="button"]');
+
+        if (expand2Button.value === "▼") {
+            expand2Button.value = "▲";
+        } else {
+            expand2Button.value = "▼";
+        }
+
+        if (promosSection.classList.contains('expanded2')) {
+            // Retrieve position of last .movie element
+            const lastPromoRect = lastPromo.getBoundingClientRect();
+
+            document.getElementsByClassName("promo-block")[0].style.marginBottom
+                = `${lastPromoRect.bottom - promosSection.getBoundingClientRect().bottom + 100}px`;
+            // Calculate new top position for promo-block
+        } else {
+            // Reset position to default or remove styles
+            document.getElementsByClassName("promo-block")[0].style.marginBottom = `100px`;
+        }
+        window.addEventListener("resize", () => {
+                const promosSection = document.querySelector('.movies');
+                if (promosSection.classList.contains('expanded2')) {
+                    expandPromos();
+                }
+            });
+    }
+</script>
+
 </body>
 
 </html>
