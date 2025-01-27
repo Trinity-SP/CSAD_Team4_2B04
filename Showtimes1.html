@@ -3,45 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Showtimes</title>
     <style>
-.one td {
-    display: flex;
-  max-width: 200px;
-  border: 1px solid;
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: scroll;
-}
+        body {
+            background: linear-gradient(180deg, #3c8aff 0%, #000000 31%);
+            height: 100vh;
+            color: #ffffff;
+            font-family: sans-serif;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
 
-.two {
-    margin-top: 100px;
-}
-.two td {
-  max-width: 200px;
-  border: 1px solid;
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: scroll;
-}
+        .header {
+          margin-top: 20px;
+          margin-left: 370px;
+          height: 145px;
+          width: 1000px;
+        }
 
+        .container {
+          background-color: #000000;
+          border-radius: 50px;
+          margin-left: 2.5vw;
+          margin-top: 20px;
+          background: #000000;
+          height: 1000px;
+          width: 92.5vw;
+        }
 
+        .movie_details {
+          position: absolute;
+          top: 235px ;
+          margin-left: 80px;
+          height: 600px;
+          width: 89vw;
+          color: #3c8aff;
+          font-weight: bold;
+          font-size: larger;
+        }
+        .movie_details td {
+          width: 380px;
+        }
 
+        .movie_name {
+          font-size: 35px;
+        }
+        
+        .subheader {
+          color: #ffffff;
+          font-weight: normal;
+        }
+
+        .poster {
+          width: 350px; /* Fixed width */
+          height: 510px; /* Fixed height */
+          border-radius: 8px; /* Optional: Add rounded corners */
+          object-fit: cover; /* Ensure posters maintain their aspect ratio */
+        }
+
+        .movie_rating img{
+            max-width: 35px;
+            max-height: 25px;
+        }
 
     </style>
+    <link rel="icon" href="Images/SkyCinemaNew.png">
 </head>
 <body>
-        <table class="one">
-            <tr><td>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          </td>
-          </tr>
-        </table>
-        <table class="two">
-            <tr><td>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          </td>
-          </tr>
-        </table>
+    <img src="Images/Header.png" class="header">
+    <div class="container"></div>
+    <table class="movie_details">
+      <tr>
+        <td colspan="3" style="padding-bottom: 70px ;" class="movie_name"></td>
+      </tr>
+      <tr>
+        <td rowspan="10"><img src="" class="poster"></td>
+        <td colspan="2">CAST</td>
+      </tr>
+      <tr class="subheader">
+        <td colspan="2" >Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, </td>
+      </tr>
+      <tr>
+        <td colspan="2">SYNOPSIS</td>
+      </tr>
+      <tr class="subheader">
+        <td colspan="2">Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, </td>
+      </tr>
+      <tr>
+        <td>DIRECTOR</td>
+        <td>RATING</td>
+      </tr>
+      <tr class="subheader">
+        <td>Director</td>
+        <td class="movie_rating"></td>
+      </tr>
+      <tr>
+        <td>GENRE</td>
+        <td>RUNTIME</td>
+      </tr>
+      <tr class="subheader">
+        <td>Genre</td>
+        <td><span class="movie_time"></span><span>mins</span></td>
+      </tr>
+      <tr>
+        <td>LANGUAGE</td>
+        <td>RELEASE</td>
+      </tr>
+      <tr class="subheader">
+        <td>Language</td>
+        <td>Release</td>
+      </tr>
+    </table>
+
+
+
+
+
+
+    <script>
+        // Function to get URL parameters
+        function getParameters() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            // Get individual parameter values
+            const poster = urlParams.get('poster');
+            const movie_name = urlParams.get('movie_name');
+            const movie_rating = urlParams.get('movie_rating');
+            const movie_time = urlParams.get('movie_time');
+
+            // Update HTML elements with parameter values
+            document.querySelector('.poster').setAttribute('src', poster);
+            document.querySelector('.movie_name').textContent = movie_name;
+            document.querySelector('.movie_rating').innerHTML = `<img src="${movie_rating}" alt="Movie Rating">`; // Assuming movie_rating is an image URL
+            document.querySelector('.movie_time').textContent = movie_time;
+        }
+
+        // Call the function to retrieve and update HTML with URL parameters when the page loads
+        window.onload = function() {
+            getParameters();
+        };
+    </script>
 </body>
 </html>

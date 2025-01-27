@@ -317,6 +317,7 @@
 
         
     </style>
+    <link rel="icon" href="Images/SkyCinemaNew.png">
 </head>
 
 <body>
@@ -393,7 +394,7 @@
         <td colspan="9">
             <div class="movies">
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie1">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie1">
                     <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
@@ -409,7 +410,7 @@
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie2">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie2">
                     <img src="Images/wicked.jpg" alt="wicked" class="poster">               
                     <table class="description">
                         <tr>
@@ -425,7 +426,7 @@
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie3">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie3">
                     <img src="Images/superman.jpg" alt="superman" class="poster">              
                     <table class="description">
                         <tr>
@@ -436,28 +437,28 @@
                             <td colspan="2"><span id="time">128</span>mins</td>
                         </tr>
                     </table>
-                    <div class="imax_banner"><img src="Images/imax3d_banner.png"></div>                   
+                    <div class="imax_banner"></div>                   
                 </div>
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie4">
-                    <img src="Images/flow.jpg" alt="flow" class="poster">                          
+                <div onclick="goToShowtimes(event);" class="movie" id="movie8">
+                    <img src="Images/captain.jpg" alt="captain" class="poster">  
                     <table class="description">
                         <tr>
-                            <td class="movie_name">Flow</td>
-                            <td class="movie_rating"><img src="Images/pg.png"></td>
+                            <td class="movie_name">Captain America: Brave New World</td>
+                            <td class="movie_rating"><img src="Images/pg13.png"></td>
                         </tr>
                         <tr class="movie_time">
-                            <td colspan="2"><span id="time">84</span>mins</td>
+                            <td colspan="2"><span id="time">118</span>mins</td>
                         </tr>
-                    </table>              
-                    <div class="imax_banner"></div>   
+                    </table>
+                    <div class="imax_banner"><img src="Images/imax3d_banner.png"></div>               
                 </div>
-                
+
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie5">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie5">
                     <img src="Images/dune.jpg" alt="dune" class="poster">      
                     <table class="description">
                         <tr>
@@ -473,7 +474,7 @@
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie6">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie6">
                     <img src="Images/sonic.jpg" alt="sonic" class="poster">               
                     <table class="description">
                         <tr>
@@ -489,7 +490,7 @@
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie7">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie7">
                     <img src="Images/smile.jpg" alt="smile" class="poster">  
                     <table class="description">
                         <tr>
@@ -505,23 +506,23 @@
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie8">
-                    <img src="Images/captain.jpg" alt="captain" class="poster">  
+                <div onclick="goToShowtimes(event);" class="movie" id="movie4">
+                    <img src="Images/flow.jpg" alt="flow" class="poster">                          
                     <table class="description">
                         <tr>
-                            <td class="movie_name">Captain America: Brave New World</td>
-                            <td class="movie_rating"><img src="Images/pg13.png"></td>
+                            <td class="movie_name">Flow</td>
+                            <td class="movie_rating"><img src="Images/pg.png"></td>
                         </tr>
                         <tr class="movie_time">
-                            <td colspan="2"><span id="time">118</span>mins</td>
+                            <td colspan="2"><span id="time">84</span>mins</td>
                         </tr>
-                    </table>
-                    <div class="imax_banner"></div>               
+                    </table>              
+                    <div class="imax_banner"></div>   
                 </div>
                 
 
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="movie" id="movie9">
+                <div onclick="goToShowtimes(event);" class="movie" id="movie9">
                     <img src="Images/moana.jpg" alt="moana" class="poster">  
                     <table class="description">
                         <tr>
@@ -550,27 +551,27 @@
             <section class="promos">
                 
                 <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
-                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                    <img src="Images/captain_promo.jpg" alt="captain_promo" class="poster">               
                     <table class="description">
                         <tr>
-                            <td class="promo_name">Alien: Romulus</td>
+                            <td class="promo_name">Win CAPTAIN AMERICA: BRAVE NEW WORLD IMAX Posters </td>
                         </tr>
                     </table>              
                 </div>
 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
-                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                    <img src="Images/sonic_promo1.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
-                            <td class="promo_name">Alien: Romulus</td>
+                            <td class="promo_name">Win SONIC THE HEDGEHOG 3 Night Light</td>
                         </tr>
                     </table>              
                 </div>
-                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
-                    <img src="Images/alien_romulus.jpg" alt="alien_romulus" class="poster">               
+                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                    <img src="Images/sonic_promo2.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
-                            <td class="promo_name">Alien: Romulus</td>
+                            <td class="promo_name">SONIC THE HEDGEHOG 3 Collector Combo</td>
                         </tr>
                     </table>              
                 </div>
@@ -581,6 +582,33 @@
         </td>
     </tr>
 </table>
+
+
+    <script>
+        function goToShowtimes(event) {
+            // Retrieve the ID of the clicked div
+            const movieId = event.currentTarget.id;
+            
+            // Retrieve the poster URL from inside the clicked div by class
+            const poster = event.currentTarget.querySelector('.poster').getAttribute('src');
+            
+            // Retrieve the movie name from inside the clicked div by class
+            const movie_name = event.currentTarget.querySelector('.movie_name').textContent;
+            
+            // Retrieve the movie rating image source from inside the clicked div by class
+            const movie_rating = event.currentTarget.querySelector('.movie_rating img').getAttribute('src');
+            
+            // Retrieve the movie time from inside the clicked div by tag name
+            const movie_time = event.currentTarget.querySelector('.movie_time').textContent;
+            
+            // Construct the href with query parameters
+            const href = `Showtimes1.html?id=${movieId}&poster=${poster}&movie_name=${encodeURIComponent(movie_name)}&movie_rating=${movie_rating}&movie_time=${encodeURIComponent(movie_time)}`;
+            
+            // Redirect to the constructed href
+            window.location.href = href;
+        }
+    </script>
+
     <script>
         let lastClickedId = null;
 
