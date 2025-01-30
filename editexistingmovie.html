@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Add New Movie</title>
+    <style>
+        body {
+            background: linear-gradient(180deg, rgba(60, 138, 255, 1) 0%, rgba(0, 0, 0, 1) 31%);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .form-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #000000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 20px;
+            text-align: left;
+        }
+
+        table input, table select, table textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        #poster {
+            display: block;
+            margin: auto;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #3c8aff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0266d8;
+        }
+
+        .success-message {
+            color: lightgreen;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="Images/Header.png" style="width:1000px ; height: 150px" alt="Sky Cinemas Logo">
+    </div>
+    
+    <div class="form-container">
+        <h1>Edit Movie</h1>
+        <form>
+            <table>
+                <tr>
+                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top;">
+                        <label for="poster" style="display: block; margin-bottom: 10px;">Upload Poster</label>
+                        <input type="file" id="poster" name="poster" accept="image/*">
+                    </td>
+                    <td colspan="2">
+                        <label for="title">Movie Title</label>
+                        <input type="text" id="title" name="Title">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="cast">Cast</label>
+                        <input type="text" id="cast" name="Cast">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="synopsis">Synopsis</label>
+                        <textarea id="synopsis" name="Synopsis" rows="3"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="director">Director</label>
+                        <input type="text" id="director" name="Director">
+                    </td>
+                    <td>
+                        <label for="rating">Rating</label>
+                        <select id="rating">
+                            <option>PG</option>
+                            <option>PG13</option>
+                            <option>NC16</option>
+                            <option>M18</option>
+                            <option>R21</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="genre">Genre</label>
+                        <select id="genre">
+                            <option>Romance</option>
+                            <option>Comedy</option>
+                            <option>Horror</option>
+                            <option>Sci-Fi</option>
+                            <option>Mystery</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="runtime">Runtime</label>
+                        <input type="text" id="runtime" name="Runtime">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="language">Language</label>
+                        <select id="language">
+                            <option>English</option>
+                            <option>Chinese</option>
+                            <option>Malay</option>
+                            <option>Tamil</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="release">Release</label>
+                        <input type="text" id="release" name="Release">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label for="showtimes">Showtimes</label>
+                        <input type="text" id="showtimes" name="Showtimes">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="text-align: center;">
+                        <input style="background-color: #3c8aff" type="button" class="editshowtimes-btn" value="Edit">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="text-align: center;">
+                        <input style="background-color: lime;" type="submit" class="save-btn" value="Save">
+                    </td>
+                    <td>
+                        <span class="success-message" id="success">
+                            You have successfully saved new changes!  <!--only pops up when user presses save button-->
+                        </span>
+                    </td>
+                        <td colspan="1" style="text-align: center;">
+                            <input style="background-color: red;" type="submit" class="delete-btn" value="Delete">
+                        </td>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("delete-button").addEventListener("click", function() {
+            const confirmDelete = confirm("Are you sure you want to delete this movie?");
+            
+            if (confirmDelete) {
+                localStorage.removeItem("selectedMovie");
+                alert("Movie deleted!");
+                window.location.href = "index.html"; // Redirect back to movie list
+            }
+        });
+
+    </script>
+
+    <script src="js/edit-movie.js"></script>
+</body>
+</html>

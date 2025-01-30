@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Homepage</title>
+    <style>
+        /* General Styles */
+        body {  
+            background: linear-gradient(180deg, rgba(60, 138, 255, 1) 0%, rgba(0, 0, 0, 1) 31%);
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Ensures it covers at least the first viewport */
+            color: #ffffff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Create a black background for overflowing content */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 100vh; /* Start where the first page ends */
+            left: 0;
+            width: 100%;
+            height: 100%; /* Covers any extra page height */
+            background-color: black;
+            z-index: -1;
+        }
+
+
+        /* Movie List Section */
+        .movie-list-container {
+            margin: 20px auto;
+            width: 90%;
+        }
+
+        /* Welcome Message to User */
+        h2 {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styles */
+        .movie-table-wrapper {
+            position: relative;
+            background-color: #001a45;
+            padding: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .movie-table {
+            width: 100%;
+            border-spacing: 20px;
+        }
+
+        .movie-poster {
+            width: 120px;
+            height: 180px;
+            border-radius: 10px;
+        }
+
+        .movie-name {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: bold;
+        }
+
+        .movie-duration {
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:small;
+        }
+
+        .movie-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Dropdown Button */
+        .dropdown-container {
+            text-align: center;
+            margin-top: 10px;
+            position: absolute;
+            top: 283px;
+            background-color: rgba(255, 255, 255, 0.65);
+            width: 15px;
+            height: 300px;
+            padding: 0;
+            color: #000000;
+            text-align: center;
+        }
+
+        .dropdown-btn {
+            width: 30px; /* Make it thinner */
+            height: 225px; /* Match the height of movie posters */
+            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .dropdown-btn:hover {
+            background-color: #00285a;
+        }
+
+        /* Overflow Row */
+        .hidden {
+            display: none;
+        }
+
+        .button {
+            width: 95%; /* Make buttons fill the container width */
+            height: 200px; /* Adjust height as needed */
+            border: none; /* Remove default button border */
+            color: rgb(255, 255, 255); /* Text color */
+            font-size: 25px; /* Adjust font size */
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 100px; /* Center text vertically */
+            background-size: cover; /* Scale background images to cover */
+            background-position: center; /* Center background images */
+            opacity: 0.7; /* Add a slight fade effect */
+        }
+
+        /* Age Ratings */
+        .pg-rating {
+            width: 25px;
+            height:25px;
+        }
+
+        .pg13-rating {
+            width: 50px;
+            height:35px;
+        }
+
+        .nc16-rating {
+            width: 50px;
+            height:20px;
+        }
+
+        .m18-rating {
+            width: 45px;
+            height:20px;
+        }
+
+        .r21-rating {
+            width: 55px;
+            height:45px;
+        }
+    </style>
+    <link href="StaffPortal_Homepage.css">
+</head>
+<body>
+    <table style="width:100%">
+        <tr>
+            <td>
+                <img src="Images/SkyCinemaNew.png" style="width:140px ; height: 130px" alt="Sky Cinemas Logo">
+            </td>
+            <td>
+                <h2>Welcome,</h2>
+                <h2 id="staff-name">Joel Chen Xia Ming</h2>
+            </td>
+            <td>
+                <img src="Images/profileman.png" style="width:80px ; height:80px" alt="Profile Picture"><br>
+                <button style="background-color: lightblue ; border:none;" name="logout">Logout</button>
+            </td>
+        </tr>
+    </table>
+    
+    <!--3 Buttons-->
+    <table style="width:100%">
+        <tr class="nav-buttons">
+            <td>
+                <button class="button" style="background-image: url('Images/movie-background.jpg');">Add New Movies</button>
+            </td>
+            <td>
+                <button class="button" style="background-image: url('Images/food-background.jpg');">Cinema Food Stock</button>
+            </td>
+            <td>
+                <button class="button" style="background-image: url('Images/promotion-background.avif');">Promotions/Sales</button>
+            </td>
+        </tr>
+    </table>
+  
+    <!-- Movie List Section -->
+    <div class="movie-list-container">
+      <h2>Edit Existing Movies</h2>
+      <div class="movie-table-wrapper">
+          <table class="movie-table">
+              <tr>
+                  <td>
+                      <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Alien: Romulus</p>
+                          <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                          <p class="movie-duration">119 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/wicked.jpg" alt="Wicked" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Wicked</p>
+                          <img src="Images/pg13.png" class="pg13-rating" alt="Wicked">
+                          <p class="movie-duration">159 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/superman.jpg" alt="Superman" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Superman</p>
+                          <img src="Images/pg.png" class="pg-rating" alt="Superman">
+                          <p class="movie-duration">128 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/flow.jpg" alt="Flow" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Flow</p>
+                          <img src="Images/pg.png" class="pg-rating" alt="Flow">
+                          <p class="movie-duration">84 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/dune.jpg" alt="Dune: Part Two" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Dune: Part Two</p>
+                          <img src="Images/m18.png" class="m18-rating" alt="Dune 2">
+                          <p class="movie-duration">166 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/sonic.jpg" alt="Sonic the Hedgehog" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Sonic the Hedgehog</p>
+                          <img src="Images/pg.png" class="pg-rating" alt="Sonic the Hedgehog">
+                          <p class="movie-duration">118 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <div class="dropdown-container">
+                          <button class="dropdown-btn" onclick="toggleOverflow()">&#x25BC;</button>
+                      </div>
+                  </td>
+              </tr>
+              <tr class="overflow-row hidden">
+                  <td>
+                      <img src="Images/ballerina.jpeg" alt="Ballerina" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Ballerina</p>
+                          <img src="Images/r21.png" class="r21-rating" alt="Ballerina">
+                          <p class="movie-duration">166 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/captain.jpg" alt="Captain America: Brave New World" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Captain America: Brave New World</p>
+                          <img src="Images/m18.png" class="m18-rating" alt="Captain America: Brave New World">
+                          <p class="movie-duration">166 mins</p>
+                      </div>
+                  </td>
+                  <td>
+                      <img src="Images/moana.jpg" alt="Moana 2" class="movie-poster">
+                      <div class="movie-info">
+                          <p class="movie-name">Moana 2</p>
+                          <img src="Images/pg13.png" class="pg13-rating" alt="Moana 2">
+                          <p class="movie-duration">166 mins</p>
+                      </div>
+                  </td>
+              </tr>
+          </table>
+      </div>
+  </div>
+
+  <script>
+      function toggleOverflow() {
+          const overflowRow = document.querySelector(".overflow-row");
+          const dropdownBtn = document.querySelector(".dropdown-btn");
+
+          if (overflowRow.classList.contains("hidden")) {
+              overflowRow.classList.remove("hidden");
+              dropdownBtn.innerHTML = "&#x25B2;"; // Up Arrow
+          } else {
+              overflowRow.classList.add("hidden");
+              dropdownBtn.innerHTML = "&#x25BC;"; // Down Arrow
+          }
+      }
+  </script>
+</body>
+</html>
