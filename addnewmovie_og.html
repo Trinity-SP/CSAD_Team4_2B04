@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Add New Movie</title>
+</head>
+<body>
+    <h1>Add New Movie</h1>
+    <!--Insert movie poster here-->
+    <input type="file" id="poster" name="poster" accept="image/*"><br><br>
+
+    <!--Movie Details Form-->
+    <form>
+        <table>
+            <tr>
+                Movie Title:
+                <input type="text" id="title" name="Title"><br><br>
+            </tr>
+            <tr>
+                Cast:
+                <input type="text" id="cast" name="Cast"><br><br>
+            </tr> 
+        
+        Synopsis:
+        <textarea id="synopsis" name="Synopsis"></textarea><br><br>
+        Director:
+        <input type="text" id="director" name="Director"><br><br>
+        Runtime:
+        <input type="text" id="runtime" name="Runtime"><br><br>
+        Release:
+        <input type="text" id="release" name="Release"><br><br>
+        Rating:
+        <select id="rating">
+            <option>PG13</option>
+            <option>NC16</option>
+            <option>M18</option>
+            <option>R21</option>
+        </select>
+        <br><br>
+        Genre:
+        <select id="genre">
+            <option>Romance</option>
+            <option>Comedy</option>
+            <option>Horror</option>
+            <option>Sci-Fi</option>
+        </select>
+        <br><br>
+        Language:
+        <select id="language">
+            <option>English</option>
+            <option>Chinese</option>
+            <option>Malay</option>
+            <option>Tamil</option>
+        </select>
+        <br><br>
+        Showtimes:
+        <input type="text" id="cast" name="Cast"><br><br>
+
+        <input type="button" id="edit" value="Edit"><br><br>
+
+        <input type="submit" id="submit" value="Submit">
+        <!--Success Message pop-up after clicking submit button-->
+        <span>You have successfully added a new movie</span>
+        </table>
+    </form>
+</body>
+</html>
