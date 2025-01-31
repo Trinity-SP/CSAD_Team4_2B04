@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Showtimes</title>
     <style>
+        /* Styles for Showtimes page */
         body {
             background: linear-gradient(180deg, #3c8aff 0%, #000000 31%);
             height: 100vh;
@@ -22,18 +23,21 @@
         }
 
         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
             border-radius: 50px;
             margin-left: 2.5vw;
-            margin-top: 20px;
             background: #000000;
-            height: 1000px;
+            height: auto;
             width: 92.5vw;
+            padding-bottom: 150px;
         }
 
         .movie_details {
-            position: absolute;
-            top: 235px;
-            margin-left: 80px;
+            position: relative;
+            top: 40px;
+            margin-left: 40px;
             height: 600px;
             width: 89vw;
             color: #3c8aff;
@@ -55,10 +59,10 @@
         }
 
         .poster {
-            width: 350px; /* Fixed width */
-            height: 510px; /* Fixed height */
-            border-radius: 8px; /* Optional: Add rounded corners */
-            object-fit: cover; /* Ensure posters maintain their aspect ratio */
+            width: 350px;
+            height: 510px;
+            border-radius: 8px;
+            object-fit: cover;
         }
 
         .movie_rating img {
@@ -67,200 +71,440 @@
         }
 
         #filter {
+            position: relative;
             background-color: transparent;
-            margin-left: 3.5vw;
-            margin-top: -250px;
+            margin-top: 100px;
             border-collapse: collapse;
         }
 
-        #filter tr {
-            border-bottom: 0;
-        }
-
-        #filter td {
+        .dates {
             margin: 0;
             width: 210px;
             height: 50px;
             background-color: #2a2a2a;
             text-align: center;
             color: #ffffff;
-        }
-
-        #filter td:hover {
             cursor: pointer;
         }
 
+        .dates:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
         .nav {
-          padding: 5px;
+            padding: 5px;
+            cursor: pointer;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #4b4b4b;
+        }
+
+        .nav:hover {
+            background-color: #333333;
+        }
+        .date-clicked {
+            background-color: white;
+            color: black;
+        }
+
+        #shows {
+            position: relative; 
+            top: auto; 
+            left: 25px; 
+            width: 90vw; 
+            border-collapse: collapse;
+            margin-top: 40px;
+        } 
+        #shows tr{
+            height: 50px;
+            border-bottom: 1px solid #808080;
+        }
+        
+        .show-header{
+            color: #808080;
+            text-align: left;
+        }
+
+        #shows .show-header th:last-child { /* Target the last <th> in the header row (Timing) */
+            padding-left: 205px; /* Adjust as needed */
+        }
+
+        #shows td.showtime {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: 5px;
+        /* Key change: Set a fixed width for the showtime cell */
+        width: 1100px; /* Or adjust as needed */
+        vertical-align: top; /* Ensure content aligns to the top of the cell */
+        padding-left: 200px;
         }
 
         
+
+        #shows td { /* Add this to prevent horizontal stretching */
+            padding: 8px; /* Add some padding */
+        }
+
+        #shows td.showtime span {
+            background-color: #ffffff;
+            color: black;
+            height: 34px;
+            width: 68px;
+            text-align: center;
+            border-radius: 7px;
+            padding: 8px;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        #shows td.showtime span a {
+            text-decoration: none; /* Remove the underline */
+            color: black; /* Keep the text color black */
+        }
+
+        #shows td.showtime span.imaxform,  /* Target IMAX showtimes */
+        #shows td.showtime span.imax3dform { /* Target IMAX 3D showtimes */
+            height: 20px; /* Let height adjust to content */
+            padding: 8px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        #legend{
+            width: 1000px;
+            margin-top: 100px;
+            margin-left: 300px;
+        }
     </style>
     <link rel="icon" href="Images/SkyCinemaNew.png">
 </head>
 <body>
     <img src="Images/Header.png" class="header">
-    <div class="container"></div>
-    <table class="movie_details">
-        <tr>
-            <td colspan="3" style="padding-bottom: 70px ;" class="movie_name"></td>
-        </tr>
-        <tr>
-            <td rowspan="10"><img src="" class="poster"></td>
-            <td colspan="2">CAST</td>
-        </tr>
-        <tr class="subheader">
-            <td colspan="2">Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, </td>
-        </tr>
-        <tr>
-            <td colspan="2">SYNOPSIS</td>
-        </tr>
-        <tr class="subheader">
-            <td colspan="2">Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, </td>
-        </tr>
-        <tr>
-            <td>DIRECTOR</td>
-            <td>RATING</td>
-        </tr>
-        <tr class="subheader">
-            <td>Director</td>
-            <td class="movie_rating"></td>
-        </tr>
-        <tr>
-            <td>GENRE</td>
-            <td>RUNTIME</td>
-        </tr>
-        <tr class="subheader">
-            <td>Genre</td>
-            <td class="movie_time"></td>
-        </tr>
-        <tr>
-            <td>LANGUAGE</td>
-            <td>RELEASE</td>
-        </tr>
-        <tr class="subheader">
-            <td>Language</td>
-            <td>Release</td>
-        </tr>
-    </table>
+    <div class="container">
+        <table class="movie_details">
+            <tr>
+                <td colspan="3" style="padding-bottom: 70px ;" class="movie_name"></td>
+            </tr>
+            <tr>
+                <td rowspan="10"><img src="" class="poster"></td>
+                <td colspan="2">CAST</td>
+            </tr>
+            <tr class="subheader">
+                <td colspan="2">Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, Cast Members, </td>
+            </tr>
+            <tr>
+                <td colspan="2">SYNOPSIS</td>
+            </tr>
+            <tr class="subheader">
+                <td colspan="2">Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, Movie Synopsis, </td>
+            </tr>
+            <tr>
+                <td>DIRECTOR</td>
+                <td>RATING</td>
+            </tr>
+            <tr class="subheader">
+                <td>Director</td>
+                <td class="movie_rating"></td>
+            </tr>
+            <tr>
+                <td>GENRE</td>
+                <td>RUNTIME</td>
+            </tr>
+            <tr class="subheader">
+                <td>Genre</td>
+                <td class="movie_time"></td>
+            </tr>
+            <tr>
+                <td>LANGUAGE</td>
+                <td>RELEASE</td>
+            </tr>
+            <tr class="subheader">
+                <td>Language</td>
+                <td>Release</td>
+            </tr>
+        </table>
     <table id="filter">
         <tr>
-            <td class="nav" style="width: 20px; background-color: #4b4b4b;">
-              <div id="previous">◀</div>
-            </td>
-            <td class="dates" id="date1" style="background-color: #ffffff; color: #000000;" onclick="changeBackground('date1')">
-                <div id="day1"></div>
-                <div id="date1value"></div>
-            </td>
-            <td class="dates" id="date2" onclick="changeBackground('date2')"> <!-- Added id for targeting -->
-                <div id="day2"></div>
-                <div id="date2value"></div>
-            </td>
-            <td class="dates" id="date3" onclick="changeBackground('date3')"> <!-- Added id for targeting -->
-                <div id="day3"></div>
-                <div id="date3value"></div>
-            </td>
-            <td class="dates" id="date4" onclick="changeBackground('date4')">
-                <div id="day4"></div>
-                <div id="date4value"></div>
-            </td>
-            <td class="dates" id="date5" onclick="changeBackground('date5')"> <!-- Added id for targeting -->
-                <div id="day5"></div>
-                <div id="date5value"></div>
-            </td>
-            <td class="dates" id="date6" onclick="changeBackground('date6')"> <!-- Added id for targeting -->
-                <div id="day6"></div>
-                <div id="date6value"></div>
-            </td>
-            <td class="dates" id="date7" onclick="changeBackground('date7')"> <!-- Added id for targeting -->
-                <div id="day7"></div>
-                <div id="date7value"></div>
-            </td>
-            <td class="nav" style="width: 20px; background-color: #4b4b4b;">
-            <div id="next">▶</div>
-            </td>
+            <td id="previous" class="nav">◀</td>
+            <!-- Date cells will be dynamically filled by JavaScript -->
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td class="dates"></td>
+            <td id="next" class="nav">▶</td>
         </tr>
     </table>
+    <table id="shows">
+        <tr class="show-header">
+            <th colspan="5">Theatre</th> 
+            <th>Timing</th> 
+        </tr>
+        <tr>
+          <td colspan="5">Sky Cinemas Lido</td>
+          <td class="showtime"></td> 
+        </tr>
+        <tr>
+          <td colspan="5">Sky Cinemas Balestier</td>
+          <td class="showtime"></td> 
+        </tr>
+        <tr>
+          <td colspan="5">Sky Cinemas Waterway Point</td>
+          <td class="showtime"></td> 
+        </tr>
+        <tr>
+          <td colspan="5">Sky Cinemas Nex</td>
+          <td class="showtime"></td> 
+        </tr>
+        <tr>
+          <td colspan="5">Sky Cinemas Northpoint City</td>
+          <td class="showtime"></td> 
+        </tr>
+      </table>
+      <img src="Images/legend.png" id="legend">
+    </div>
 
+      
+
+    <!-- Scripts embedded directly within the HTML -->
     <script>
-      function getParameters() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
+// Define the maximum date for navigation
+const maxDate = new Date(2025, 1, 25); // February 14, 2025
 
-        // Get individual parameter values
-        const poster = urlParams.get('poster');
-        const movie_name = urlParams.get('movie_name');
-        const movie_rating = urlParams.get('movie_rating');
-        const movie_time = urlParams.get('movie_time');
+function updateDates() {
+    const currentDate = new Date();
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-        // Update HTML elements with parameter values
-        document.querySelector('.poster').setAttribute('src', poster);
-        document.querySelector('.movie_name').textContent = movie_name;
-        document.querySelector('.movie_rating').innerHTML = `<img src="${movie_rating}" alt="Movie Rating">`;
-        document.querySelector('.movie_time').textContent = movie_time;
+    for (let i = 1; i <= 7; i++) {
+        const dateCell = document.getElementsByClassName('dates')[i - 1];
+        const date = new Date(currentDate);
+        date.setDate(currentDate.getDate() + i - 1);
+        const formattedDate = formatDate(date);
+        const weekday = weekdays[date.getDay()];
+        dateCell.textContent = `${formattedDate} (${weekday})`;
+        dateCell.id = `date${i}`; 
 
-        // Set date filter values dynamically based on current date
-        const currentDate = new Date();
-
-        for (let i = 1; i <= 7; i++) {
-            const date = new Date(currentDate);
-            date.setDate(currentDate.getDate() + i - 1);
-
-            const dayId = `day${i}`;
-            const dateId = `date${i}value`;
-
-            // Set day and date text
-            document.getElementById(dayId).textContent = getDayText(dayId, date);
-            document.getElementById(dateId).textContent = formatDate(date);
-        }
-    }
-
-    // Function to get day text (Today, Tomorrow, or weekday name)
-    function getDayText(id, date) {
-        if (id === 'day1') {
-            return "Today";
-        } else if (id === 'day2') {
-            return "Tomorrow";
-        } else {
-            return date.toLocaleDateString('en-US', { weekday: 'long' });
-        }
-    }
-
-    // Function to format date as "28 Feb 2025"
-    function formatDate(date) {
-        const day = date.getDate();
-        const month = date.toLocaleString('en-US', { month: 'short' });
-        const year = date.getFullYear();
-        return `${day} ${month} ${year}`;
-    }
-
-
-        // Call the function to retrieve and update HTML with URL parameters when the page loads
-        window.onload = function() {
+        dateCell.addEventListener('click', function () {
+            const allDateCells = document.querySelectorAll('.dates');
+            allDateCells.forEach(cell => cell.classList.remove('date-clicked'));
+            this.classList.add('date-clicked');
             getParameters();
-            getDayText();
-            formatDate();
-        };
+        });
 
-        let lastClickedId = null;
-
-        function changeBackground(id) {
-            const tdElements = document.querySelectorAll('.dates');
-
-            // Reset all td styles
-            tdElements.forEach(td => {
-                td.style.backgroundColor = "#2a2a2a"; // Set default background color
-                td.style.color = "#ffffff"; // Set default text color
-            });
-
-            // Set background color and text color of the clicked td
-            const clickedTd = document.getElementById(id);
-            clickedTd.style.backgroundColor = "#ffffff"; // Set background color for clicked button
-            clickedTd.style.color = "#000000"; // Set text color for clicked button
-
-            // Update last clicked id
-            lastClickedId = id;
+        if (i === 1) {
+            dateCell.classList.add('date-clicked');
         }
+    }
+}
+
+document.getElementById('next').addEventListener('click', function () {
+    const dateCells = document.querySelectorAll('.dates');
+    let canNavigate = true;
+
+    // Check if navigating to the next week exceeds the maximum date + 1 row
+    for (let i = 0; i < dateCells.length; i++) {
+        const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+        const nextDate = new Date();
+        nextDate.setDate(nextDate.getDate() + (currentIdNumber + 6)); 
+
+        // Allow one extra row beyond maxDate
+        if (nextDate > maxDate && nextDate <= new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 7)) { 
+            continue; // Skip this check for the extra row
+        } 
+
+        if (nextDate > maxDate) {
+            canNavigate = false;
+            break;
+        }
+    }
+
+    if (canNavigate) {
+        for (let i = 0; i < dateCells.length; i++) {
+            const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+            dateCells[i].id = `date${currentIdNumber + 6}`;
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + (currentIdNumber + 6));
+
+            if (currentDate > maxDate && currentDate <= new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 7)) {
+                // Only display the maxDate within the extra row
+                if (currentDate.toDateString() === maxDate.toDateString()) { 
+                    dateCells[i].textContent = `${formatDate(currentDate)} (${getWeekday(currentDate)})`; 
+                } else {
+                    dateCells[i].textContent = ""; 
+                }
+            } else {
+                const formattedDate = formatDate(currentDate);
+                const weekday = getWeekday(currentDate);
+                dateCells[i].textContent = `${formattedDate} (${weekday})`;
+            }
+        }
+        getParameters(); 
+    } 
+});
+document.getElementById('previous').addEventListener('click', function () {
+    const dateCells = document.querySelectorAll('.dates');
+    let canNavigate = true;
+
+    for (let i = 0; i < dateCells.length; i++) {
+        const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+        const previousDate = new Date();
+        previousDate.setDate(previousDate.getDate() + (currentIdNumber - 6));
+
+        if (previousDate < new Date()) {
+            canNavigate = false;
+            break;
+        }
+    }
+
+    if (canNavigate) {
+        for (let i = 0; i < dateCells.length; i++) {
+            const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+            dateCells[i].id = `date${currentIdNumber - 6}`;
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + (currentIdNumber - 7));
+            const formattedDate = formatDate(currentDate);
+            const weekday = getWeekday(currentDate);
+            dateCells[i].textContent = `${formattedDate} (${weekday})`;
+        }
+        getParameters();
+    } else {
+        console.log('Cannot navigate before today\'s date');
+    }
+});
+
+function getParameters() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const poster = urlParams.get('poster');
+    const movie_name = urlParams.get('movie_name');
+    const movie_rating = urlParams.get('movie_rating');
+    const movie_time = urlParams.get('movie_time');
+
+    document.querySelector('.poster').setAttribute('src', poster);
+    document.querySelector('.movie_name').textContent = movie_name;
+    document.querySelector('.movie_rating').innerHTML = `<img src="${movie_rating}" alt="Movie Rating">`;
+    document.querySelector('.movie_time').textContent = movie_time;
+}
+
+function formatDate(date) {
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+}
+
+function getWeekday(date) {
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return weekdays[date.getDay()];
+}
+
+window.onload = function () {
+    getParameters();
+    updateDates();
+};
+
+// Sample showtime data (modified to include format)
+const showtimesData = {
+    "Sky Cinemas Lido": [
+        { time: "10:00 AM", format: "imaxform" },
+        { time: "1:20 PM", format: "imaxform" },
+        { time: "4:05 PM", format: "standform" },
+        { time: "9:15 PM", format: "standform" }     
+    ],
+    "Sky Cinemas Balestier": [
+        { time: "12:30 PM", format: "imaxform" },
+        { time: "2:00 PM", format: "standform" },
+        { time: "5:45 PM", format: "imax3dform" },
+        { time: "7:00 PM", format: "standform" },
+        { time: "9:10 PM", format: "standform" },
+        { time: "11:50 PM", format: "standform" }
+    ],
+    "Sky Cinemas Waterway Point": [
+        { time: "10:05 AM", format: "standform" },
+        { time: "11:20 AM", format: "imaxform" },
+        { time: "12:45 PM", format: "imax3dform" },
+        { time: "3:25 PM", format: "standform" },
+        { time: "5:20 PM", format: "standform" },
+        { time: "6:05 PM", format: "imaxform" },
+        { time: "8:45 PM", format: "standform" },
+        { time: "11:25 PM", format: "standform" }
+    ],
+    "Sky Cinemas Nex": [
+        { time: "10:00 AM", format: "standform" },
+        { time: "1:20 PM", format: "standform" },
+        { time: "3:20 PM", format: "imax3dform" },
+        { time: "6:00 PM", format: "standform" },
+        { time: "7:00 PM", format: "imaxform" },
+        { time: "9:40 PM", format: "standform" },
+        { time: "11:40 PM", format: "standform" },
+        { time: "12:15 AM", format: "standform" }
+    ],
+    "Sky Cinemas Northpoint City": [
+        { time: "10:30 AM", format: "standform" },
+        { time: "1:10 PM", format: "standform" },
+        { time: "3:50 PM", format: "standform" },
+        { time: "6:30 PM", format: "imax3dform" },
+        { time: "9:10 PM", format: "standform" },
+        { time: "11:50 PM", format: "standform" }
+    ],
+
+};
+
+function createShowtimeElements(showtimes, cinemaName) {
+        const rows = document.querySelectorAll('#shows tr');
+        const cinemaRow = Array.from(rows).find(row => row.children[0].textContent === cinemaName);
+
+        if (cinemaRow) {
+            const showtimeCell = cinemaRow.querySelector('td.showtime');
+            showtimeCell.innerHTML = ""; // Clear existing showtimes
+
+            showtimes.forEach((showtime) => {
+        const showtimeLink = document.createElement('a');
+        showtimeLink.href = "Showtimes2.html";
+        showtimeLink.textContent = showtime.time;  // Use showtime.time
+
+        const showtimeSpan = document.createElement('span');
+        showtimeSpan.appendChild(showtimeLink);
+
+        // Add the appropriate class
+        showtimeSpan.classList.add(showtime.format);
+
+    // Add the image if needed
+    if (showtime.format === "imaxform" || showtime.format === "imax3dform") { // Combined condition
+        const imageSrc = showtime.format === "imaxform" ? "Images/imax.png" : "Images/imax3d.png";
+        const imageAlt = showtime.format === "imaxform" ? "IMAX" : "IMAX 3D";
+
+        const image = document.createElement('img');
+        image.src = imageSrc;
+        image.alt = imageAlt;
+        image.style.width = "60px";
+        image.style.height = "10px";
+
+        showtimeSpan.appendChild(image); // Append image *after* the link
+
+        // Key change: Set flex-direction to column
+        showtimeSpan.style.display = "flex";
+        showtimeSpan.style.flexDirection = "column"; // Stack elements vertically
+        showtimeSpan.style.alignItems = "center"; // Center horizontally
+        showtimeSpan.style.justifyContent = "center"; // Center vertically
+        showtimeSpan.style.gap = "5px"; // Add gap between elements
+    }
+
+        showtimeCell.appendChild(showtimeSpan);
+    });
+        }}
+// Populate showtimes for each cinema
+for (const cinema in showtimesData) {
+  const showtimes = showtimesData[cinema];
+  createShowtimeElements(showtimes, cinema); 
+}
     </script>
 </body>
 </html>
