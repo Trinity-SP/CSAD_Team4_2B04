@@ -37,9 +37,13 @@
         }
 
         /* Welcome Message to User */
-        h2 {
+        h1 {
             text-align: left;
             margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: center;
         }
 
         /* Table Styles */
@@ -116,8 +120,8 @@
             display: none;
         }
 
-        .button {
-            width: 95%; /* Make buttons fill the container width */
+        .background-fade-button {
+            width: 100%; /* Make buttons fill the container width */
             height: 200px; /* Adjust height as needed */
             border: none; /* Remove default button border */
             color: rgb(255, 255, 255); /* Text color */
@@ -126,9 +130,16 @@
             text-transform: uppercase;
             text-align: center;
             line-height: 100px; /* Center text vertically */
-            background-size: cover; /* Scale background images to cover */
-            background-position: center; /* Center background images */
             opacity: 0.7; /* Add a slight fade effect */
+            cursor: pointer;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+            background-size: cover; /* Scale background images to cover */
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-buttons td {
+            gap: 150px;
         }
 
         /* Age Ratings */
@@ -157,7 +168,52 @@
             height:45px;
         }
     </style>
-    <link href="StaffPortal_Homepage.css">
+
+<!--Pop-Up Prompts for 3 Buttons-->
+<style>
+    /* Basic modal styling */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    }
+  
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid grey;
+      width: 50%; 
+      text-align: center; 
+    }
+  
+    .modal-content button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+  
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
     <table style="width:100%">
@@ -166,31 +222,63 @@
                 <img src="Images/SkyCinemaNew.png" style="width:140px ; height: 130px" alt="Sky Cinemas Logo">
             </td>
             <td>
-                <h2>Welcome,</h2>
-                <h2 id="staff-name">Joel Chen Xia Ming</h2>
+                <h1>Welcome,</h1>
+                <h1 id="staff-name">Joel Chen Xia Ming</h1>
             </td>
-            <td>
+            <td class="profile-details">
                 <img src="Images/profileman.png" style="width:80px ; height:80px" alt="Profile Picture"><br>
                 <button style="background-color: lightblue ; border:none;" name="logout">Logout</button>
             </td>
         </tr>
     </table>
-    
+
     <!--3 Buttons-->
-    <table style="width:100%">
-        <tr class="nav-buttons">
-            <td>
-                <button class="button" style="background-image: url('Images/movie-background.jpg');">Add New Movies</button>
-            </td>
-            <td>
-                <button class="button" style="background-image: url('Images/food-background.jpg');">Cinema Food Stock</button>
-            </td>
-            <td>
-                <button class="button" style="background-image: url('Images/promotion-background.avif');">Promotions/Sales</button>
-            </td>
-        </tr>
-    </table>
-  
+    <div>
+        <table style="width:100%">
+            <tr class="nav-buttons">
+                <td>
+                    <button class="background-fade-button" id="movies-button" style="background-image: url('Images/movie-background.jpg'); padding: 10px;">Add New Movies</button>
+                </td>
+                <td>
+                    <button class="background-fade-button" id="food-button" style="background-image: url('Images/food-background.jpg');  padding: 10px;">Cinema Food Stock</button>
+                </td>
+                <td>
+                    <button class="background-fade-button" id="promotions-button" style="background-image: url('Images/promotion-background.avif'); padding: 10px;">Promotions/Sales</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!--Movies Button: pop-up-->
+    <div id="myModal_movies" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p style="color: black; font-weight: bold;">Would you like to add a new movie or edit an existing movie?</p>
+          <button id="add-movies">Add</button>
+          <button id="edit-movies">Edit</button>
+        </div>
+      </div>
+    
+    <!--Food Button: pop-up-->
+    <div id="myModal_food" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p style="color: black; font-weight: bold;">Would you like to add a new food stock or edit an existing food stock?</p>
+          <button id="add-food">Add</button>
+          <button id="edit-food">Edit</button>
+        </div>
+      </div>
+
+    <!--Promotions Button: pop-up-->
+    <div id="myModal_promotions" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p style="color: black; font-weight: bold;">Would you like to add a new promotion/sale or edit an existing promotion/sale?</p>
+          <button id="add-promotions">Add</button>
+          <button id="edit-promotions">Edit</button>
+        </div>
+      </div>
+    
     <!-- Movie List Section -->
     <div class="movie-list-container">
       <h2>Edit Existing Movies</h2>
@@ -295,5 +383,98 @@
           }
       }
   </script>
+
+    <!--To make the pop-up appear for Movies Button-->
+    <script>
+            const modal_1 = document.getElementById("myModal_movies");
+            const movies_btn = document.getElementById("movies-button");
+            const span_1 = document.getElementsByClassName("close")[0];
+            const addMovieButton = document.getElementById("add-movies");
+            const editMovieButton = document.getElementById("edit-movies");
+        
+            movies_btn.onclick = function() {
+                modal_1.style.display = "block";
+            }
+        
+            span_1.onclick = function() {
+                modal_1.style.display = "none";
+            }
+        
+            window.onclick = function(event) {
+                if (event.target == modal_1) {
+                    modal_1.style.display = "none";
+                }
+            }
+        
+            addMovieButton.onclick = function() {
+                window.location.href = "addnewmovie.html"; // Redirect to addnewmovie.html
+            }
+        
+            editMovieButton.onclick = function() {
+                window.location.href = "editexistingmovie.html"; // Redirect to editexistingmovie.html
+            }
+    </script>
+
+    <!--To make the pop-up appear for Food Button-->
+    <script>
+        const modal_2 = document.getElementById("myModal_food");
+        const food_btn = document.getElementById("food-button");
+        const span_2 = document.getElementsByClassName("close")[1];
+        const addFoodButton = document.getElementById("add-food");
+        const editFoodButton = document.getElementById("edit-food");
+    
+        food_btn.onclick = function() {
+            modal_2.style.display = "block";
+        }
+    
+        span_2.onclick = function() {
+            modal_2.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modal_2) {
+                modal_2.style.display = "none";
+            }
+        }
+    
+        addFoodButton.onclick = function() {
+            window.location.href = "add_cinemafoodstock.html"; // Redirect to add_cinemafoodstock.html
+        }
+    
+        editFoodButton.onclick = function() {
+            window.location.href = "edit_cinemafoodstock.html"; // Redirect to edit_cinemafoodstock.html
+        }
+</script>
+
+<!--To make the pop-up appear for Promotions/Sales Button-->
+<script>
+    const modal_3 = document.getElementById("myModal_promotions");
+    const promotions_btn = document.getElementById("promotions-button");
+    const span_3 = document.getElementsByClassName("close")[2];
+    const addPromoButton = document.getElementById("add-promotions");
+    const editPromoButton = document.getElementById("edit-promotions");
+
+    promotions_btn.onclick = function() {
+        modal_3.style.display = "block";
+    }
+
+    span_3.onclick = function() {
+        modal_3.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal_3) {
+            modal_3.style.display = "none";
+        }
+    }
+
+    addPromoButton.onclick = function() {
+        window.location.href = "add_promotions.html"; // Redirect to add_promotions.html
+    }
+
+    editPromoButton.onclick = function() {
+        window.location.href = "edit_promotions.html"; // Redirect to edit_promotions.html
+    }
+</script>
 </body>
 </html>
