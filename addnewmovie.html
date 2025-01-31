@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,9 @@
             text-align: left;
         }
 
-        table input, table select, table textarea {
+        table input,
+        table select,
+        table textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -60,93 +63,60 @@
         }
 
         .submit-btn:hover {
-            background-color: #297bdb;
+            background-color: #0266d8;
         }
 
         .success-message {
             color: lightgreen;
             display: none;
             margin-top: 20px;
+            text-align: left;
         }
 
-        /* Styling for form table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        /* Styling for the first column (poster area) */
-        .poster-container {
-            width: 30%; /* Adjust width as needed */
+        .image-upload {
+            width: 90%;
+            /* Image container width */
             text-align: center;
-            vertical-align: top;
-            background: white;
-            border: 2px solid #ccc;
-            padding: 10px;
+            margin-right: 10px;
+            /* Spacing between image and form */
         }
 
-        /* Styling for the movie poster image */
-        #replaceImage {
-            width: 100%;
-            height: 350px; /* Adjust for vertical rectangle */
-            object-fit: cover; /* Ensures the image fills the area while maintaining aspect ratio */
-            border-radius: 5px;
-            cursor: pointer;
+        .image-upload label {
             display: block;
+            margin-bottom: 10px;
         }
 
-        /* Hidden file input */
-        #fileInput {
-            display: none;
+        .image-upload img {
+            max-width: 100%;
+            /* Image within container */
+            height: auto;
+            max-height: 500px;
+            /* Set max height as needed */
+            margin-bottom: 10px;
         }
-
     </style>
 </head>
+
 <body>
     <div>
         <img src="Images/Header.png" style="width:1000px ; height: 150px" alt="Sky Cinemas Logo">
     </div>
-    
+
     <div class="form-container">
         <h1>Add New Movie</h1>
         <form>
             <table>
-                <!--<tr>
-                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top;">
-                        <label for="poster" style="display: block; margin-bottom: 10px;">Upload Poster</label>
-                        <input type="file" id="poster" name="poster" accept="image/*" onchange="handleImageChange(event)">
-                    </td>
-
-                     Clickable image
-                    <img id="replaceImage" src="pictures/alien.jpeg" onclick="replaceWithFileInput()">
-                    
-                    Hidden file input
-                    <input type="file" id="fileInput" style="display: none;" accept="image/jpeg, image/png" onchange="handleImageChange(event)">
-
-                    <td colspan="2">
-                        <label for="title">Movie Title</label>
-                        <input type="text" id="title" name="Title">
-                    </td>
-                </tr>-->
-
                 <tr>
-                    <td class="poster-container">
-                        <label for="poster" style="display: block; margin-bottom: 10px;">Upload Poster</label>
-                
-                        <!-- Clickable movie poster -->
-                        <img id="replaceImage" src="Images/upload-poster.png" onclick="replaceWithFileInput()">
-                        
-                        <!-- Hidden file input -->
-                        <input type="file" id="fileInput" accept="image/jpeg, image/png" onchange="handleImageChange(event)">
+                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top;" class="image-upload">
+                        <label for="poster">Upload Movie Poster</label>
+                        <img id="preview" src="#" alt="Movie Preview" style="display:none;">
+                        <input type="file" id="poster" name="poster" accept="image/*">
                     </td>
-                
                     <td colspan="2">
                         <label for="title">Movie Title</label>
                         <input type="text" id="title" name="Title">
                     </td>
                 </tr>
-                
-
                 <tr>
                     <td colspan="2">
                         <label for="cast">Cast</label>
@@ -161,17 +131,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="director">Director</label>
-                        <input type="text" id="director" name="Director">
-                    </td>
-                    <td>
                         <label for="rating">Rating</label>
                         <select id="rating">
+                            <option>PG</option>
                             <option>PG13</option>
                             <option>NC16</option>
                             <option>M18</option>
                             <option>R21</option>
                         </select>
+                    </td>
+                    <td>
+                        <label for="director">Director</label>
+                        <input type="text" id="director" name="Director">
                     </td>
                 </tr>
                 <tr>
@@ -182,6 +153,7 @@
                             <option>Comedy</option>
                             <option>Horror</option>
                             <option>Sci-Fi</option>
+                            <option>Mystery</option>
                         </select>
                     </td>
                     <td>
@@ -203,23 +175,71 @@
                         <label for="release">Release</label>
                         <input type="text" id="release" name="Release">
                     </td>
+                </tr>
                 <tr>
-                    <td colspan="3">
+                    <td></td>
+                    <td colspan="2">
                         <label for="showtimes">Showtimes</label>
                         <input type="text" id="showtimes" name="Showtimes">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center;">
-                        <input type="submit" class="submit-btn" value="Submit">
+                    <td></td>
+                    <td style="text-align: center;">
+                        <input style="background-color: #3c8aff; width: 100%;" type="button" class="editshowtimes-btn"
+                            value="Edit">
                     </td>
                 </tr>
-                
+                <!--leave a bit of space between edit button and submit button-->
+                <tr></tr>
+                <tr></tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2" style="text-align: center;">
+                        <input style="background-color: lime; width: 100%;" type="submit" class="save-btn"
+                            value="Submit" id="saveMovie">
+                        <span class="success-message" id="success">You have successfully added a new movie!</span>
+                    </td>
+                </tr>
             </table>
-            <span class="success-message" id="success">
-                You have successfully added a new movie!
-            </span>
         </form>
     </div>
+
+
+
+    <!--Submit new movie details & adjust movie poster picture to be displayed-->
+    <script>
+        // Get references to the HTML elements
+        const saveButton = document.getElementById('saveMovie');
+        const successMessage = document.getElementById('success');
+        const imageInput = document.getElementById('poster');
+        const previewImage = document.getElementById('preview');
+
+        // Add an event listener to the "Save" button
+        saveButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent form submission
+            successMessage.style.display = 'block';
+        });
+
+        imageInput.addEventListener('change', () => {
+            // Get the first selected file (assuming only one file can be selected)
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                // If no file was selected (e.g., user cleared selection)
+                previewImage.src = '#';
+                previewImage.style.display = 'none';
+            }
+        });
+    </script>
 </body>
+
 </html>

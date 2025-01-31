@@ -37,9 +37,13 @@
         }
 
         /* Welcome Message to User */
-        h2 {
+        h1 {
             text-align: left;
             margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: center;
         }
 
         /* Table Styles */
@@ -116,8 +120,8 @@
             display: none;
         }
 
-        .button {
-            width: 95%; /* Make buttons fill the container width */
+        .background-fade-button {
+            width: 100%; /* Make buttons fill the container width */
             height: 200px; /* Adjust height as needed */
             border: none; /* Remove default button border */
             color: rgb(255, 255, 255); /* Text color */
@@ -126,9 +130,16 @@
             text-transform: uppercase;
             text-align: center;
             line-height: 100px; /* Center text vertically */
-            background-size: cover; /* Scale background images to cover */
-            background-position: center; /* Center background images */
             opacity: 0.7; /* Add a slight fade effect */
+            cursor: pointer;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+            background-size: cover; /* Scale background images to cover */
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-buttons td {
+            gap: 150px;
         }
 
         /* Age Ratings */
@@ -211,10 +222,10 @@
                 <img src="Images/SkyCinemaNew.png" style="width:140px ; height: 130px" alt="Sky Cinemas Logo">
             </td>
             <td>
-                <h2>Welcome,</h2>
-                <h2 id="staff-name">Joel Chen Xia Ming</h2>
+                <h1>Welcome,</h1>
+                <h1 id="staff-name">Joel Chen Xia Ming</h1>
             </td>
-            <td>
+            <td class="profile-details">
                 <img src="Images/profileman.png" style="width:80px ; height:80px" alt="Profile Picture"><br>
                 <button style="background-color: lightblue ; border:none;" name="logout">Logout</button>
             </td>
@@ -226,13 +237,13 @@
         <table style="width:100%">
             <tr class="nav-buttons">
                 <td>
-                    <button class="button" id="movies-button" style="background-image: url('Images/movie-background.jpg');">Add New Movies</button>
+                    <button class="background-fade-button" id="movies-button" style="background-image: url('Images/movie-background.jpg'); padding: 10px;">Add New Movies</button>
                 </td>
                 <td>
-                    <button class="button" id="food-button" style="background-image: url('Images/food-background.jpg');">Cinema Food Stock</button>
+                    <button class="background-fade-button" id="food-button" style="background-image: url('Images/food-background.jpg');  padding: 10px;">Cinema Food Stock</button>
                 </td>
                 <td>
-                    <button class="button" id="promotions-button" style="background-image: url('Images/promotion-background.avif');">Promotions/Sales</button>
+                    <button class="background-fade-button" id="promotions-button" style="background-image: url('Images/promotion-background.avif'); padding: 10px;">Promotions/Sales</button>
                 </td>
             </tr>
         </table>
@@ -408,7 +419,7 @@
     <script>
         const modal_2 = document.getElementById("myModal_food");
         const food_btn = document.getElementById("food-button");
-        const span_2 = document.getElementsByClassName("close")[0];
+        const span_2 = document.getElementsByClassName("close")[1];
         const addFoodButton = document.getElementById("add-food");
         const editFoodButton = document.getElementById("edit-food");
     
@@ -439,7 +450,7 @@
 <script>
     const modal_3 = document.getElementById("myModal_promotions");
     const promotions_btn = document.getElementById("promotions-button");
-    const span_3 = document.getElementsByClassName("close")[0];
+    const span_3 = document.getElementsByClassName("close")[2];
     const addPromoButton = document.getElementById("add-promotions");
     const editPromoButton = document.getElementById("edit-promotions");
 
