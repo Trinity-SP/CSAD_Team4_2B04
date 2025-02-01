@@ -94,8 +94,73 @@
             /* Set max height as needed */
             margin-bottom: 10px;
         }
+
+        .err {
+            color: red;
+        }
+
+        #preview {
+            width: 350px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
     </style>
 </head>
+
+<?php 
+    $errors = [];
+
+    $poster = $title = $cast = $synopsis = $rating = $director = "";
+    $genre = $runtime = $language = $release = $showtimes = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        //print_r($_POST);
+        
+        $poster = $_FILES["poster"];
+        $title = $_POST["Title"];
+        $cast = $_POST["Cast"];
+        $synopsis = $_POST["Synopsis"];
+        $rating = $_POST["Rating"];
+        $director = $_POST["Director"];
+        $genre = $_POST["Genre"];
+        $runtime = $_POST["Runtime"];
+        $language = $_POST["Language"];
+        $release = $_POST["Release"];
+        $showtimes = $_POST["Showtimes"];
+
+        if (empty($title)) {
+            $errors["title"] = "*Title is required.";
+        }
+        if (empty($cast)) {
+            $errors["cast"] = "*Cast is required.";
+        }
+        if (empty($synopsis)) {
+            $errors["synopsis"] = "*Synopsis is required.";
+        }
+        if (empty($rating)) {
+            $errors["rating"] = "*Rating is required.";
+        }
+        if (empty($director)) {
+            $errors["director"] = "*Director is required.";
+        }
+        if (empty($genre)) {
+            $errors["genre"] = "*Genre is required.";
+        }
+        if (empty($runtime)) {
+            $errors["runtime"] = "*Runtime is required.";
+        }
+        if (empty($language)) {
+            $errors["language"] = "*Language is required.";
+        }
+        if (empty($release)) {
+            $errors["release"] = "*Release date is required.";
+        }
+        if (empty($showtimes)) {
+            $errors["showtimes"] = "*Showtimes are required.";
+        }
+    }
+?>
 
 <body>
     <div>
@@ -104,83 +169,94 @@
 
     <div class="form-container">
         <h1>Add New Movie</h1>
-        <form>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" 
+        enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top;" class="image-upload">
-                        <label for="poster">Upload Movie Poster</label>
-                        <img id="preview" src="#" alt="Movie Preview" style="display:none;">
-                        <input type="file" id="poster" name="poster" accept="image/*">
+                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top; padding-right: 20px;" class="image-upload">
+                        <label for="poster">Upload Movie Poster</label>  
+                        <img id="preview" src="images/image.png" alt="Movie Preview" style="cursor: pointer;">  
+                        <input type="file" id="poster" name="poster" accept="image/*" style="display: none;">
                     </td>
                     <td colspan="2">
                         <label for="title">Movie Title</label>
-                        <input type="text" id="title" name="Title">
+                        <input type="text" id="title" name="Title" value="<?php echo $title; ?>">
+                        <span class="err"> <?php echo isset($errors["title"]) ? $errors["title"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <label for="cast">Cast</label>
-                        <input type="text" id="cast" name="Cast">
+                        <input type="text" id="cast" name="Cast" value="<?php echo $cast; ?>">
+                        <span class="err"> <?php echo isset($errors["cast"]) ? $errors["cast"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <label for="synopsis">Synopsis</label>
-                        <textarea id="synopsis" name="Synopsis" rows="3"></textarea>
+                        <textarea id="synopsis" name="Synopsis" rows="3"><?php echo $synopsis ?></textarea>
+                        <span class="err"> <?php echo isset($errors["synopsis"]) ? $errors["synopsis"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="rating">Rating</label>
-                        <select id="rating">
+                        <select id="rating" name="Rating">
                             <option>PG</option>
                             <option>PG13</option>
                             <option>NC16</option>
                             <option>M18</option>
                             <option>R21</option>
                         </select>
+                        <span class="err"> <?php echo isset($errors["rating"]) ? $errors["rating"] : ""; ?> </span>
                     </td>
                     <td>
                         <label for="director">Director</label>
-                        <input type="text" id="director" name="Director">
+                        <input type="text" id="director" name="Director" value="<?php echo $director; ?>">
+                        <span class="err"> <?php echo isset($errors["director"]) ? $errors["director"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="genre">Genre</label>
-                        <select id="genre">
+                        <select id="genre" name="Genre">
                             <option>Romance</option>
                             <option>Comedy</option>
                             <option>Horror</option>
                             <option>Sci-Fi</option>
                             <option>Mystery</option>
                         </select>
+                        <span class="err"> <?php echo isset($errors["genre"]) ? $errors["genre"] : ""; ?> </span>
                     </td>
                     <td>
                         <label for="runtime">Runtime</label>
-                        <input type="text" id="runtime" name="Runtime">
+                        <input type="text" id="runtime" name="Runtime" value="<?php echo $runtime; ?>">
+                        <span class="err"> <?php echo isset($errors["runtime"]) ? $errors["runtime"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="language">Language</label>
-                        <select id="language">
+                        <label for="anguage">Language</label>
+                        <select id="language" name="Language">
                             <option>English</option>
                             <option>Chinese</option>
                             <option>Malay</option>
                             <option>Tamil</option>
                         </select>
+                        <span class="err"> <?php echo isset($errors["language"]) ? $errors["language"] : ""; ?> </span>
                     </td>
                     <td>
                         <label for="release">Release</label>
-                        <input type="text" id="release" name="Release">
+                        <input type="text" id="release" name="Release" value="<?php echo $release; ?>">
+                        <span class="err"> <?php echo isset($errors["release"]) ? $errors["release"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2">
                         <label for="showtimes">Showtimes</label>
-                        <input type="text" id="showtimes" name="Showtimes">
+                        <input type="text" id="showtimes" name="Showtimes" value="<?php echo $showtimes; ?>">
+                        <span class="err"> <?php echo isset($errors["showtimes"]) ? $errors["showtimes"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
@@ -205,8 +281,6 @@
         </form>
     </div>
 
-
-
     <!--Submit new movie details & adjust movie poster picture to be displayed-->
     <script>
         // Get references to the HTML elements
@@ -215,14 +289,7 @@
         const imageInput = document.getElementById('poster');
         const previewImage = document.getElementById('preview');
 
-        // Add an event listener to the "Save" button
-        saveButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent form submission
-            successMessage.style.display = 'block';
-        });
-
         imageInput.addEventListener('change', () => {
-            // Get the first selected file (assuming only one file can be selected)
             const file = imageInput.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -234,9 +301,25 @@
 
                 reader.readAsDataURL(file);
             } else {
-                // If no file was selected (e.g., user cleared selection)
                 previewImage.src = '#';
                 previewImage.style.display = 'none';
+            }
+        });
+
+        previewImage.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                previewImage.src = "images/image.png";
             }
         });
     </script>

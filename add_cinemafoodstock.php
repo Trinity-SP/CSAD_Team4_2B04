@@ -125,8 +125,35 @@
             display: none;
             margin-top: 20px;
         }
+
+        .err {
+            color: red;
+        }
     </style>
 </head>
+
+<?php
+    $errors[] = "";
+
+    $food_name = $food_price = $food_stock = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $food_name = $_POST["FoodName"];
+        $food_price = $_POST["FoodPrice"];
+        $food_stock = $_POST["FoodStock"];
+
+        if (empty($food_name)) {
+            $errors["food_name"] = "Food name is required";
+        }
+        if (empty($food_price)) {
+            $errors["food_price"] = "Food price is required";
+        }
+        if (empty($food_stock)) {
+            $errors["food_stock"] = "Food stock is required";
+        }
+    }
+?>
+
 <body>
     <div style="text-align: left; padding-top: 30px; padding-left: 30px;">
         <a href="#" class="back-button" id="backButton">←</a>
@@ -137,30 +164,34 @@
    
     <div class="form-container">
         <h1>Add New Food Stock</h1>
-        <form>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" 
+        enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top;" class="image-upload">
+                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top; padding-right: 20px;" class="image-upload">
                         <label for="poster">Upload Food Picture</label>
-                        <img id="preview" src="#" alt="Food Preview" style="display:none;">  <input type="file" id="poster" name="poster" accept="image/*">
+                        <img id="preview" src="#" alt="Food Preview" style="display:none;">  
+                        <input type="file" id="poster" name="poster" accept="image/*">
                     </td>
 
                     <td colspan="2">
                         <label for="title">Name</label>
-                        <input type="text" id="food-name" name="Food Name">
+                        <input type="text" id="food-name" name="FoodName" value="<?php echo $food_name; ?>">
+                        <span class="err"> <?php echo isset($errors["food_name"]) ? $errors["food_name"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <label for="synopsis">Price ($)</label>
-                        <input type="text" id="food-price" name="Food Price">
+                        <input type="text" id="food-price" name="FoodPrice" value="<?php echo $food_price; ?>">
+                        <span class="err"> <?php echo isset($errors["food_price"]) ? $errors["food_price"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <label for="cast">Stock</label>
-                        <input id="food-stock" name="Food Stock" rows="3"></input>
-                        
+                        <input type="text" id="food-stock" name="FoodStock" rows="3" value="<?php echo $food_stock; ?>">
+                        <span class="err"> <?php echo isset($errors["food_stock"]) ? $errors["food_stock"] : ""; ?> </span>
                     </td>
                 </tr>
                 <tr>
@@ -178,50 +209,34 @@
         </form>
     </div>
 
-    <!--Back Button Function - Go back to Staff Portal Homepage-->
     <script>
-        // Get a reference to the back button element (assuming it has the ID "backButton")
         const backButton = document.getElementById('backButton'); // Or appropriate selector
 
-        // Add an event listener to the back button
         backButton.addEventListener('click', () => {
-        // Redirect the user to StaffPortal_Homepage.html
         window.location.href = 'StaffPortal_Homepage.html';
     });
-    </script>
-
-    <!--Save new food addition & adjust food picture to be displayed-->
-    <script>
-        // Get references to the HTML elements
-        const saveButton = document.getElementById('saveFood');
-        const successMessage = document.getElementById('success');
-        const imageInput = document.getElementById('poster');
-        const previewImage = document.getElementById('preview');
-        
-        // Add an event listener to the "Save" button
-        saveButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent form submission
-            successMessage.style.display = 'block';
-        });
-        
-        imageInput.addEventListener('change', () => {
-            // Get the first selected file (assuming only one file can be selected)
-            const file = imageInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-        
-                reader.onload = (e) => {
-                    previewImage.src = e.target.result;
-                    previewImage.style.display = 'block';
-                }
-        
-                reader.readAsDataURL(file);
-            } else {
-            // If no file was selected (e.g., user cleared selection)
-              previewImage.src = '#';
-              previewImage.style.display = 'none';
+    
+    const saveButton = document.getElementById('saveFood');
+    const successMessage = document.getElementById('success');
+    const imageInput = document.getElementById('poster');
+    const previewImage = document.getElementById('preview');
+    
+    imageInput.addEventListener('change', () => {
+        const file = imageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+    
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
             }
-        });
-        </script>
+    
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.src = '#';
+            previewImage.style.display = 'none';
+        }
+    });
+    </script>
 </body>
 </html>
