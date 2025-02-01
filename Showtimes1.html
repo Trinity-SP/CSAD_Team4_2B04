@@ -164,6 +164,11 @@
         #shows td.showtime span a {
             text-decoration: none; /* Remove the underline */
             color: black; /* Keep the text color black */
+            pointer-events: none;
+        }
+
+        #shows td.showtime span {
+            cursor: pointer; /* Add this line to make the box clickable */
         }
 
         #shows td.showtime span.imaxform,  /* Target IMAX showtimes */
@@ -473,6 +478,41 @@ function createShowtimeElements(showtimes, cinemaName) {
         const showtimeSpan = document.createElement('span');
         showtimeSpan.appendChild(showtimeLink);
 
+        // Add click event to the entire span (box)
+    showtimeSpan.addEventListener('click', function () {
+        // Get the movie details from the current page
+        const poster = document.querySelector('.poster').src;
+        const rating = document.querySelector('.movie_rating img').src;
+        const movieName = document.querySelector('.movie_name').textContent;
+        const date = document.querySelector('.date-clicked').textContent;
+        const time = showtime.time;
+        const format = showtime.format;
+
+        // Construct the URL with query parameters
+        const url = `showtimes2.html?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`
+
+        // Redirect to showtimes2.html with the parameters
+        window.location.href = url;
+    });
+
+    // Add click event to the link (text) inside the span
+    showtimeLink.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent the span's click event from firing
+        // Get the movie details from the current page
+        const poster = document.querySelector('.poster').src;
+        const movieName = document.querySelector('.movie_name').textContent;
+        const rating = document.querySelector('.movie_rating img').src;
+        const date = document.querySelector('.date-clicked').textContent;
+        const time = showtime.time;
+        const format = showtime.format;
+
+        // Construct the URL with query parameters
+        const url = `showtimes2.html?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`
+
+        // Redirect to showtimes2.html with the parameters
+        window.location.href = url;
+    });
+        
         // Add the appropriate class
         showtimeSpan.classList.add(showtime.format);
 
