@@ -36,41 +36,61 @@
 
         .movie_details {
             position: relative;
-            top: 40px;
-            margin-left: 40px;
-            height: 600px;
-            width: 89vw;
+            top: 20px;
+            margin-left: 20px;
+            height: 10px;
+            width: auto;
             color: #3c8aff;
             font-weight: bold;
-            font-size: larger;
+            font-size: 23px;
+            text-align: left; /* Ensure text is aligned to the left */
+            table-layout: fixed; /* Use fixed table layout */
+            width: 100%; /* Ensure the table takes full width */
         }
 
         .movie_details td {
-            width: 380px;
+            vertical-align: top; /* Align content to the top of the cell */
+        }
+
+        /* Fixed width for the poster column */
+        .movie_details td:first-child {
+            width: 220px; /* Set a fixed width for the poster column */
+            padding-right: 20px; /* Add spacing between poster and details */
+        }
+
+        /* Ensure the second column (movie details) is aligned to the left */
+        .movie_details td:nth-child(2) {
+            text-align: left; /* Align content to the left */
         }
 
         .movie_name {
-            font-size: 35px;
+            font-size: 45px;
+            display: inline-block; /* Allow the movie name to align with the rating */
+            vertical-align: middle; /* Align the movie name vertically with the rating */
         }
 
         .subheader {
             color: #ffffff;
-            font-weight: normal;
         }
 
         .poster {
-            width: 350px;
-            height: 510px;
-            border-radius: 8px;
+            width: 200px; /* Fixed width for the poster */
+            border-top-left-radius: 30px;
             object-fit: cover;
         }
 
-        .movie_rating img {
-            max-width: 35px;
-            max-height: 25px;
+        .movie_rating {
+            display: inline-block; /* Make the rating align with the movie name */
+            vertical-align: middle; /* Align the rating vertically with the movie name */
+            margin-right: 15px;
         }
 
-
+        .movie_rating img {
+            max-width: 55px;
+            max-height: 45px;
+            vertical-align: middle; /* Align the image vertically with the text */
+            margin-bottom: -0x; /* Fine-tune vertical alignment */
+        }
 
     </style>
     <link rel="icon" href="Images/SkyCinemaNew.png">
@@ -80,24 +100,17 @@
     <div class="container">
         <table class="movie_details">
             <tr>
-                <td rowspan="5"><img src="" class="poster"></td>
-                <td colspan="2" class="movie_name" style="font-size: 35px; padding-bottom: 20px;"></td>
+                <td rowspan="4"><img src="" class="poster"></td>
+                <td><span class="movie_rating"></span><span class="movie_name"></span></td>
             </tr>
             <tr>
-                <td>CINEMA</td>
                 <td class="subheader cinema-name"></td>
             </tr>
             <tr>
-                <td>DATE</td>
                 <td class="subheader selected-date"></td>
             </tr>
             <tr>
-                <td>TIME</td>
                 <td class="subheader selected-time"></td>
-            </tr>
-            <tr>
-                <td>RATING</td>
-                <td class="movie_rating"></td>
             </tr>
         </table>
     </div>
