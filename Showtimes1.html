@@ -280,96 +280,78 @@
     <!-- Scripts embedded directly within the HTML -->
     <script>
         // Define the maximum date for navigation
-        const maxDate = new Date(2025, 1, 25); // February 14, 2025
+        const maxDate = new Date(2025, 2, 5);
+        const today = new Date();
+        let currentlySelectedDate = null; // Keep track of the currently selected date
 
         function updateDates(startDate = new Date()) {
             const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             const dateCells = document.querySelectorAll('.dates');
 
-            // Populate the date cells
             for (let i = 0; i < 7; i++) {
-                const dateCell = dateCells[i];
                 const date = new Date(startDate);
                 date.setDate(startDate.getDate() + i);
 
-                // If the date exceeds the max date, set it to the max date
                 if (date > maxDate) {
                     date.setTime(maxDate.getTime());
                 }
 
                 const formattedDate = formatDate(date);
                 const weekday = weekdays[date.getDay()];
-                dateCell.textContent = `${formattedDate} (${weekday})`;
-                dateCell.id = `date${i + 1}`;
+                dateCells[i].textContent = `${formattedDate} (${weekday})`;
+                dateCells[i].dataset.date = date.getTime();
 
-                dateCell.addEventListener('click', function () {
+                dateCells[i].addEventListener('click', function () {
                     const allDateCells = document.querySelectorAll('.dates');
                     allDateCells.forEach(cell => cell.classList.remove('date-clicked'));
                     this.classList.add('date-clicked');
+                    currentlySelectedDate = this.dataset.date; // Update currently selected date
                     getParameters();
                 });
 
-                if (i === 0) {
-                    dateCell.classList.add('date-clicked');
+                // Check if this date cell matches the previously selected date
+                if (currentlySelectedDate && date.getTime() === parseInt(currentlySelectedDate)) {
+                    dateCells[i].classList.add('date-clicked');
+                } else if (!currentlySelectedDate && i === 0) { // Select first date if nothing is selected yet
+                    dateCells[i].classList.add('date-clicked');
+                    currentlySelectedDate = dateCells[i].dataset.date; // Update currently selected date
                 }
             }
         }
 
         document.getElementById('next').addEventListener('click', function () {
             const dateCells = document.querySelectorAll('.dates');
-            const firstDateCell = dateCells[0];
-            const firstDateId = parseInt(firstDateCell.id.replace('date', ''));
-            const newFirstDate = new Date();
-            newFirstDate.setDate(newFirstDate.getDate() + firstDateId + 6);
+            const lastDateCell = dateCells[dateCells.length - 1];
+            const lastDateTimestamp = parseInt(lastDateCell.dataset.date);
+            let newFirstDate = new Date(lastDateTimestamp);
+            newFirstDate.setDate(newFirstDate.getDate() + 1);
 
-            // If navigating to the next week exceeds the max date, do nothing
             if (newFirstDate > maxDate) {
-                return;
+                newFirstDate = new Date(maxDate); // Start at maxDate
+                newFirstDate.setDate(maxDate.getDate() - 6); // Go back 6 days (or less if needed)
             }
 
-            // Update the dates
-            for (let i = 0; i < dateCells.length; i++) {
-                const dateCell = dateCells[i];
-                const currentIdNumber = parseInt(dateCell.id.replace('date', ''));
-                const newDate = new Date();
-                newDate.setDate(newDate.getDate() + currentIdNumber + 6);
-
-                // If the new date exceeds the max date, set it to the max date
-                if (newDate > maxDate) {
-                    newDate.setTime(maxDate.getTime());
-                }
-
-                const formattedDate = formatDate(newDate);
-                const weekday = getWeekday(newDate);
-                dateCell.textContent = `${formattedDate} (${weekday})`;
-                dateCell.id = `date${currentIdNumber + 7}`;
+            let diff = (maxDate.getTime() - newFirstDate.getTime()) / (1000 * 60 * 60 * 24); //difference between maxDate and the start date.
+            if (diff < 7 && diff >= 0) { //if it is the last week
+                newFirstDate = new Date(maxDate);
+                newFirstDate.setDate(maxDate.getDate() - 6);
             }
+            updateDates(newFirstDate);
         });
+
 
         document.getElementById('previous').addEventListener('click', function () {
             const dateCells = document.querySelectorAll('.dates');
             const firstDateCell = dateCells[0];
-            const firstDateId = parseInt(firstDateCell.id.replace('date', ''));
-            const newFirstDate = new Date();
-            newFirstDate.setDate(newFirstDate.getDate() + firstDateId - 7);
+            const firstDateTimestamp = parseInt(firstDateCell.dataset.date);
+            let newFirstDate = new Date(firstDateTimestamp);
+            newFirstDate.setDate(newFirstDate.getDate() - 7);
 
-            // If navigating to the previous week goes before today, do nothing
-            if (newFirstDate < new Date()) {
-                return;
+            if (newFirstDate < today) {
+                newFirstDate = new Date(today);
             }
 
-            // Update the dates
-            for (let i = 0; i < dateCells.length; i++) {
-                const dateCell = dateCells[i];
-                const currentIdNumber = parseInt(dateCell.id.replace('date', ''));
-                const newDate = new Date();
-                newDate.setDate(newDate.getDate() + currentIdNumber - 8);
-
-                const formattedDate = formatDate(newDate);
-                const weekday = getWeekday(newDate);
-                dateCell.textContent = `${formattedDate} (${weekday})`;
-                dateCell.id = `date${currentIdNumber - 7}`;
-            }
+            updateDates(newFirstDate);
         });
 
         function getParameters() {
