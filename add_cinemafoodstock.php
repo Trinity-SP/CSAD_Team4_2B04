@@ -133,25 +133,56 @@
 </head>
 
 <?php
-    $errors[] = "";
+$errors = []; // Initialize an array to hold error messages
 
-    $food_name = $food_price = $food_stock = "";
+$food_name = $food_price = $food_stock = "";
+$food_image = ""; // Initialize variable for food image
+$success = false;
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $food_name = $_POST["FoodName"];
-        $food_price = $_POST["FoodPrice"];
-        $food_stock = $_POST["FoodStock"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $food_name = $_POST["FoodName"];
+    $food_price = $_POST["FoodPrice"];
+    $food_stock = $_POST["FoodStock"];
 
-        if (empty($food_name)) {
-            $errors["food_name"] = "Food name is required";
-        }
-        if (empty($food_price)) {
-            $errors["food_price"] = "Food price is required";
-        }
-        if (empty($food_stock)) {
-            $errors["food_stock"] = "Food stock is required";
-        }
+    // Validate inputs
+    if (empty($food_name)) {
+        $errors["food_name"] = "Food name is required";
     }
+    if (empty($food_price)) {
+        $errors["food_price"] = "Food price is required";
+    } elseif (!is_numeric($food_price)) {
+        $errors["food_price"] = "Food price must be a number";
+    }
+    if (empty($food_stock)) {
+        $errors["food_stock"] = "Food stock is required";
+    } elseif (!is_numeric($food_stock)) {
+        $errors["food_stock"] = "Food stock must be a number";
+    }
+
+    // Check for file upload
+    if ($_FILES['poster']['error'] === UPLOAD_ERR_OK) {
+        $food_image = file_get_contents($_FILES['poster']['tmp_name']);
+    } else {
+        $errors["food_image"] = "Error uploading file: " . $_FILES['poster']['error'];
+    }
+
+    // Insert into database if no errors
+    if (empty($errors)) {
+        $conn = new mysqli("localhost", "root", "", "skycinemas");
+        $sqlstmt = "INSERT INTO addcinemafoodstock (foodName, foodImage, foodPrice, Stock) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sqlstmt);
+        $stmt->bind_param("sbdi", $food_name, $food_image, $food_price, $food_stock);
+        
+        if ($stmt->execute()) {
+            echo "Image uploaded successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
+}
 ?>
 
 <body>
@@ -168,17 +199,17 @@
         enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top; padding-right: 20px;" class="image-upload">
-                        <label for="poster">Upload Food Picture</label>
-                        <img id="preview" src="#" alt="Food Preview" style="display:none;">  
-                        <input type="file" id="poster" name="poster" accept="image/*">
-                    </td>
-
-                    <td colspan="2">
-                        <label for="title">Name</label>
-                        <input type="text" id="food-name" name="FoodName" value="<?php echo $food_name; ?>">
-                        <span class="err"> <?php echo isset($errors["food_name"]) ? $errors["food_name"] : ""; ?> </span>
-                    </td>
+                <td rowspan="6" style="width: 30%; text-align: center; vertical-align: top; padding-right: 20px;" class="image-upload">
+                    <label for="poster">Upload Food Picture</label>
+                    <img id="preview" src="#" alt="Food Preview" style="display:none;">  
+                    <input type="file" id="poster" name="poster" accept="image/*">
+                    <span class="err"> <?php echo isset($errors["food_image"]) ? $errors["food_image"] : ""; ?> </span> <!-- Display image error here -->
+                </td>
+                <td colspan="2">
+                    <label for="title">Name</label>
+                    <input type="text" id="food-name" name="FoodName" value="<?php echo $food_name; ?>">
+                    <span class="err"> <?php echo isset($errors["food_name"]) ? $errors["food_name"] : ""; ?> </span>
+                </td>
                 </tr>
                 <tr>
                     <td colspan="2">
