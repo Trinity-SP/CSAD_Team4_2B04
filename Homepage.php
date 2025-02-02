@@ -125,6 +125,7 @@
         }
 
         .movie {
+            cursor: pointer;
             margin-right: 1px; /* Adjust spacing between posters */
             margin-top: 0px;
             display: flex;
@@ -273,6 +274,7 @@
             padding-left: 0.5em;
             padding-right: 0.5em;
             height: 100%;
+            cursor: pointer;
         }
 
         .promo.dragging {

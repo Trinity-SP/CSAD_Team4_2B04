@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showtimes</title>
+    <title>Showtimes1</title>
     <style>
         /* Styles for Showtimes page */
         body {

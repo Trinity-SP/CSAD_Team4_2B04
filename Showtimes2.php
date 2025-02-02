@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showtimes</title>
+    <title>Showtimes2</title>
     <style>
         /* Styles for Showtimes page */
         body {
@@ -28,7 +28,7 @@
             align-items: stretch;
             border-radius: 50px;
             margin-left: 2.5vw;
-            background: #000000;
+            background:rgb(0, 0, 0);
             height: auto;
             width: 92.5vw;
             padding-bottom: 150px;
@@ -91,6 +91,160 @@
             vertical-align: middle; /* Align the image vertically with the text */
             margin-bottom: -0x; /* Fine-tune vertical alignment */
         }
+        .cloud-progress {
+            margin-top: 50px;
+        }
+        .clouds {
+            width: 400px;
+            padding: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hr {
+            width: 92.5vw;
+            opacity: 40%;
+        }
+        .screen-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Space between screen and button */
+            margin-top: 20px;
+            margin-bottom: 70px;
+        }
+
+        .reset-button {
+            background-color: #3c8aff;
+            color: white;
+            border: none;
+            margin-right: 30px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .reset-button:hover {
+            background-color: rgb(32, 84, 162); /* Darker shade on hover */
+        }
+
+        .screen {
+            width: 1200px;
+            display: block;
+            margin-left: 185px;
+            margin-right: auto;
+        }
+        .seats-table{
+            width: fit-content;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-spacing: 15px;
+        }
+        .seats-table td {
+            width: 20px;
+            height: 20px;
+            background: rgb(200, 200, 200);
+            border: 4px solid black; /* Outer black border */
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top: none;
+            outline: 2px solid rgb(200, 200, 200); /* Inner gray border */
+            cursor: pointer;
+            
+        }
+
+        .seats-table th {
+            color: white; /* Text color */
+            font-size: 16px; /* Font size */
+            font-weight: bold; /* Bold text */
+            padding-right: 10px; /* Space between row letter and seats */
+            vertical-align: middle; /* Align text vertically with seats */
+        }
+        
+        .seats-display{
+            background-color:rgb(61, 61, 61);
+            margin-top: 50px;
+        }
+        
+        .legend-text{
+            font-weight: bold;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .legend-items { /* Style the container */
+            padding: 20px;
+            display: flex; /* or inline-flex if you want it to take only as much width as its content */
+            align-items: center; /* Vertically align items */
+            gap: 10px; /* Add some space between items (optional) */
+            margin-top: 10px; /* Add spacing between the legend text and the items */
+            gap: 40px;
+            font-weight: bold;
+            
+        }
+        
+        #available{
+            width: 20px;
+            height: 20px;
+            background-color:rgb(200, 200, 200);
+            border: 4px solid black; /* Outer black border */
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top: none;
+            outline: 2px solid rgb(200, 200, 200); /* Inner gray border */
+        }
+
+        #selected{
+            width: 20px;
+            height: 20px;
+            background-color: #3c8aff;
+            border: 4px solid black; /* Outer black border */
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top: none;
+            outline: 2px solid #3c8aff; /* Inner gray border */
+        }
+
+        #unavailable{
+            width: 20px;
+            height: 20px;
+            background-color: rgb(31, 47, 70);
+            border: 4px solid black; /* Outer black border */
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top: none;
+            outline: 2px solid rgb(31, 47, 70);; /* Inner gray border */
+        }
+
+        .info-table{
+            width: 92.5vw;
+            text-align: center;
+            padding: 20px;
+            table-layout: fixed;
+            background-color:rgb(27, 27, 27);   
+        }
+
+        .info-table td{
+            padding: 4%;
+            color: rgb(148, 148, 148);
+        }
+
+        .confirm-button {
+            width: 92.5vw;
+            height: 70px;
+            background-color: #3c8aff;
+            font-size: 30px;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
 
     </style>
     <link rel="icon" href="Images/SkyCinemaNew.png">
@@ -113,7 +267,96 @@
                 <td class="subheader selected-time"></td>
             </tr>
         </table>
+        <div class="cloud-progress">
+        <hr class="hr">
+        <img src="Images/clouds1.png" class="clouds">
+        <hr class="hr">
+        </div>
+        <div class="screen-container">
+            <img src="Images/screen.png" class="screen">
+            <button class="reset-button">Reset Seats</button>
+        </div>
+        <table class="seats-table">
+            <tr>
+                <th>A</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>A</th>
+            </tr>
+            <tr>
+                <th>B</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>B</th>
+            </tr>
+            <tr>
+                <th>C</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>C</th>
+            </tr>
+            <tr>
+                <th>D</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>D</th>
+            </tr>
+            <tr>
+                <th>E</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>E</th>
+            </tr>
+            <tr>
+                <th>F</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>F</th>
+            </tr>
+            <tr>
+                <th>G</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>G</th>
+            </tr>
+            <tr>
+                <th>H</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>H</th>
+            </tr>
+            <tr>
+                <th>I</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <th>I</th>
+            </tr>
+        </table>
+        <div class="seats-display">
+            <div class="legend-text">LEGEND</div>
+            <div class="legend-items">
+                <div id="available"></div>Available Seat
+                <div id="selected"></div>Selected Seat
+                <div id="unavailable"></div>Unavailable Seat
+            </div>
+            <table class="info-table">
+                <tr>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>Seats: <span id="seats">-</span></td>
+                    <td><span id="price">-</span></td>
+                    <td><span id="quantity">-</span></td>
+                    <td><span id="total">-</span></td>
+                </tr>
+            </table>
+        </div>
+        <button class="confirm-button">Confirm Seats</button>
     </div>
+
 
       
 
@@ -155,6 +398,127 @@ function getParameters() {
 // Call the function when the page loads
 window.onload = function () {
     getParameters();
+};
+
+function assignSeatIds() {
+    const rows = document.querySelectorAll('.seats-table tr'); // Get all rows
+    const rowLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; // Row letters from bottom to top
+
+    // Loop through each row
+    rows.forEach((row, rowIndex) => {
+        const cells = row.querySelectorAll('td'); // Get all cells in the current row
+
+        // Loop through each cell in the row
+        cells.forEach((cell, cellIndex) => {
+            const seatId = rowLetters[rowIndex] + (cellIndex + 1); // Generate seat ID (e.g., A1, B2, etc.)
+            cell.setAttribute('id', seatId); // Assign the ID to the cell
+        });
+    });
+}
+
+// Constants
+const PRICE_PER_SEAT = 22; // Price per seat in dollars
+
+// Function to update the info table
+function updateInfoTable() {
+    const selectedSeats = document.querySelectorAll('.seats-table td.selected'); // Get all selected seats
+    const seatsElement = document.getElementById('seats'); // Element to display selected seats
+    const priceElement = document.getElementById('price'); // Element to display price per seat
+    const quantityElement = document.getElementById('quantity'); // Element to display quantity
+    const totalElement = document.getElementById('total'); // Element to display total price
+
+    // Update selected seats
+    const selectedSeatIds = Array.from(selectedSeats).map(seat => seat.id).join(', ');
+    seatsElement.textContent = selectedSeatIds || '-'; // Display selected seats or '-' if none
+
+    // Update quantity
+    const quantity = selectedSeats.length;
+    quantityElement.textContent = quantity || '-'; // Display quantity or '-' if none
+
+    // Update price per seat
+    priceElement.textContent = `$${PRICE_PER_SEAT}`;
+
+    // Update total price
+    const totalPrice = quantity * PRICE_PER_SEAT;
+    totalElement.textContent = totalPrice ? `$${totalPrice}` : '-'; // Display total price or '-' if none
+}
+
+// Modify the handleSeatSelection function to call updateInfoTable
+function handleSeatSelection() {
+    const seats = document.querySelectorAll('.seats-table td'); // Get all seats
+
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            // Toggle the selected state
+            if (seat.classList.contains('selected')) {
+                // If already selected, unselect it
+                seat.classList.remove('selected');
+                seat.style.background = 'rgb(200, 200, 200)'; // Revert background color
+                seat.style.outlineColor = 'rgb(200, 200, 200)'; // Revert outline color
+            } else {
+                // If not selected, select it
+                seat.classList.add('selected');
+                seat.style.background = '#3c8aff'; // Change background color
+                seat.style.outlineColor = '#3c8aff'; // Change outline color
+            }
+
+            // Update the info table
+            updateInfoTable();
+        });
+    });
+}
+
+// Modify the resetSeats function to call updateInfoTable
+function resetSeats() {
+    const selectedSeats = document.querySelectorAll('.seats-table td.selected'); // Get all selected seats
+
+    selectedSeats.forEach(seat => {
+        seat.classList.remove('selected'); // Remove the selected class
+        seat.style.background = 'rgb(200, 200, 200)'; // Revert background color
+        seat.style.outlineColor = 'rgb(200, 200, 200)'; // Revert outline color
+    });
+
+    // Update the info table
+    updateInfoTable();
+}
+
+const confirmButton = document.querySelector('.confirm-button');
+
+confirmButton.addEventListener('click', () => {
+    const selectedSeats = document.querySelectorAll('.seats-table td.selected');
+    const quantity = selectedSeats.length;
+    const totalPrice = quantity * PRICE_PER_SEAT;
+
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const poster = urlParams.get('poster');
+    const movieName = urlParams.get('movie_name');
+    const rating = urlParams.get('rating');
+    const cinemaName = urlParams.get('cinema');
+    const date = urlParams.get('date');
+    const time = urlParams.get('time');
+    const format = urlParams.get('format');
+
+    // Build the query string
+    let queryString = `Showtimes3.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
+
+    // Add seat, price, quantity, and total parameters
+    const selectedSeatIds = Array.from(selectedSeats).map(seat => seat.id).join(',');
+    queryString += `&seats=${encodeURIComponent(selectedSeatIds)}`;
+    queryString += `&price=${encodeURIComponent(PRICE_PER_SEAT)}`;
+    queryString += `&quantity=${encodeURIComponent(quantity)}`;
+    queryString += `&total=${encodeURIComponent(totalPrice)}`;
+
+    // Redirect to Showtimes3.php
+    window.location.href = queryString;
+});
+
+// Call the function when the page loads
+window.onload = function () {
+    getParameters(); // Your existing function
+    assignSeatIds(); // Assign IDs to seats
+    handleSeatSelection(); // Handle seat selection
+    document.querySelector('.reset-button').addEventListener('click', resetSeats);
 };
     </script>
 </body>
