@@ -324,30 +324,34 @@
     console.log("Add-on 2 Name:", decodeURIComponent(addOn2Name));
     console.log("Add-on 2 Description:", decodeURIComponent(addOn2Description));
     console.log("Total Add-on:", decodeURIComponent(totalAddOn));
-    
+
     let seatPrice = parseFloat(decodeURIComponent(price));
-            let seatQuantity = parseInt(decodeURIComponent(quantity));
-            let seatTotal = seatPrice * seatQuantity;
+    let seatQuantity = parseInt(decodeURIComponent(quantity));
+    let seatTotal = seatPrice * seatQuantity;
 
     let promosText = "No Promotions were selected";
-        let promoPrice = "-";
-        let promoQuantity = "-";
+    let promoPrice = "-";
+    let promoQuantity = "-";
 
-        if (urlParams.has('promo1_name') && parseFloat(urlParams.get('total_promo')) > 0) {
-            promosText = decodeURIComponent(urlParams.get('promo1_name'));
-            promoPrice = decodeURIComponent(urlParams.get('total_promo'));
-            promoQuantity = "1";
-        } else if (urlParams.has('promo2_name') && parseFloat(urlParams.get('total_promo')) > 0) {
-            promosText = decodeURIComponent(urlParams.get('promo2_name'));
-            promoPrice = decodeURIComponent(urlParams.get('total_promo'));
-            promoQuantity = "1";
+    if (promo1Name || promo2Name) {  // Check if any promo was selected
+        promosText = "";
+        if (promo1Name) {
+            promosText += decodeURIComponent(promo1Name);
+            promoPrice = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? decodeURIComponent(totalPromo) : "-";
+            promoQuantity = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? "1" : "-";
         }
+        if (promo2Name) {
+            if (promo1Name) promosText += ", "; // Add comma if both promos are selected
+            promosText += decodeURIComponent(promo2Name);
+            promoPrice = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? decodeURIComponent(totalPromo) : "-";
+            promoQuantity = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? "1" : "-";
+        }
+    }
 
-        // Update the promo details in the table
         document.querySelector('.promos').textContent = promosText;
         document.querySelector('.promo-price').textContent = promoPrice;
         document.querySelector('.promo-quantity').textContent = promoQuantity;
-        document.querySelector('.promo-total-price').textContent = promoPrice; // Make sure total promo price is displayed
+        document.querySelector('.promo-total-price').textContent = totalPromo;
 
     // Update the page content (example)
     document.querySelector('.poster').src = decodeURIComponent(poster);
@@ -362,15 +366,13 @@
     document.querySelector('.seat-quantity').textContent = seatQuantity;
     document.querySelector('.seat-total-price').textContent = "$" + seatTotal.toFixed(2); // Format price
 
-
     document.querySelector('.add-ons').textContent = decodeURIComponent(addOn1Name) + ", " + decodeURIComponent(addOn2Name);
     document.querySelector('.add-on-price').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? decodeURIComponent(totalAddOn) : "-"; // Example
     document.querySelector('.add-on-quantity').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? "1" : "-"; // Example
     document.querySelector('.add-on-total-price').textContent = decodeURIComponent(totalAddOn); // Example
 
-    let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + parseFloat(document.querySelector('.booking-fees').textContent.replace('$', '') || 0); // Parse numbers and handle potential NaN
-    document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2); // Example
-
+    let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + parseFloat(document.querySelector('.booking-fees').textContent.replace('$', '') || 0);
+    document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2);
 
 }
 
