@@ -159,6 +159,33 @@
         if (empty($showtimes)) {
             $errors["showtimes"] = "*Showtimes are required.";
         }
+
+        $conn = new mysqli("localhost", "root", "", "skycinemas");
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $errors = [];
+        $success = false;
+
+        $sqlstmt = "INSERT INTO movies (title, poster, cast, synopsis, director, runtime, releasedate, rating, genre, language, showtimes)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sqlstmt);
+
+        $stmt->bind_param("sssssssssss", $title, $poster, $cast, $synopsis, $director, $runtime, $release, $rating, $genre, $language, $showtimes);
+
+        if ($stmt->execute()) {
+            echo "Record inserted successfully.";
+            $success = true;
+        } else {
+            echo "Error: " . $stmt->error;
+            $errors[] = $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
     }
 ?>
 
