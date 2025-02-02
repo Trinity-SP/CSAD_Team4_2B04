@@ -348,9 +348,9 @@
                 </tr>
                 <tr>
                     <td>Seats: <span id="seats">-</span></td>
-                    <td><span id="price">-</span></td>
-                    <td><span id="quantity">-</span></td>
-                    <td><span id="total">-</span></td>
+                    <td><span id="price"></span></td>
+                    <td><span id="quantity"></span></td>
+                    <td><span id="total"></span></td>
                 </tr>
             </table>
         </div>
@@ -416,32 +416,29 @@ function assignSeatIds() {
     });
 }
 
-// Constants
-const PRICE_PER_SEAT = 22; // Price per seat in dollars
+        // Constants (no changes needed)
+        const PRICE_PER_SEAT = 22;
 
-// Function to update the info table
-function updateInfoTable() {
-    const selectedSeats = document.querySelectorAll('.seats-table td.selected'); // Get all selected seats
-    const seatsElement = document.getElementById('seats'); // Element to display selected seats
-    const priceElement = document.getElementById('price'); // Element to display price per seat
-    const quantityElement = document.getElementById('quantity'); // Element to display quantity
-    const totalElement = document.getElementById('total'); // Element to display total price
+        // Function to update the info table (modified)
+        function updateInfoTable() {
+            const selectedSeats = document.querySelectorAll('.seats-table td.selected');
+            const seatsElement = document.getElementById('seats');
+            const priceElement = document.getElementById('price');
+            const quantityElement = document.getElementById('quantity');
+            const totalElement = document.getElementById('total');
 
-    // Update selected seats
-    const selectedSeatIds = Array.from(selectedSeats).map(seat => seat.id).join(', ');
-    seatsElement.textContent = selectedSeatIds || '-'; // Display selected seats or '-' if none
+            const selectedSeatIds = Array.from(selectedSeats).map(seat => seat.id).join(', ');
+            seatsElement.textContent = selectedSeatIds || '-';
 
-    // Update quantity
-    const quantity = selectedSeats.length;
-    quantityElement.textContent = quantity || '-'; // Display quantity or '-' if none
+            const quantity = selectedSeats.length;
+            quantityElement.textContent = quantity || '0'; // Default to 0
 
-    // Update price per seat
-    priceElement.textContent = `$${PRICE_PER_SEAT}`;
+            priceElement.textContent = `$${PRICE_PER_SEAT.toFixed(2)}`; // Default to $22.00
 
-    // Update total price
-    const totalPrice = quantity * PRICE_PER_SEAT;
-    totalElement.textContent = totalPrice ? `$${totalPrice}` : '-'; // Display total price or '-' if none
-}
+            const totalPrice = quantity * PRICE_PER_SEAT;
+            totalElement.textContent = totalPrice ? `$${totalPrice.toFixed(2)}` : '$0.00'; // Default to $0.00
+        }
+
 
 // Modify the handleSeatSelection function to call updateInfoTable
 function handleSeatSelection() {
@@ -513,13 +510,15 @@ confirmButton.addEventListener('click', () => {
     window.location.href = queryString;
 });
 
-// Call the function when the page loads
-window.onload = function () {
-    getParameters(); // Your existing function
-    assignSeatIds(); // Assign IDs to seats
-    handleSeatSelection(); // Handle seat selection
-    document.querySelector('.reset-button').addEventListener('click', resetSeats);
-};
+        window.onload = function () {
+            getParameters();
+            assignSeatIds();
+            handleSeatSelection();
+            document.querySelector('.reset-button').addEventListener('click', resetSeats);
+
+            // Call updateInfoTable ONCE when the page loads to set default values
+            updateInfoTable(); // This is the important addition!
+        };
     </script>
 </body>
 </html>
