@@ -286,27 +286,44 @@
         const quantity = urlParams.get('quantity');
         const total = urlParams.get('total');
 
+        const promo1Name = urlParams.get('promo1_name');
+        const promo1Description = urlParams.get('promo1_description');
+        const promo2Name = urlParams.get('promo2_name');
+        const promo2Description = urlParams.get('promo2_description');
+        const totalPromo = urlParams.get('total_promo');
 
-        document.querySelector('.poster').setAttribute('src', decodeURIComponent(poster));
-        document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
+            // Get promo parameters
+            this.promoName = urlParams.get('promo_name'); // Get the *single* selected promo name
+            this.promoDescription = urlParams.get('promo_description');
+            this.totalPromo = urlParams.get('total_promo');
 
-        let formattedCinemaName = decodeURIComponent(cinemaName);
-        if (format === "imaxform") {
-            formattedCinemaName += " IMAX";
-        } else if (format === "imax3dform") {
-            formattedCinemaName += " IMAX 3D";
-        }
+            // Log to console for verification
+            console.log("Selected Promo Name (Showtimes4):", decodeURIComponent(this.promoName));
+            console.log("Selected Promo Description:", decodeURIComponent(this.promoDescription));
+            console.log("Total Promo:", decodeURIComponent(this.totalPromo));
 
-        document.querySelector('.cinema-name').textContent = formattedCinemaName;
-        document.querySelector('.selected-date').textContent = decodeURIComponent(date);
-        document.querySelector('.selected-time').textContent = decodeURIComponent(time);
-        document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
 
-        // Display other parameters
-        console.log("Seats:", decodeURIComponent(seats));
-        console.log("Price:", decodeURIComponent(price));
-        console.log("Quantity:", decodeURIComponent(quantity));
-        console.log("Total:", decodeURIComponent(total));
+            document.querySelector('.poster').setAttribute('src', decodeURIComponent(poster));
+            document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
+
+            let formattedCinemaName = decodeURIComponent(cinemaName);
+            if (format === "imaxform") {
+                formattedCinemaName += " IMAX";
+            } else if (format === "imax3dform") {
+                formattedCinemaName += " IMAX 3D";
+            }
+
+            document.querySelector('.cinema-name').textContent = formattedCinemaName;
+            document.querySelector('.selected-date').textContent = decodeURIComponent(date);
+            document.querySelector('.selected-time').textContent = decodeURIComponent(time);
+            document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
+
+            // Display other parameters
+            console.log("Seats:", decodeURIComponent(seats));
+            console.log("Price:", decodeURIComponent(price));
+            console.log("Quantity:", decodeURIComponent(quantity));
+            console.log("Total:", decodeURIComponent(total));
+        
     }
 
     function displayAddOnDetails() {
@@ -395,36 +412,43 @@
         const total = document.getElementById('total-whole').textContent.replace('$', ''); // Get calculated total
 
         const addOn1Name = document.querySelector('#add-on1 .add-on-name').textContent;
-        const addOn1Description = document.querySelector('#add-on1 .add-on-description').textContent;
-        const addOn2Name = document.querySelector('#add-on2 .add-on-name').textContent;
-        const addOn2Description = document.querySelector('#add-on2 .add-on-description').textContent;
-        const totalAddOn = document.getElementById('total-add-on').textContent.replace('$', '');
-
-        let queryString = `Showtimes5.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
-
-        queryString += `&seats=${encodeURIComponent(seats)}`;
-        queryString += `&price=${encodeURIComponent(price)}`;
-        queryString += `&quantity=${encodeURIComponent(quantity)}`;
-        queryString += `&total=${encodeURIComponent(total)}`;
-
-        queryString += `&add-on1_name=${encodeURIComponent(addOn1Name)}`;
-        queryString += `&add-on1_description=${encodeURIComponent(addOn1Description)}`;
-        queryString += `&add-on2_name=${encodeURIComponent(addOn2Name)}`;
-        queryString += `&add-on2_description=${encodeURIComponent(addOn2Description)}`;
-        queryString += `&total_add-on=${encodeURIComponent(totalAddOn)}`;
+            const addOn1Description = document.querySelector('#add-on1 .add-on-description').textContent;
+            const addOn2Name = document.querySelector('#add-on2 .add-on-name').textContent;
+            const addOn2Description = document.querySelector('#add-on2 .add-on-description').textContent;
+            const totalAddOn = document.getElementById('total-add-on').textContent.replace('$', '');
 
 
-        window.location.href = queryString;
-    });
+            let queryString = `Showtimes5.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
+
+            queryString += `&seats=${encodeURIComponent(seats)}`;
+            queryString += `&price=${encodeURIComponent(price)}`;
+            queryString += `&quantity=${encodeURIComponent(quantity)}`;
+            queryString += `&total=${encodeURIComponent(total)}`;
+
+            // Add Promo parameters to the query string for Showtimes5.php
+            if (this.promoName) { // Only add promo parameters if a promo was selected
+                queryString += `&promo_name=${encodeURIComponent(this.promoName)}`;
+                queryString += `&promo_description=${encodeURIComponent(this.promoDescription)}`;
+                queryString += `&total_promo=${encodeURIComponent(this.totalPromo)}`;
+            }
+
+            // Add Add-on parameters to the query string for Showtimes5.php
+            queryString += `&add-on1_name=${encodeURIComponent(addOn1Name)}`;
+            queryString += `&add-on1_description=${encodeURIComponent(addOn1Description)}`;
+            queryString += `&add-on2_name=${encodeURIComponent(addOn2Name)}`;
+            queryString += `&add-on2_description=${encodeURIComponent(addOn2Description)}`;
+            queryString += `&total_add-on=${encodeURIComponent(totalAddOn)}`;
 
 
-    window.addEventListener('DOMContentLoaded', () => {
-        getParameters();
-        displayAddOnDetails();
+            window.location.href = queryString;
+        });
 
-        const totalAddOn = calculateTotalAddOn();
-        calculateWholeTotal(totalAddOn);
-    });
+        window.addEventListener('DOMContentLoaded', () => {
+            getParameters(); // Call getParameters to retrieve promo info
+            displayAddOnDetails();
+            const totalAddOn = calculateTotalAddOn();
+            calculateWholeTotal(totalAddOn);
+        });
 
     </script>
 </body>

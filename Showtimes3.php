@@ -361,7 +361,6 @@
                 selectedPromo1Price = 0; // Deselect
             }
 
-
             const totalPromo = calculateTotalPromo();
             calculateWholeTotal(totalPromo);
         });
@@ -395,37 +394,42 @@
         const quantity = new URLSearchParams(window.location.search).get('quantity');
         const total = document.getElementById('total-whole').textContent.replace('$', ''); // Get calculated total
 
-        const promo1Name = document.querySelector('#promo1 .promo-name').textContent;
-        const promo1Description = document.querySelector('#promo1 .promo-description').textContent;
-        const promo2Name = document.querySelector('#promo2 .promo-name').textContent;
-        const promo2Description = document.querySelector('#promo2 .promo-description').textContent;
-        const totalPromo = document.getElementById('total-promo').textContent.replace('$', '');
+        let selectedPromoName = "";
+            let selectedPromoDescription = "";
+            let totalPromo = document.getElementById('total-promo').textContent.replace('$', '');
 
-        let queryString = `Showtimes4.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
+            if (document.querySelector('#promo1 .select-button').classList.contains('selected')) {
+                selectedPromoName = document.querySelector('#promo1 .promo-name').textContent;
+                selectedPromoDescription = document.querySelector('#promo1 .promo-description').textContent;
+            } else if (document.querySelector('#promo2 .select-button').classList.contains('selected')) {
+                selectedPromoName = document.querySelector('#promo2 .promo-name').textContent;
+                selectedPromoDescription = document.querySelector('#promo2 .promo-description').textContent;
+            }
 
-        queryString += `&seats=${encodeURIComponent(seats)}`;
-        queryString += `&price=${encodeURIComponent(price)}`;
-        queryString += `&quantity=${encodeURIComponent(quantity)}`;
-        queryString += `&total=${encodeURIComponent(total)}`;
+            let queryString = `Showtimes4.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
 
-        queryString += `&promo1_name=${encodeURIComponent(promo1Name)}`;
-        queryString += `&promo1_description=${encodeURIComponent(promo1Description)}`;
-        queryString += `&promo2_name=${encodeURIComponent(promo2Name)}`;
-        queryString += `&promo2_description=${encodeURIComponent(promo2Description)}`;
-        queryString += `&total_promo=${encodeURIComponent(totalPromo)}`;
-
-
-        window.location.href = queryString;
-    });
+            queryString += `&seats=${encodeURIComponent(seats)}`;
+            queryString += `&price=${encodeURIComponent(price)}`;
+            queryString += `&quantity=${encodeURIComponent(quantity)}`;
+            queryString += `&total=${encodeURIComponent(total)}`;
 
 
-    window.addEventListener('DOMContentLoaded', () => {
-        getParameters();
-        displayPromoDetails();
+            // Conditionally add promo parameters if a promo is selected
+            if (selectedPromoName) {  // Check if a promo name is selected
+                queryString += `&promo_name=${encodeURIComponent(selectedPromoName)}`;
+                queryString += `&promo_description=${encodeURIComponent(selectedPromoDescription)}`;
+                queryString += `&total_promo=${encodeURIComponent(totalPromo)}`; // Pass total promo only if a promo is selected.
+            }
 
-        const totalPromo = calculateTotalPromo();
-        calculateWholeTotal(totalPromo);
-    });
+            window.location.href = queryString;
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            getParameters();
+            displayPromoDetails();
+            const totalPromo = calculateTotalPromo();
+            calculateWholeTotal(totalPromo);
+        });
 
 
     </script>
