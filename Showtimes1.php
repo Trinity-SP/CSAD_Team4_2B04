@@ -443,7 +443,7 @@
 
                     showtimes.forEach((showtime) => {
                 const showtimeLink = document.createElement('a');
-                showtimeLink.href = "Showtimes2.html";
+                showtimeLink.href = "Showtimes2.php";
                 showtimeLink.textContent = showtime.time;  // Use showtime.time
 
                 const showtimeSpan = document.createElement('span');
@@ -460,29 +460,12 @@
                 const format = showtime.format;
 
                 // Construct the URL with query parameters
-                const url = `showtimes2.html?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`
+                const url = `showtimes2.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`
 
-                // Redirect to showtimes2.html with the parameters
+                // Redirect to showtimes2.php with the parameters
                 window.location.href = url;
             });
 
-            // Add click event to the link (text) inside the span
-            showtimeLink.addEventListener('click', function (event) {
-                event.stopPropagation(); // Prevent the span's click event from firing
-                // Get the movie details from the current page
-                const poster = document.querySelector('.poster').src;
-                const movieName = document.querySelector('.movie_name').textContent;
-                const rating = document.querySelector('.movie_rating img').src;
-                const date = document.querySelector('.date-clicked').textContent;
-                const time = showtime.time;
-                const format = showtime.format;
-
-                // Construct the URL with query parameters
-                const url = `showtimes2.html?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`
-
-                // Redirect to showtimes2.html with the parameters
-                window.location.href = url;
-            });
                 
                 // Add the appropriate class
                 showtimeSpan.classList.add(showtime.format);

@@ -550,7 +550,7 @@
         <td colspan="9">
             <section class="promos">
                 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo1">
+                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo1">
                     <img src="Images/captain_promo.jpg" alt="captain_promo" class="poster">               
                     <table class="description">
                         <tr>
@@ -559,7 +559,7 @@
                     </table>              
                 </div>
 
-                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo2">
+                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo2">
                     <img src="Images/sonic_promo1.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
@@ -567,7 +567,7 @@
                         </tr>
                     </table>              
                 </div>
-                <div onclick="window.location.href = 'Showtimes1.html';" class="promo" id="promo3">
+                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo3">
                     <img src="Images/sonic_promo2.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
@@ -602,7 +602,7 @@
             const movie_time = event.currentTarget.querySelector('.movie_time').textContent;
             
             // Construct the href with query parameters
-            const href = `Showtimes1.html?id=${movieId}&poster=${poster}&movie_name=${encodeURIComponent(movie_name)}&movie_rating=${movie_rating}&movie_time=${encodeURIComponent(movie_time)}`;
+            const href = `Showtimes1.php?id=${movieId}&poster=${poster}&movie_name=${encodeURIComponent(movie_name)}&movie_rating=${movie_rating}&movie_time=${encodeURIComponent(movie_time)}`;
             
             // Redirect to the constructed href
             window.location.href = href;
