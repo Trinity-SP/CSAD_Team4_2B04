@@ -166,22 +166,29 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $errors = [];
-        $success = false;
+        $poster = $_FILES['poster']['name'];
+        $poster_tmp = $_FILES['poster']['tmp_name'];
+
+        $upload_dir = 'C:\CSAD\htdocs\CSAD_Team4_2B04\Images\\';
+        $poster_path = $upload_dir . basename($poster);
+
+        if (move_uploaded_file($poster_tmp, $poster_path)) {
+            echo "";
+        } else {
+            $poster_path = ''; 
+        }
 
         $sqlstmt = "INSERT INTO movies (title, poster, cast, synopsis, director, runtime, releasedate, rating, genre, language, showtimes)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sqlstmt);
 
-        $stmt->bind_param("sssssssssss", $title, $poster, $cast, $synopsis, $director, $runtime, $release, $rating, $genre, $language, $showtimes);
+        $stmt->bind_param("sssssssssss", $title, $poster_path, $cast, $synopsis, $director, $runtime, $release, $rating, $genre, $language, $showtimes);
 
         if ($stmt->execute()) {
             echo "Record inserted successfully.";
-            $success = true;
         } else {
             echo "Error: " . $stmt->error;
-            $errors[] = $stmt->error;
         }
 
         $stmt->close();
