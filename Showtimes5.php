@@ -167,10 +167,6 @@
             margin-top: 50px;
         }
 
-        .hr2 {
-            width: 92.5vw;
-            opacity: 40%;
-        }
 
         .price-table{
             width: 92.5vw;
@@ -186,6 +182,10 @@
 
         .price-table th{
             text-align: left;
+        }
+
+        .total-tr {
+            font-size: 25px;
         }
         
         .main-header th{
@@ -203,6 +203,9 @@
             margin-top: 20px;
             margin-left: 1220px;
         }
+        
+
+
     </style>
     <link rel="icon" href="Images/SkyCinemaNew.png">
 </head>
@@ -258,14 +261,15 @@
                 <td class="add-on-total-price">-</td>
             </tr>
             <tr>
-                <th colspan="3">Booking Fees: </th>
+                <th colspan="4">Booking Fees: </th>
                 <td class="booking-fees"></td>
             </tr>
-            <tr>
-                <th colspan="3">Grand Total: </th>
-                <th class="grand-total"></td>
+            <tr class="total-tr">
+                <th colspan="4">Grand Total: </th>
+                <th style="text-align: center;" class="grand-total"></th>
             </tr>
         </table>
+        <hr class="hr1">
 
 
     <script>
@@ -293,6 +297,8 @@
     const promo2Name = urlParams.get('promo2_name');
     const promo2Description = urlParams.get('promo2_description');
     const totalPromo = urlParams.get('total_promo');
+    const bookingFees = 2.00;
+    document.querySelector('.booking-fees').textContent = "$" + bookingFees.toFixed(2);
 
         // Get promo parameters
         this.promoName = urlParams.get('promo_name'); // Get the *single* selected promo name
@@ -371,7 +377,7 @@
     document.querySelector('.add-on-quantity').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? "1" : "-"; // Example
     document.querySelector('.add-on-total-price').textContent = decodeURIComponent(totalAddOn); // Example
 
-    let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + parseFloat(document.querySelector('.booking-fees').textContent.replace('$', '') || 0);
+    let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + bookingFees; // Add booking fees
     document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2);
 
 }
