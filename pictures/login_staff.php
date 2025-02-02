@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Login</title>
+    <style>
+        /* General Styles */
+        body {
+            background: linear-gradient(180deg, rgba(60, 138, 255, 1) 0%, rgba(0, 0, 0, 1) 31%);
+            background-repeat: no-repeat;
+            /* Ensures it covers at least the first viewport */
+            color: #ffffff;
+            font-family: sans-serif;
+            position: relative;
+            display: grid;
+            place-items: center;
+            /* Centers both horizontally and vertically */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .element {
+            width: 300px;
+            height: 150px;
+            background-color: lightgray;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            /* Places logo and form side by side */
+            align-items: center;
+            /* Ensures vertical alignment */
+            justify-content: center;
+            /* Ensures horizontal alignment */
+            gap: 200px;
+            /* Adds spacing between logo and form */
+        }
+
+        /* Logo settings */
+        .logo-container {
+            text-align: center;
+        }
+
+        .logo {
+            width: 300px;
+            /* Adjust as needed */
+            height: auto;
+        }
+
+        /* Login form settings */
+        .login-form {
+            background: black;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            width: 500px;
+            border: 2px solid #347aff;
+            color: white;
+        }
+
+        .login-form h1 {
+            color: #347aff;
+        }
+
+        .login-form label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 18px;
+            color: #347aff;
+            font-weight: bold;
+        }
+
+        .login-form input {
+            width: 97%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: lightgray;
+        }
+
+        /* Button styling */
+        .login-form button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #347aff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-form button:hover {
+            background-color: #2559b5;
+        }
+    </style>
+</head>
+
+<?php 
+    $errors = [];
+
+    $username = $password = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        if (empty($_POST["username"])) {
+            $errors["username"] = "Username is required";
+        }
+        if (empty($_POST["password"])) {
+            $errors["password"] = "Password is required";
+        }
+
+        $conn = new mysqli("localhost", "root", "", "skycinemas");
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sqlstmt = "INSERT INTO staff (username, password) VALUES (?, ?)";
+
+        $stmt = $conn->prepare($sqlstmt);
+
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+
+        $stmt->bind_param("ss", $username, $password);
+
+        if ($stmt->execute()) {
+            echo "Record inserted successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
+?>
+
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="Images/SkyCinemaNew.png" alt="Sky Cinemas Logo" class="logo">
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-form">
+            <h1>Staff Login</h1>
+            <form id="loginForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" 
+            enctype="multipart/form-data">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+                <span class="err"> <?php echo isset($errors["username"]) ? $errors["username"] : ""; ?> </span>
+                <br><br>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+                <span class="err"> <?php echo isset($errors["password"]) ? $errors["password"] : ""; ?> </span>
+                <br><br>
+                <button type="submit" id="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!--Redirect to Staff Portal Homepage when login button is pressed-->
+    <script>
+        const form = document.getElementById('loginForm');
+
+        form.addEventListener('submit', (event) => {
+            // Perform login validation here (e.g., AJAX)
+            if (/* login successful */ true) {
+                window.location.href = 'StaffPortal_Homepage.html';
+            } else {
+                alert("Invalid credentials"); // Or better error handling
+            }
+        });
+    </script>
+</body>
+
+</html>
