@@ -518,7 +518,10 @@ confirmButton.addEventListener('click', () => {
 
             // Call updateInfoTable ONCE when the page loads to set default values
             updateInfoTable(); // This is the important addition!
+            
         };
+
+        
     </script>
 </body>
 </html>

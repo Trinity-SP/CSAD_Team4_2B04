@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showtimes3</title>
+    <title>Showtimes4</title>
     <style>
         /* Styles for Showtimes page */
         body {
@@ -104,29 +104,29 @@
         .hr {
             width: 92.5vw;
             opacity: 40%;
-        }   
+        }
 
-        .promo-select {
+        .add-on-select {
             margin-top: 50px;
             margin-left: 20px;
             display: flex; /* Use flexbox for layout */
             align-items: flex-end; /* Align items to the top */
         }
 
-        .promo {
+        .add-on {
             width: 200px;
             border-radius: 20px;
             align-self: flex-start; /* Align image to top of container */
             margin-bottom: auto;
         }
 
-        .promo-name {
+        .add-on-name {
             color: #3c8aff;
             font-size: 30px;
             font-weight: bold;
         }
 
-        .promo-description {
+        .add-on-description {
             white-space: pre-wrap; /* Allow text to wrap */
             font-size: 25px;
         }
@@ -155,7 +155,7 @@
             color: black;
         }
 
-        .promo-select td {
+        .add-on-select td {
             width: auto; /* Let the content determine the width */
             vertical-align: top; /* Important for aligning content within td */
             padding: 10px; /* Remove default padding from table cells */
@@ -169,7 +169,7 @@
 
         .hr2 {
             width: 92.5vw;
-            opacity: 40%;   
+            opacity: 40%;
         }
 
         .price-table td{
@@ -211,7 +211,7 @@
         </table>
         <div class="cloud-progress">
         <hr class="hr">
-        <img src="Images/clouds2.png" class="clouds">
+        <img src="Images/clouds3.png" class="clouds">
         <hr class="hr">
         <table class="price-table">
             <tr>
@@ -221,13 +221,13 @@
         </table>
 
 
-        <table class="promo-select" id="promo1">
+        <table class="add-on-select" id="add-on1">
             <tr>
-                <td rowspan="3"><img src="" class="promo"></td>
-                <td class="promo-name"></td>
+                <td rowspan="3"><img src="" class="add-on"></td>
+                <td class="add-on-name"></td>
             </tr>
             <tr>
-                <td class="promo-description"></td>
+                <td class="add-on-description"></td>
             </tr>
             <tr>
                 <td>Price: <span class="price"></span></td>
@@ -235,13 +235,13 @@
             <td><button class="select-button">SELECT</button></td>
         </table>
 
-        <table class="promo-select" id="promo2">
+        <table class="add-on-select" id="add-on2">
             <tr>
-                <td rowspan="3"><img src="" class="promo"></td>
-                <td class="promo-name"></td>
+                <td rowspan="3"><img src="" class="add-on"></td>
+                <td class="add-on-name"></td>
             </tr>
             <tr>
-                <td class="promo-description"></td>
+                <td class="add-on-description"></td>
             </tr>
             <tr>
                 <td>Price: <span class="price"></span></td>
@@ -253,8 +253,8 @@
         
         <table class="price-table">
             <tr>
-                <td>Promo Total Amount: </td>
-                <td id="total-promo">-</td>
+                <td>Add-On Total Amount: </td>
+                <td id="total-add-on">-</td>
             </tr>
             <tr>    
                 <td>Total Amount: </td>
@@ -271,118 +271,117 @@
     </div>
     <script>
         function getParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            showtimes2Total = parseFloat(urlParams.get('total')) || 0; // Get and store showtimes total
+        const urlParams = new URLSearchParams(window.location.search);
+        showtimes2Total = parseFloat(urlParams.get('total')) || 0; // Get and store showtimes total
+
+        const poster = urlParams.get('poster');
+        const movieName = urlParams.get('movie_name');
+        const rating = urlParams.get('rating');
+        const cinemaName = urlParams.get('cinema');
+        const date = urlParams.get('date');
+        const time = urlParams.get('time');
+        const format = urlParams.get('format');
+        const seats = urlParams.get('seats');
+        const price = urlParams.get('price');
+        const quantity = urlParams.get('quantity');
+        const total = urlParams.get('total');
 
 
-            const poster = urlParams.get('poster');
-            const movieName = urlParams.get('movie_name');
-            const rating = urlParams.get('rating');
-            const cinemaName = urlParams.get('cinema');
-            const date = urlParams.get('date');
-            const time = urlParams.get('time');
-            const format = urlParams.get('format');
-            const seats = urlParams.get('seats');
-            const price = urlParams.get('price');
-            const quantity = urlParams.get('quantity');
-            const total = urlParams.get('total');
+        document.querySelector('.poster').setAttribute('src', decodeURIComponent(poster));
+        document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
 
-
-            document.querySelector('.poster').setAttribute('src', decodeURIComponent(poster));
-            document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
-
-            let formattedCinemaName = decodeURIComponent(cinemaName);
-            if (format === "imaxform") {
-                formattedCinemaName += " IMAX";
-            } else if (format === "imax3dform") {
-                formattedCinemaName += " IMAX 3D";
-            }
-
-            document.querySelector('.cinema-name').textContent = formattedCinemaName;
-            document.querySelector('.selected-date').textContent = decodeURIComponent(date);
-            document.querySelector('.selected-time').textContent = decodeURIComponent(time);
-            document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
-
-            // Display other parameters
-            console.log("Seats:", decodeURIComponent(seats));
-            console.log("Price:", decodeURIComponent(price));
-            console.log("Quantity:", decodeURIComponent(quantity));
-            console.log("Total:", decodeURIComponent(total));
+        let formattedCinemaName = decodeURIComponent(cinemaName);
+        if (format === "imaxform") {
+            formattedCinemaName += " IMAX";
+        } else if (format === "imax3dform") {
+            formattedCinemaName += " IMAX 3D";
         }
 
-        function displayPromoDetails() {
-            const promo1Image = "Images/sonic_promo2.jpg";
-            const promo1Name = "SONIC THE HEDGEHOG 3 Collector Combo";
-            const promo1Description = "1x Large Popcorn\n2x Regular Drinks\n1x SONIC THE HEDGEHOG 3 Tumbler\n";
-            const promo1Price = "$18"; // Price for promo 1
+        document.querySelector('.cinema-name').textContent = formattedCinemaName;
+        document.querySelector('.selected-date').textContent = decodeURIComponent(date);
+        document.querySelector('.selected-time').textContent = decodeURIComponent(time);
+        document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
 
-            const promo2Image = "Images/sonic_promo1.jpg";
-            const promo2Name = "Another Awesome Promo";
-            const promo2Description = "Description of the second promo.";
-            const promo2Price = "$12"; // Price for promo 2
+        // Display other parameters
+        console.log("Seats:", decodeURIComponent(seats));
+        console.log("Price:", decodeURIComponent(price));
+        console.log("Quantity:", decodeURIComponent(quantity));
+        console.log("Total:", decodeURIComponent(total));
+    }
+
+    function displayAddOnDetails() {
+        const addOn1Image = "Images/regular_popcorn.png";
+        const addOn1Name = "Regular Popcorn Combo";
+        const addOn1Description = "1x Regular Popcorn\n1x Regular Drink";
+        const addOn1Price = "$8.50"; // Price for add-on 1
+
+        const addOn2Image = "Images/large_popcorn.png";
+        const addOn2Name = "Large Popcorn Combo";
+        const addOn2Description = "1x Large Popcorn\n1x Regular Drink";
+        const addOn2Price = "$10.90"; // Price for add-on 2
 
 
-            // Promo 1
-            document.querySelector('#promo1 .promo').setAttribute('src', promo1Image);
-            document.querySelector('#promo1 .promo-name').textContent = promo1Name;
-            document.querySelector('#promo1 .promo-description').textContent = promo1Description;
-            document.querySelector('#promo1 .price').textContent = promo1Price; // Set the price for promo 1
+        // Add-on 1
+        document.querySelector('#add-on1 .add-on').setAttribute('src', addOn1Image);
+        document.querySelector('#add-on1 .add-on-name').textContent = addOn1Name;
+        document.querySelector('#add-on1 .add-on-description').textContent = addOn1Description;
+        document.querySelector('#add-on1 .price').textContent = addOn1Price; // Set the price for add-on 1
 
-            // Promo 2
-            document.querySelector('#promo2 .promo').setAttribute('src', promo2Image);
-            document.querySelector('#promo2 .promo-name').textContent = promo2Name;
-            document.querySelector('#promo2 .promo-description').textContent = promo2Description;
-            document.querySelector('#promo2 .price').textContent = promo2Price; // Set the price for promo 2
+        // Add-on 2
+        document.querySelector('#add-on2 .add-on').setAttribute('src', addOn2Image);
+        document.querySelector('#add-on2 .add-on-name').textContent = addOn2Name;
+        document.querySelector('#add-on2 .add-on-description').textContent = addOn2Description;
+        document.querySelector('#add-on2 .price').textContent = addOn2Price; // Set the price for add-on 2
+    }
+
+    let selectedAddOn1Price = 0;
+    let selectedAddOn2Price = 0;
+    let showtimes2Total = 0; // Store showtimes total here
+
+    function calculateTotalAddOn() {
+        let totalAddOn = selectedAddOn1Price + selectedAddOn2Price;
+        document.getElementById('total-add-on').textContent = "$" + totalAddOn.toFixed(2);
+        return totalAddOn;
+    }
+
+    function calculateWholeTotal(totalAddOn) {
+        const wholeTotal = showtimes2Total + totalAddOn; // Use the stored showtimes total
+        document.getElementById('total-whole').textContent = "$" + wholeTotal.toFixed(2);
+    }
+
+
+    document.querySelector('#add-on1 .select-button').addEventListener('click', (event) => {
+        const button = event.target;
+        button.classList.toggle('selected'); // Toggle the "selected" class
+
+        if (button.classList.contains('selected')) {
+            selectedAddOn1Price = 8.50;
+        } else {
+            selectedAddOn1Price = 0; // Deselect
         }
 
-        let selectedPromo1Price = 0;
-        let selectedPromo2Price = 0;
-        let showtimes2Total = 0; // Store showtimes total here
 
-        function calculateTotalPromo() {
-            let totalPromo = selectedPromo1Price + selectedPromo2Price;
-            document.getElementById('total-promo').textContent = "$" + totalPromo.toFixed(2);
-            return totalPromo;
+        const totalAddOn = calculateTotalAddOn();
+        calculateWholeTotal(totalAddOn);
+    });
+
+    document.querySelector('#add-on2 .select-button').addEventListener('click', (event) => {
+        const button = event.target;
+        button.classList.toggle('selected'); // Toggle the "selected" class
+
+        if (button.classList.contains('selected')) {
+            selectedAddOn2Price = 10.90;
+        } else {
+            selectedAddOn2Price = 0; // Deselect
         }
 
-        function calculateWholeTotal(totalPromo) {
-            const wholeTotal = showtimes2Total + totalPromo; // Use the stored showtimes total
-            document.getElementById('total-whole').textContent = "$" + wholeTotal.toFixed(2);
-        }
-
-
-        document.querySelector('#promo1 .select-button').addEventListener('click', (event) => {
-            const button = event.target;
-            button.classList.toggle('selected'); // Toggle the "selected" class
-
-            if (button.classList.contains('selected')) {
-                selectedPromo1Price = 18;
-            } else {
-                selectedPromo1Price = 0; // Deselect
-            }
-
-
-            const totalPromo = calculateTotalPromo();
-            calculateWholeTotal(totalPromo);
-        });
-
-        document.querySelector('#promo2 .select-button').addEventListener('click', (event) => {
-            const button = event.target;
-            button.classList.toggle('selected'); // Toggle the "selected" class
-
-            if (button.classList.contains('selected')) {
-                selectedPromo2Price = 12;
-            } else {
-                selectedPromo2Price = 0; // Deselect
-            }
-
-            const totalPromo = calculateTotalPromo();
-            calculateWholeTotal(totalPromo);
-        });
+        const totalAddOn = calculateTotalAddOn();
+        calculateWholeTotal(totalAddOn);
+    });
 
 
 
-        document.querySelector('.proceed-button').addEventListener('click', () => {
+    document.querySelector('.proceed-button').addEventListener('click', () => {
         const poster = document.querySelector('.poster').getAttribute('src');
         const movieName = document.querySelector('.movie_name').textContent;
         const rating = document.querySelector('.movie_rating img').getAttribute('src'); // Get image source
@@ -395,24 +394,24 @@
         const quantity = new URLSearchParams(window.location.search).get('quantity');
         const total = document.getElementById('total-whole').textContent.replace('$', ''); // Get calculated total
 
-        const promo1Name = document.querySelector('#promo1 .promo-name').textContent;
-        const promo1Description = document.querySelector('#promo1 .promo-description').textContent;
-        const promo2Name = document.querySelector('#promo2 .promo-name').textContent;
-        const promo2Description = document.querySelector('#promo2 .promo-description').textContent;
-        const totalPromo = document.getElementById('total-promo').textContent.replace('$', '');
+        const addOn1Name = document.querySelector('#add-on1 .add-on-name').textContent;
+        const addOn1Description = document.querySelector('#add-on1 .add-on-description').textContent;
+        const addOn2Name = document.querySelector('#add-on2 .add-on-name').textContent;
+        const addOn2Description = document.querySelector('#add-on2 .add-on-description').textContent;
+        const totalAddOn = document.getElementById('total-add-on').textContent.replace('$', '');
 
-        let queryString = `Showtimes4.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
+        let queryString = `Showtimes5.php?poster=${encodeURIComponent(poster)}&movie_name=${encodeURIComponent(movieName)}&rating=${encodeURIComponent(rating)}&cinema=${encodeURIComponent(cinemaName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&format=${encodeURIComponent(format)}`;
 
         queryString += `&seats=${encodeURIComponent(seats)}`;
         queryString += `&price=${encodeURIComponent(price)}`;
         queryString += `&quantity=${encodeURIComponent(quantity)}`;
         queryString += `&total=${encodeURIComponent(total)}`;
 
-        queryString += `&promo1_name=${encodeURIComponent(promo1Name)}`;
-        queryString += `&promo1_description=${encodeURIComponent(promo1Description)}`;
-        queryString += `&promo2_name=${encodeURIComponent(promo2Name)}`;
-        queryString += `&promo2_description=${encodeURIComponent(promo2Description)}`;
-        queryString += `&total_promo=${encodeURIComponent(totalPromo)}`;
+        queryString += `&add-on1_name=${encodeURIComponent(addOn1Name)}`;
+        queryString += `&add-on1_description=${encodeURIComponent(addOn1Description)}`;
+        queryString += `&add-on2_name=${encodeURIComponent(addOn2Name)}`;
+        queryString += `&add-on2_description=${encodeURIComponent(addOn2Description)}`;
+        queryString += `&total_add-on=${encodeURIComponent(totalAddOn)}`;
 
 
         window.location.href = queryString;
@@ -421,12 +420,11 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         getParameters();
-        displayPromoDetails();
+        displayAddOnDetails();
 
-        const totalPromo = calculateTotalPromo();
-        calculateWholeTotal(totalPromo);
+        const totalAddOn = calculateTotalAddOn();
+        calculateWholeTotal(totalAddOn);
     });
-
 
     </script>
 </body>
