@@ -552,7 +552,7 @@
         <td colspan="9">
             <section class="promos">
                 
-                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo1">
+                <div onclick="goToPromos(event);" class="promo" id="promo1">
                     <img src="Images/captain_promo.jpg" alt="captain_promo" class="poster">               
                     <table class="description">
                         <tr>
@@ -561,7 +561,7 @@
                     </table>              
                 </div>
 
-                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo2">
+                <div onclick="goToPromos(event);" class="promo" id="promo2">
                     <img src="Images/sonic_promo1.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
@@ -569,7 +569,7 @@
                         </tr>
                     </table>              
                 </div>
-                <div onclick="window.location.href = 'Showtimes1.php';" class="promo" id="promo3">
+                <div onclick="goToPromos(event)" class="promo" id="promo3">
                     <img src="Images/sonic_promo2.jpg" alt="alien_romulus" class="poster">               
                     <table class="description">
                         <tr>
@@ -607,6 +607,15 @@
             const href = `Showtimes1.php?id=${movieId}&poster=${poster}&movie_name=${encodeURIComponent(movie_name)}&movie_rating=${movie_rating}&movie_time=${encodeURIComponent(movie_time)}`;
             
             // Redirect to the constructed href
+            window.location.href = href;
+        }
+
+        function goToPromos(event) {
+            const promoId = event.currentTarget.id;
+            const promoImage = event.currentTarget.querySelector('.poster').getAttribute('src');
+            const promoName = event.currentTarget.querySelector('.promo_name').textContent;
+
+            const href = `promos.php?id=${promoId}&image=${encodeURIComponent(promoImage)}&name=${encodeURIComponent(promoName)}`;
             window.location.href = href;
         }
     </script>

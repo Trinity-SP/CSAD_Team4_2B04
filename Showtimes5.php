@@ -377,6 +377,11 @@
     document.querySelector('.add-on-quantity').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? "1" : "-"; // Example
     document.querySelector('.add-on-total-price').textContent = decodeURIComponent(totalAddOn); // Example
 
+    document.querySelector('.promos').textContent = decodeURIComponent(promo1Name) + ", " + decodeURIComponent(promo2Name);
+    document.querySelector('.promo-price').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? decodeURIComponent(totalPromo) : "-"; // Example
+    document.querySelector('.promo-quantity').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? "1" : "-"; // Example
+    document.querySelector('.promo-total-price').textContent = decodeURIComponent(totalPromoy); // Example
+
     let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + bookingFees; // Add booking fees
     document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2);
 

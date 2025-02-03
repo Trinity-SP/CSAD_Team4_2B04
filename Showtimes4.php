@@ -118,6 +118,7 @@
             border-radius: 20px;
             align-self: flex-start; /* Align image to top of container */
             margin-bottom: auto;
+            border: #ffffff 1.6px solid;
         }
 
         .add-on-name {
