@@ -64,11 +64,6 @@
 
         .promo_desc {
             vertical-align: top; /* Align text to top */
-            font-size: 17px;
-            color: white;
-            font-weight: normal; 
-            text-align: left;
-            width: 1000px;
         }
 
         #promoImage {
@@ -78,6 +73,20 @@
             max-width: 400px;
             height: auto;
         }
+
+        pre {
+            vertical-align: top; 
+            font-size: 17px;
+            font-family:'Arial';
+            color: white;
+            font-weight: normal; 
+            white-space: pre-line;
+            max-width: 900px;
+            text-align: left;
+            margin-left: 0;
+        }
+
+
 
     </style>
     <link rel="icon" href="Images/SkyCinemaNew.png">
@@ -92,7 +101,7 @@
                 <td colspan="2" class="promo_name" id="promoName"></td>
             </tr>
             <tr>
-                <td class="promo_desc" id="promoDesc"></td>
+                <td  class="promo_desc" id="promoDesc"><pre id="desc_text"></pre></td>
             </tr>
         </table>
     </div>
@@ -110,26 +119,32 @@
         }
 
         function displayDescription() {
-            const Description = `Sky Cinemas Singapore is having their CAPTAIN AMERICA: BRAVE NEW WORLD IMAX Mini Poster Giveaway.<br><br>
-            Be rewarded when you see CAPTAIN AMERICA: BRAVE NEW WORLD in IMAX® theatres.<br><br>
-            Receive an IMAX mini poster with every two (2) CAPTAIN AMERICA: BRAVE NEW WORLD IMAX tickets purchased.<br>
-            Available for redemption at the respective Sky Cinemas IMAX box office counters only from 14 February 2025.<br><br>
-            While stocks last. Other terms & conditions apply.<br><br>
-            Terms & Conditions:<br><br>
-            • Every two (2) IMAX® tickets for CAPTAIN AMERICA: BRAVE NEW WORLD entitles the patron to redemption of ONE (1) mini poster. The movie premium can be claimed at the respective Sky Cinemas IMAX® Box Office Counters upon over-the-counter purchase from 17 August 2023.<br><br>
-            • Patrons who have purchased their tickets online or at the self-service kiosks can present their physical movie ticket stubs at the respective Sky Cinemas IMAX® Box Office Counters indicated on the ticket, to redeem the movie premium.<br><br>
-            • Pre-purchase of tickets does NOT guarantee the reservation of the movie premium.<br><br>
-            • Movie premiums are subjected to limited availability on first-come-first-served basis at the point of redemption, while stocks last.<br><br>
-            • Sky Cinemas IMAX® giveaways are not valid with other promotions/giveaways/offers/packages/corporate bookings.<br><br>
-            • The merchandise is non-transferable and non-exchangeable for credit, goods or benefits in kind.<br><br>
-            • Sky Cinemas Pte Ltd shall not be responsible for the quality, merchantability or the fitness of the merchandise.<br><br>
-            • Sky Cinemas Pte Ltd shall not be liable for any claims which may be made by the participants who are unable to redeem the said merchandise or whatsoever.<br><br>
-            • Sky Cinemas Pte Ltd reserves the right to amend the terms and conditions or withdraw any of the merchandise featured at any time without prior notice.<br><br>
-            • In case of any dispute, Sky Cinemas Pte Ltd’s decision shall be final, conclusive and binding.<br><br>
-            Date: 14 February 2025 Onward<br><br>
-            Available at: All Sky Cinemas IMAX counters in Singapore`.trim(); 
+            const Description =
+            `Sky Cinemas Singapore is having their CAPTAIN AMERICA: BRAVE NEW WORLD IMAX Mini Poster Giveaway.Be rewarded when you see CAPTAIN AMERICA: BRAVE NEW WORLD in IMAX® theatres.
 
-            document.getElementById('promoDesc').innerHTML = Description;
+            Receive an IMAX mini poster with every two (2) CAPTAIN AMERICA: BRAVE NEW WORLD IMAX tickets purchased.
+
+            Available for redemption at the respective Sky Cinemas IMAX box office counters only from 14 February 2025.
+
+            While stocks last. Other terms & conditions apply.
+
+            Terms & Conditions:
+            • Every two (2) IMAX® tickets for CAPTAIN AMERICA: BRAVE NEW WORLD entitles the patron to redemption of ONE (1) mini poster. The movie premium can be claimed at the respective Sky Cinemas IMAX® Box Office Counters upon over-the-counter purchase from 17 August 2023.
+            • Patrons who have purchased their tickets online or at the self-service kiosks can present their physical movie ticket stubs at the respective Sky Cinemas IMAX® Box Office Counters indicated on the ticket, to redeem the movie premium.
+            • Pre-purchase of tickets does NOT guarantee the reservation of the movie premium.
+            • Movie premiums are subjected to limited availability on first-come-first-served basis at the point of redemption, while stocks last.
+            • Sky Cinemas IMAX® giveaways are not valid with other promotions/giveaways/offers/packages/corporate bookings.
+            • The merchandise is non-transferable and non-exchangeable for credit, goods or benefits in kind.
+            • Sky Cinemas Pte Ltd shall not be responsible for the quality, merchantability or the fitness of the merchandise.
+            • Sky Cinemas Pte Ltd shall not be liable for any claims which may be made by the participants who are unable to redeem the said merchandise or whatsoever.
+            • Sky Cinemas Pte Ltd reserves the right to amend the terms and conditions or withdraw any of the merchandise featured at any time without prior notice.
+            • In case of any dispute, Sky Cinemas Pte Ltd’s decision shall be final, conclusive and binding.
+
+            Date: 14 February 2025 Onward
+            
+            Available at: All Sky Cinemas IMAX counters in Singapore`.trim();
+
+            document.getElementById('desc_text').innerHTML = Description;
         }
         window.onload = getParameters;
     </script>
