@@ -243,7 +243,13 @@
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
+            cursor: pointer;
 
+        }
+
+        .confirm-button:disabled {
+            background-color: gray !important;
+            cursor: default; 
         }
 
     </style>
@@ -461,6 +467,7 @@ function handleSeatSelection() {
 
             // Update the info table
             updateInfoTable();
+            updateConfirmButton(); // Call this to update the button state
         });
     });
 }
@@ -475,11 +482,18 @@ function resetSeats() {
         seat.style.outlineColor = 'rgb(200, 200, 200)'; // Revert outline color
     });
 
-    // Update the info table
     updateInfoTable();
+    updateConfirmButton(); // Call this directly after resetting
 }
 
+
+
 const confirmButton = document.querySelector('.confirm-button');
+
+function updateConfirmButton() {
+            const selectedSeats = document.querySelectorAll('.seats-table td.selected');
+            confirmButton.disabled = selectedSeats.length === 0; // Disable if no seats are selected
+}
 
 confirmButton.addEventListener('click', () => {
     const selectedSeats = document.querySelectorAll('.seats-table td.selected');
@@ -516,8 +530,8 @@ confirmButton.addEventListener('click', () => {
             handleSeatSelection();
             document.querySelector('.reset-button').addEventListener('click', resetSeats);
 
-            // Call updateInfoTable ONCE when the page loads to set default values
-            updateInfoTable(); // This is the important addition!
+            updateInfoTable();
+            updateConfirmButton(); // Call this initially to set the correct state
             
         };
 
