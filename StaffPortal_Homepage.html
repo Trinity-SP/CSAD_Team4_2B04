@@ -1,410 +1,856 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Portal - Homepage</title>
-    <style>
-        /* General Styles */
-        body {  
-            background: linear-gradient(180deg, rgba(60, 138, 255, 1) 0%, rgba(0, 0, 0, 1) 31%);
-            background-repeat: no-repeat;
-            min-height: 100vh; /* Ensures it covers at least the first viewport */
-            color: #ffffff;
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-        }
 
-        /* Create a black background for overflowing content */
-        body::after {
-            content: "";
-            position: absolute;
-            top: 100vh; /* Start where the first page ends */
-            left: 0;
-            width: 100%;
-            height: 100%; /* Covers any extra page height */
-            background-color: black;
-            z-index: -1;
-        }
-
-
-        /* Movie List Section */
-        .movie-list-container {
-            margin: 20px auto;
-            width: 90%;
-        }
-
-        /* Welcome Message to User */
-        h1 {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .profile-details {
-            text-align: center;
-        }
-
-        /* Table Styles */
-        .movie-table-wrapper {
-            position: relative;
-            background-color: #001a45;
-            padding: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .movie-table {
-            width: 100%;
-            border-spacing: 20px;
-        }
-
-        .movie-poster {
-            width: 120px;
-            height: 180px;
-            border-radius: 10px;
-        }
-
-        .movie-name {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-weight: bold;
-        }
-
-        .movie-duration {
-            font-family:Arial, Helvetica, sans-serif;
-            font-size:small;
-        }
-
-        .movie-info {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* Dropdown Button */
-        .dropdown-container {
-            text-align: center;
-            margin-top: 10px;
-            position: absolute;
-            top: 283px;
-            background-color: rgba(255, 255, 255, 0.65);
-            width: 15px;
-            height: 300px;
-            padding: 0;
-            color: #000000;
-            text-align: center;
-        }
-
-        .dropdown-btn {
-            width: 30px; /* Make it thinner */
-            height: 225px; /* Match the height of movie posters */
-            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .dropdown-btn:hover {
-            background-color: #00285a;
-        }
-
-        /* Overflow Row */
-        .hidden {
-            display: none;
-        }
-
-        .background-fade-button {
-            width: 100%; /* Make buttons fill the container width */
-            height: 200px; /* Adjust height as needed */
-            border: none; /* Remove default button border */
-            color: rgb(255, 255, 255); /* Text color */
-            font-size: 25px; /* Adjust font size */
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 100px; /* Center text vertically */
-            opacity: 0.7; /* Add a slight fade effect */
-            cursor: pointer;
-            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
-            background-size: cover; /* Scale background images to cover */
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .nav-buttons td {
-            gap: 150px;
-        }
-
-        /* Age Ratings */
-        .pg-rating {
-            width: 25px;
-            height:25px;
-        }
-
-        .pg13-rating {
-            width: 50px;
-            height:35px;
-        }
-
-        .nc16-rating {
-            width: 50px;
-            height:20px;
-        }
-
-        .m18-rating {
-            width: 45px;
-            height:20px;
-        }
-
-        .r21-rating {
-            width: 55px;
-            height:45px;
-        }
-    </style>
-
-<!--Pop-Up Prompts for 3 Buttons-->
-<style>
-    /* Basic modal styling */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
-    }
-  
-    .modal-content {
-      background-color: white;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid grey;
-      width: 50%; 
-      text-align: center; 
-    }
-  
-    .modal-content button {
-      margin: 0 10px;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-    }
-  
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-  
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
 <body>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <img src="Images/SkyCinemaNew.png" style="width:140px ; height: 130px" alt="Sky Cinemas Logo">
-            </td>
-            <td>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Staff Portal - Homepage</title>
+        <link href="Assets\css\swiper-bundle.min.css" rel="stylesheet" type="text/css">
+        <style>
+            body {
+                background: linear-gradient(180deg, rgba(60, 138, 255, 1) 0, rgba(0, 0, 0, 1) 300px);
+                background-repeat: no-repeat;
+                min-height: 100vh;
+                /* Ensures it covers at least the first viewport */
+                color: #ffffff;
+                font-family: sans-serif;
+                margin: 0;
+                padding: 0;
+                position: relative;
+                font-size: 1rem;
+            }
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 2em;
+            }
+
+            button {
+                cursor: pointer;
+            }
+
+            /* Age Ratings */
+            .pg-rating {
+                width: 25px;
+                height: 25px;
+            }
+
+            .pg13-rating {
+                width: 50px;
+                height: auto;
+            }
+
+            .nc16-rating {
+                width: 50px;
+                height: 20px;
+            }
+
+            .m18-rating {
+                width: 50px;
+                height: 20px;
+            }
+
+            .r21-rating {
+                width: 150px;
+                height: auto;
+            }
+
+            .d-flex {
+                display: flex !important;
+            }
+
+            .d-block {
+                display: block !important;
+            }
+
+            .d-none {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 1175px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 1rem;
+            }
+
+            .navbar {
+                height: 150px;
+            }
+
+            .bg-lightblue {
+                background-color: lightblue;
+            }
+
+            .bg-dark-blue {
+                background-color: #002256;
+            }
+
+            .navbar .navbar-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar .navbar-container .name {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                margin-left: 80px;
+            }
+
+            .navbar .navbar-container .profile {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-left: auto;
+            }
+
+            .modals-container {
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            .modals-container .modal {
+                background-color: white;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid grey;
+                width: 50%;
+                text-align: center;
+            }
+
+            .modals-container .modal p {
+                font-weight: 700;
+                color: black;
+            }
+
+            .modals-container .modal .close {
+                color: #aaa;
+                font-size: 28px;
+                float: right;
+                cursor: pointer;
+            }
+
+            .modals-container .modal .close:hover {
+                color: black;
+            }
+
+            .modals-container .modal a,
+            .modals-container .modal button {
+                text-decoration: none;
+                background-color: #f0f0f0;
+                color: black;
+                border: none;
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+
+
+
+            .edit-options {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .edit-options button {
+                width: 32%;
+                height: 136px;
+                color: white;
+                border-radius: 15px;
+                border: none;
+                font-size: 1.5em;
+            }
+
+            .swiper-disabled {
+                height: initial !important;
+            }
+
+            .swiper-wrapper-disabled {
+                height: initial !important;
+                transform: initial !important;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .swiper-slide-disabled {
+                margin-right: 0 !important;
+            }
+
+            .swiper {
+                width: 100%;
+                height: fit-content;
+                position: relative;
+            }
+
+            .swiper .list-cards {
+                position: absolute;
+                right: 0;
+                top: 0;
+                z-index: 9;
+                background-color: #D9D9D9B2;
+                border: none;
+            }
+
+            .cards-listing {
+                border-radius: 15px;
+                background-color: #002256;
+                padding: 1rem;
+            }
+
+            .cards-listing .swiper-slide {
+                text-decoration: none;
+                height: 380px;
+            }
+
+            .cards-listing .swiper-slide:hover {
+                transform: scale(0.95);
+                transition: 0.5s;
+
+            }
+
+            .cards-listing .swiper-slide .thumbnail img {
+                width: 100%;
+                border-radius: 15px;
+            }
+
+            .cards-listing .swiper-slide .desc {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .cards-listing .swiper-slide .desc h5 {
+                margin: 0;
+                margin-bottom: auto;
+                color: white;
+                font-size: 14px;
+            }
+
+            .cards-listing .swiper-slide .desc .rating {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                gap: 8px;
+                min-width: 65px;
+            }
+
+            .cards-listing .swiper-slide .desc .rating img {
+                height: 20px;
+                width: fit-content;
+            }
+
+            .cards-listing .swiper-slide .desc .rating span {
+                color: white;
+                font-size: 13px;
+            }
+        </style>
+    </head>
+
+    <nav class="container navbar">
+        <div class="navbar-container">
+            <img src="Images/SkyCinemaNew.png" style="width:140px ; height: 130px" alt="Sky Cinemas Logo">
+            <div class="name">
                 <h1>Welcome,</h1>
                 <h1 id="staff-name">Joel Chen Xia Ming</h1>
-            </td>
-            <td class="profile-details">
-                <img src="Images/profileman.png" style="width:80px ; height:80px" alt="Profile Picture"><br>
-                <button style="background-color: lightblue ; border:none;" name="logout">Logout</button>
-            </td>
-        </tr>
-    </table>
+            </div>
+            <div class="profile">
+                <img src="Images/profileman.png" style="width:80px ; height:80px" alt="Profile Picture">
+                <button class="bg-lightblue" id="logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-    <!--3 Buttons-->
-    <div>
-        <table style="width:100%">
-            <tr class="nav-buttons">
-                <td>
-                    <button class="background-fade-button" id="movies-button" style="background-image: url('Images/movie-background.jpg'); padding: 10px;">Add New Movies</button>
-                </td>
-                <td>
-                    <button class="background-fade-button" id="food-button" style="background-image: url('Images/food-background.jpg');  padding: 10px;">Cinema Food Stock</button>
-                </td>
-                <td>
-                    <button class="background-fade-button" id="promotions-button" style="background-image: url('Images/promotion-background.avif'); padding: 10px;">Promotions/Sales</button>
-                </td>
-            </tr>
-        </table>
+    <div class="container">
+        <div class="edit-options">
+            <button class="background-fade-button modal-control" data-target="#myModal_movies"
+                style="background: linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(Images/movie-background.jpg);background-repeat: no-repeat;  background-position: center;">Movies</button>
+            <button class="background-fade-button modal-control" data-target="#myModal_food"
+                style="background: linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(Images/food-background.jpg);background-repeat: no-repeat;  background-position: center;">Cinema
+                Food Stock</button>
+            <button class="background-fade-button modal-control" data-target="#myModal_promotions"
+                style="background: linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(Images/promotion-background.avif);background-repeat: no-repeat;  background-position: center;">Promotions</button>
+        </div>
     </div>
 
-    <!--Movies Button: pop-up-->
-    <div id="myModal_movies" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p style="color: black; font-weight: bold;">Would you like to add a new movie or edit an existing movie?</p>
-          <button id="add-movies">Add</button>
-          <button id="edit-movies">Edit</button>
+    <div class="container">
+        <div class="cards-listing">
+            <h3 class="movies-toggle carousel-sections">Edit Existing Movies</h3>
+            <div class="swiper card-swiper-marker movies-toggle carousel-sections">
+                <!-- Additional required wrapper -->
+                <button class="list-cards">▼</button>
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 1</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 2</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 3</h5>
+                            <div class="rating">
+                                <img src="Images/m18.png" class="m18-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 4</h5>
+                            <div class="rating">
+                                <img src="Images/pg13.png" class="pg13-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 5</h5>
+                            <div class="rating">
+                                <img src="Images/r21.png" class="r21-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 6</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 7</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 8</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 9</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 10</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 11</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus 12</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <h3 class="food-toggle d-none carousel-sections">Edit Existing Food Offers</h3>
+            <div class="swiper card-swiper-marker food-toggle d-none carousel-sections">
+                <!-- Additional required wrapper -->
+                <button class="list-cards">▼</button>
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Food</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <h3 class="promo-toggle d-none carousel-sections">Edit Existing Promotions</h3>
+            <div class="swiper card-swiper-marker promo-toggle d-none carousel-sections">
+                <!-- Additional required wrapper -->
+                <button class="list-cards">▼</button>
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Promotions</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/pg.png" class="pg13-rating" alt="Wicked">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="swiper-slide">
+                        <div class="thumbnail">
+                            <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
+                        </div>
+                        <div class="desc">
+                            <h5>Alien: Romulus</h5>
+                            <div class="rating">
+                                <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
+                                <span>119
+                                    mins</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
         </div>
-      </div>
-    
-    <!--Food Button: pop-up-->
-    <div id="myModal_food" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p style="color: black; font-weight: bold;">Would you like to add a new food stock or edit an existing food stock?</p>
-          <button id="add-food">Add</button>
-          <button id="edit-food">Edit</button>
+
+
+    </div>
+
+    <div class="modals-container">
+        <div class="modal" id="myModal_movies">
+            <span class="close">×</span>
+            <div class="modal-content">
+
+                <p>Would you like to add a new movie or edit an existing movie?</p>
+                <a href="addnewmovie.html">Add</a>
+                <button class="toggle-carousel" data-target="movies-toggle">Edit</button>
+            </div>
         </div>
-      </div>
 
-    <!--Promotions Button: pop-up-->
-    <div id="myModal_promotions" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p style="color: black; font-weight: bold;">Would you like to add a new promotion/sale or edit an existing promotion/sale?</p>
-          <button id="add-promotions">Add</button>
-          <button id="edit-promotions">Edit</button>
+
+    </div>
+    <div class="modals-container">
+        <div class="modal" id="myModal_food">
+            <span class="close">×</span>
+            <div class="modal-content">
+
+                <p>Would you like to add new food or edit existing food?</p>
+                <a href="add_cinemafoodstock.html">Add</a>
+                <button class="toggle-carousel" data-target="food-toggle">Edit</button>
+            </div>
         </div>
-      </div>
-    
-    <!-- Movie List Section -->
-    <div class="movie-list-container">
-      <h2>Edit Existing Movies</h2>
-      <div class="movie-table-wrapper">
-          <table class="movie-table">
-              <tr>
-                  <td>
-                      <img src="Images/alien_romulus.jpg" alt="Alien: Romulus" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Alien: Romulus</p>
-                          <img src="Images/nc16.png" class="nc16-rating" alt="Alien Romulus">
-                          <p class="movie-duration">119 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/wicked.jpg" alt="Wicked" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Wicked</p>
-                          <img src="Images/pg13.png" class="pg13-rating" alt="Wicked">
-                          <p class="movie-duration">159 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/superman.jpg" alt="Superman" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Superman</p>
-                          <img src="Images/pg.png" class="pg-rating" alt="Superman">
-                          <p class="movie-duration">128 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/flow.jpg" alt="Flow" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Flow</p>
-                          <img src="Images/pg.png" class="pg-rating" alt="Flow">
-                          <p class="movie-duration">84 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/dune.jpg" alt="Dune: Part Two" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Dune: Part Two</p>
-                          <img src="Images/m18.png" class="m18-rating" alt="Dune 2">
-                          <p class="movie-duration">166 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/sonic.jpg" alt="Sonic the Hedgehog" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Sonic the Hedgehog</p>
-                          <img src="Images/pg.png" class="pg-rating" alt="Sonic the Hedgehog">
-                          <p class="movie-duration">118 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <div class="dropdown-container">
-                          <button class="dropdown-btn" onclick="toggleOverflow()">&#x25BC;</button>
-                      </div>
-                  </td>
-              </tr>
-              <tr class="overflow-row hidden">
-                  <td>
-                      <img src="Images/ballerina.jpeg" alt="Ballerina" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Ballerina</p>
-                          <img src="Images/r21.png" class="r21-rating" alt="Ballerina">
-                          <p class="movie-duration">166 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/captain.jpg" alt="Captain America: Brave New World" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Captain America: Brave New World</p>
-                          <img src="Images/m18.png" class="m18-rating" alt="Captain America: Brave New World">
-                          <p class="movie-duration">166 mins</p>
-                      </div>
-                  </td>
-                  <td>
-                      <img src="Images/moana.jpg" alt="Moana 2" class="movie-poster">
-                      <div class="movie-info">
-                          <p class="movie-name">Moana 2</p>
-                          <img src="Images/pg13.png" class="pg13-rating" alt="Moana 2">
-                          <p class="movie-duration">166 mins</p>
-                      </div>
-                  </td>
-              </tr>
-          </table>
-      </div>
-  </div>
+    </div>
+    <div class="modals-container">
+        <div class="modal" id="myModal_promotions">
+            <span class="close">×</span>
+            <div class="modal-content">
 
-  <script>
-      function toggleOverflow() {
-          const overflowRow = document.querySelector(".overflow-row");
-          const dropdownBtn = document.querySelector(".dropdown-btn");
-
-          if (overflowRow.classList.contains("hidden")) {
-              overflowRow.classList.remove("hidden");
-              dropdownBtn.innerHTML = "&#x25B2;"; // Up Arrow
-          } else {
-              overflowRow.classList.add("hidden");
-              dropdownBtn.innerHTML = "&#x25BC;"; // Down Arrow
-          }
-      }
-  </script>
-
-    <!--To make the pop-up appear for Movies Button-->
+                <p>Would you like to add a new promotion or edit an existing promotion?</p>
+                <a href="add_promotions.html">Add</a>
+                <button class="toggle-carousel" data-target="promo-toggle">Edit</button>
+            </div>
+        </div>
+    </div>
+    <script src="Assets\javascript\swiper-bundle.min.js" type="text/javascript"></script>
     <script>
-            const modal_1 = document.getElementById("myModal_movies");
-            const movies_btn = document.getElementById("movies-button");
-            const span_1 = document.getElementsByClassName("close")[0];
-            const addMovieButton = document.getElementById("add-movies");
-            const editMovieButton = document.getElementById("edit-movies");
-        
-            movies_btn.onclick = function() {
-                modal_1.style.display = "block";
+        document.addEventListener("DOMContentLoaded", () => {
+
+            function createId(id) {
+                return `card-slider-${i}`
+            };
+
+            function CreateCarousel(selector) {
+                const swiper = new Swiper(`#${selector}`, {
+                    slidesPerView: 5.5,
+                    loop: true,
+                    spaceBetween: 10,
+                });
             }
-        
-            span_1.onclick = function() {
-                modal_1.style.display = "none";
-            }
-        
-            window.onclick = function(event) {
-                if (event.target == modal_1) {
-                    modal_1.style.display = "none";
+
+            const containers = [...document.querySelectorAll('.card-swiper-marker')];
+            let activeCarousels = [];
+            if (containers.length) {
+                for (var i = 0; i < containers.length; i++) {
+                    const containerId = createId(i);
+                    containers[i].setAttribute('id', containerId);
                 }
             }
+<<<<<<< HEAD
         
             addMovieButton.onclick = function() {
                 window.location.href = "addnewmovie.php"; // Redirect to addnewmovie.html
@@ -412,11 +858,102 @@
         
             editMovieButton.onclick = function() {
                 window.location.href = "editexistingmovie.php"; // Redirect to editexistingmovie.html
+=======
+
+            for (let container of containers) {
+                const newCarousel = CreateCarousel(container.id);
+                activeCarousels.push(newCarousel);
+            };
+
+            function ListAllButtons() {
+                let listAllBtns = [...document.getElementsByClassName("list-cards")];
+                let dynamicHeight = document.getElementsByClassName("thumbnail")[0].querySelector("img").offsetHeight;
+                listAllBtns.forEach((b) => {
+                    b.style.height = `${dynamicHeight}px`;
+
+                    b.addEventListener("click", (e) => {
+                        let parentSwiper = e.target.closest(".swiper");
+                        let id = parentSwiper.id;
+                        let parentWrapper = parentSwiper.querySelector(".swiper-wrapper");
+                        let swiperSlides = [...parentSwiper.querySelectorAll(".swiper-slide")];
+                        let swiperWidth = swiperSlides[0].offsetWidth;
+
+                        if (!e.target.classList.contains("show")) {
+                            e.target.classList.add("show");
+                            parentSwiper.classList.add("swiper-disabled");
+                            parentSwiper.style = "";
+                            parentWrapper.classList.add("swiper-wrapper-disabled");
+                            parentWrapper.style = "";
+                            swiperSlides.forEach((s) => {
+                                s.style = `width:${swiperWidth}px;margin-right:0;`;
+                                s.classList.add("swiper-slide-disabled");
+                            })
+                            e.target.textContent = "▲";
+                            parentSwiper.destroy(true, true);
+                        } else {
+                            e.target.classList.remove("show");
+                            swiperSlides.forEach((s) => {
+                                s.style = ``;
+                                s.classList.remove("swiper-slide-disabled");
+                            })
+                            parentSwiper.classList.remove("swiper-disabled");
+                            parentWrapper.classList.remove("swiper-wrapper-disabled");
+                            e.target.textContent = "▼";
+                            CreateCarousel(id);
+                        }
+                    })
+                })
+
+
             }
+
+            ListAllButtons();
+
+            function ControlModal() {
+                let modalControls = [...document.getElementsByClassName("modal-control")];
+                let modals = [...document.getElementsByClassName("modal")];
+
+                modalControls.forEach((b) => {
+                    b.addEventListener("click", (e) => {
+                        let dataTarget = e.target.getAttribute("data-target").slice(1);
+                        let activeModal = modals.find(m => m.id === dataTarget);
+                        let close = activeModal.querySelector(".close");
+                        let modalsContainer = activeModal.closest(".modals-container");
+                        close.addEventListener("click", () => {
+                            modalsContainer.style = "";
+                        })
+                        modalsContainer.style = "display:block;";
+                    })
+                })
+
+                window.addEventListener("click", (e) => {
+                    if (e.target.classList.contains("modals-container")) {
+                        e.target.style = "";
+                    }
+                })
+
+                modals.forEach((m) => {
+                    let editBtn = m.querySelector(".toggle-carousel");
+                    editBtn.addEventListener("click", (e) => {
+                        let dataTarget = e.target.getAttribute("data-target");
+                        let carouselSections = [...document.getElementsByClassName("carousel-sections")];
+                        carouselSections.forEach((c) => {
+                            c.classList.contains(dataTarget) ? c.classList.remove("d-none") : c.classList.add("d-none");
+                        })
+                        editBtn.closest(".modals-container").style = "";
+                    });
+                })
+>>>>>>> Trinity
+            }
+
+            ControlModal();
+
+        })
     </script>
 
-    <!--To make the pop-up appear for Food Button-->
+    <!--Redirect to User Homepage when logout button is pressed-->
     <script>
+<<<<<<< HEAD
         const modal_2 = document.getElementById("myModal_food");
         const food_btn = document.getElementById("food-button");
         const span_2 = document.getElementsByClassName("close")[1];
@@ -476,5 +1013,12 @@
         window.location.href = "edit_promotions.html"; // Redirect to edit_promotions.html
     }
 </script>
+=======
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            window.location.href = "Homepage.html";
+        });
+    </script>
+>>>>>>> Trinity
 </body>
+
 </html>
