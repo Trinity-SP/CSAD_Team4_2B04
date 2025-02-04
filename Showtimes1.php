@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showtimes1</title>
+    <title>Showtimes</title>
     <style>
         /* Styles for Showtimes page */
         body {
@@ -108,6 +108,17 @@
             color: black;
         }
 
+        .dates.disabled { /* Style for disabled dates */
+            background-color: #808080; /* Or any other grayed-out color */
+            color: #c0c0c0; /* Lighter gray for text */
+            cursor: default; /* Make it look unclickable */
+            pointer-events: none; /* Disable clicks */
+        }
+        .dates.disabled:hover{
+            background-color: #808080; /* Or any other grayed-out color */
+            color: #c0c0c0; /* Lighter gray for text */
+        }
+
         #shows {
             position: relative; 
             top: auto; 
@@ -170,6 +181,7 @@
         #shows td.showtime span {
             cursor: pointer; /* Add this line to make the box clickable */
         }
+
 
         #shows td.showtime span.imaxform,  /* Target IMAX showtimes */
         #shows td.showtime span.imax3dform { /* Target IMAX 3D showtimes */
@@ -279,161 +291,213 @@
 
     <!-- Scripts embedded directly within the HTML -->
     <script>
-        // Define the maximum date for navigation
-        const maxDate = new Date(2025, 2, 5);
-        const today = new Date();
-        let currentlySelectedDate = null; // Keep track of the currently selected date
+// Define the maximum date for navigation
+const maxDate = new Date(2025, 1, 25); // February 14, 2025
 
-        function updateDates(startDate = new Date()) {
-            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            const dateCells = document.querySelectorAll('.dates');
+function updateDates() {
+    const currentDate = new Date();
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(startDate);
-                date.setDate(startDate.getDate() + i);
+    for (let i = 1; i <= 7; i++) {
+        const dateCell = document.getElementsByClassName('dates')[i - 1];
+        const date = new Date(currentDate);
+        date.setDate(currentDate.getDate() + i - 1);
 
-                if (date > maxDate) {
-                    date.setTime(maxDate.getTime());
-                }
+        if (date > maxDate) {
+            dateCell.textContent = "";
+            dateCell.id = `date${i}`;
+            dateCell.classList.add('disabled'); // Add the disabled class
+            dateCell.removeEventListener('click', handleDateClick);
+        } else {
+            const formattedDate = formatDate(date);
+            const weekday = weekdays[date.getDay()];
+            dateCell.textContent = `${formattedDate} (${weekday})`;
+            dateCell.id = `date${i}`;
+            dateCell.classList.remove('disabled'); // Remove disabled class if it was previously added
+            dateCell.addEventListener('click', handleDateClick);
 
-                const formattedDate = formatDate(date);
-                const weekday = weekdays[date.getDay()];
-                dateCells[i].textContent = `${formattedDate} (${weekday})`;
-                dateCells[i].dataset.date = date.getTime();
-
-                dateCells[i].addEventListener('click', function () {
-                    const allDateCells = document.querySelectorAll('.dates');
-                    allDateCells.forEach(cell => cell.classList.remove('date-clicked'));
-                    this.classList.add('date-clicked');
-                    currentlySelectedDate = this.dataset.date; // Update currently selected date
-                    getParameters();
-                });
-
-                // Check if this date cell matches the previously selected date
-                if (currentlySelectedDate && date.getTime() === parseInt(currentlySelectedDate)) {
-                    dateCells[i].classList.add('date-clicked');
-                } else if (!currentlySelectedDate && i === 0) { // Select first date if nothing is selected yet
-                    dateCells[i].classList.add('date-clicked');
-                    currentlySelectedDate = dateCells[i].dataset.date; // Update currently selected date
-                }
+                // Highlight the first valid date
+                if (i === 1) {
+                dateCell.classList.add('date-clicked');
             }
         }
+    }
+}
 
-        document.getElementById('next').addEventListener('click', function () {
+// Helper function to handle date clicks
+function handleDateClick() {
+    const allDateCells = document.querySelectorAll('.dates');
+    allDateCells.forEach(cell => cell.classList.remove('date-clicked'));
+    this.classList.add('date-clicked');
+    getParameters();
+}
+
+document.getElementById('next').addEventListener('click', function () {
             const dateCells = document.querySelectorAll('.dates');
-            const lastDateCell = dateCells[dateCells.length - 1];
-            const lastDateTimestamp = parseInt(lastDateCell.dataset.date);
-            let newFirstDate = new Date(lastDateTimestamp);
-            newFirstDate.setDate(newFirstDate.getDate() + 1);
+            let canNavigate = true;
 
-            if (newFirstDate > maxDate) {
-                newFirstDate = new Date(maxDate); // Start at maxDate
-                newFirstDate.setDate(maxDate.getDate() - 6); // Go back 6 days (or less if needed)
+            // Check if navigating to the next week exceeds the maximum date + 1 row
+            for (let i = 0; i < dateCells.length; i++) {
+                const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+                const nextDate = new Date();
+                nextDate.setDate(nextDate.getDate() + (currentIdNumber + 6));
+
+                // Allow one extra row beyond maxDate
+                if (nextDate > maxDate && nextDate <= new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 7)) {
+                    continue; // Skip this check for the extra row
+                }
+
+                if (nextDate > maxDate) {
+                    canNavigate = false;
+                    break;
+                }
             }
 
-            let diff = (maxDate.getTime() - newFirstDate.getTime()) / (1000 * 60 * 60 * 24); //difference between maxDate and the start date.
-            if (diff < 7 && diff >= 0) { //if it is the last week
-                newFirstDate = new Date(maxDate);
-                newFirstDate.setDate(maxDate.getDate() - 6);
+            if (canNavigate) {
+                for (let i = 0; i < dateCells.length; i++) {
+                    const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+                    dateCells[i].id = `date${currentIdNumber + 6}`;
+                    const currentDate = new Date();
+                    currentDate.setDate(currentDate.getDate() + (currentIdNumber + 6));
+
+                    if (currentDate > maxDate && currentDate <= new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 7)) {
+                        // Only display the maxDate within the extra row
+                        if (currentDate.toDateString() === maxDate.toDateString()) {
+                            dateCells[i].textContent = `${formatDate(currentDate)} (${getWeekday(currentDate)})`;
+                            dateCells[i].classList.remove('disabled'); // Enable the max date cell
+                            dateCells[i].addEventListener('click', handleDateClick);
+                        } else {
+                            dateCells[i].textContent = "";
+                            dateCells[i].classList.add('disabled'); // Disable other cells in the extra row
+                            dateCells[i].removeEventListener('click', handleDateClick);
+                        }
+                    } else {
+                        const formattedDate = formatDate(currentDate);
+                        const weekday = getWeekday(currentDate);
+                        dateCells[i].textContent = `${formattedDate} (${weekday})`;
+                        dateCells[i].classList.remove('disabled');
+                        dateCells[i].addEventListener('click', handleDateClick);
+                    }
+                }
+                getParameters();
             }
-            updateDates(newFirstDate);
         });
 
 
         document.getElementById('previous').addEventListener('click', function () {
             const dateCells = document.querySelectorAll('.dates');
-            const firstDateCell = dateCells[0];
-            const firstDateTimestamp = parseInt(firstDateCell.dataset.date);
-            let newFirstDate = new Date(firstDateTimestamp);
-            newFirstDate.setDate(newFirstDate.getDate() - 7);
+            let canNavigate = true;
 
-            if (newFirstDate < today) {
-                newFirstDate = new Date(today);
+            for (let i = 0; i < dateCells.length; i++) {
+                const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+                const previousDate = new Date();
+                previousDate.setDate(previousDate.getDate() + (currentIdNumber - 6));
+
+                if (previousDate < new Date()) {
+                    canNavigate = false;
+                    break;
+                }
             }
 
-            updateDates(newFirstDate);
+            if (canNavigate) {
+                for (let i = 0; i < dateCells.length; i++) {
+                    const currentIdNumber = parseInt(dateCells[i].id.replace('date', ''));
+                    dateCells[i].id = `date${currentIdNumber - 6}`;
+                    const currentDate = new Date();
+                    currentDate.setDate(currentDate.getDate() + (currentIdNumber - 7));
+                    const formattedDate = formatDate(currentDate);
+                    const weekday = getWeekday(currentDate);
+                    dateCells[i].textContent = `${formattedDate} (${weekday})`;
+                    dateCells[i].classList.remove('disabled'); // Ensure they're not disabled
+                    dateCells[i].addEventListener('click', handleDateClick);
+                }
+                getParameters();
+            } else {
+                console.log('Cannot navigate before today\'s date');
+            }
         });
 
-        function getParameters() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
 
-            const poster = urlParams.get('poster');
-            const movie_name = urlParams.get('movie_name');
-            const movie_rating = urlParams.get('movie_rating');
-            const movie_time = urlParams.get('movie_time');
+function getParameters() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
 
-            document.querySelector('.poster').setAttribute('src', poster);
-            document.querySelector('.movie_name').textContent = movie_name;
-            document.querySelector('.movie_rating').innerHTML = `<img src="${movie_rating}" alt="Movie Rating">`;
-            document.querySelector('.movie_time').textContent = movie_time;
-        }
+    const poster = urlParams.get('poster');
+    const movie_name = urlParams.get('movie_name');
+    const movie_rating = urlParams.get('movie_rating');
+    const movie_time = urlParams.get('movie_time');
 
-        function formatDate(date) {
-            const day = date.getDate();
-            const month = date.toLocaleString('en-US', { month: 'short' });
-            const year = date.getFullYear();
-            return `${day} ${month} ${year}`;
-        }
+    document.querySelector('.poster').setAttribute('src', poster);
+    document.querySelector('.movie_name').textContent = movie_name;
+    document.querySelector('.movie_rating').innerHTML = `<img src="${movie_rating}" alt="Movie Rating">`;
+    document.querySelector('.movie_time').textContent = movie_time;
+}
 
-        function getWeekday(date) {
-            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            return weekdays[date.getDay()];
-        }
+function formatDate(date) {
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+}
 
-        window.onload = function () {
-            getParameters();
-            updateDates();
-        };
+function getWeekday(date) {
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return weekdays[date.getDay()];
+}
 
-        // Sample showtime data (modified to include format)
-        const showtimesData = {
-            "Sky Cinemas Lido": [
-                { time: "10:00 AM", format: "imaxform" },
-                { time: "1:20 PM", format: "imaxform" },
-                { time: "4:05 PM", format: "standform" },
-                { time: "9:15 PM", format: "standform" }     
-            ],
-            "Sky Cinemas Balestier": [
-                { time: "12:30 PM", format: "imaxform" },
-                { time: "2:00 PM", format: "standform" },
-                { time: "5:45 PM", format: "imax3dform" },
-                { time: "7:00 PM", format: "standform" },
-                { time: "9:10 PM", format: "standform" },
-                { time: "11:50 PM", format: "standform" }
-            ],
-            "Sky Cinemas Waterway Point": [
-                { time: "10:05 AM", format: "standform" },
-                { time: "11:20 AM", format: "imaxform" },
-                { time: "12:45 PM", format: "imax3dform" },
-                { time: "3:25 PM", format: "standform" },
-                { time: "5:20 PM", format: "standform" },
-                { time: "6:05 PM", format: "imaxform" },
-                { time: "8:45 PM", format: "standform" },
-                { time: "11:25 PM", format: "standform" }
-            ],
-            "Sky Cinemas Nex": [
-                { time: "10:00 AM", format: "standform" },
-                { time: "1:20 PM", format: "standform" },
-                { time: "3:20 PM", format: "imax3dform" },
-                { time: "6:00 PM", format: "standform" },
-                { time: "7:00 PM", format: "imaxform" },
-                { time: "9:40 PM", format: "standform" },
-                { time: "11:40 PM", format: "standform" },
-                { time: "12:15 AM", format: "standform" }
-            ],
-            "Sky Cinemas Northpoint City": [
-                { time: "10:30 AM", format: "standform" },
-                { time: "1:10 PM", format: "standform" },
-                { time: "3:50 PM", format: "standform" },
-                { time: "6:30 PM", format: "imax3dform" },
-                { time: "9:10 PM", format: "standform" },
-                { time: "11:50 PM", format: "standform" }
-            ],
+window.onload = function () {
+    getParameters();
+    updateDates();
+};
 
-        };
+// Sample showtime data (modified to include format)
+const showtimesData = {
+    "Sky Cinemas Lido": [
+        { time: "10:00 AM", format: "imaxform" },
+        { time: "1:20 PM", format: "imaxform" },
+        { time: "4:05 PM", format: "standform" },
+        { time: "9:15 PM", format: "standform" }     
+    ],
+    "Sky Cinemas Balestier": [
+        { time: "12:30 PM", format: "imaxform" },
+        { time: "2:00 PM", format: "standform" },
+        { time: "5:45 PM", format: "imax3dform" },
+        { time: "7:00 PM", format: "standform" },
+        { time: "9:10 PM", format: "standform" },
+        { time: "11:50 PM", format: "standform" }
+    ],
+    "Sky Cinemas Waterway Point": [
+        { time: "10:05 AM", format: "standform" },
+        { time: "11:20 AM", format: "imaxform" },
+        { time: "12:45 PM", format: "imax3dform" },
+        { time: "3:25 PM", format: "standform" },
+        { time: "5:20 PM", format: "standform" },
+        { time: "6:05 PM", format: "imaxform" },
+        { time: "8:45 PM", format: "standform" },
+        { time: "11:25 PM", format: "standform" }
+    ],
+    "Sky Cinemas Nex": [
+        { time: "10:00 AM", format: "standform" },
+        { time: "1:20 PM", format: "standform" },
+        { time: "3:20 PM", format: "imax3dform" },
+        { time: "6:00 PM", format: "standform" },
+        { time: "7:00 PM", format: "imaxform" },
+        { time: "9:40 PM", format: "standform" },
+        { time: "11:40 PM", format: "standform" },
+        { time: "12:15 AM", format: "standform" }
+    ],
+    "Sky Cinemas Northpoint City": [
+        { time: "10:30 AM", format: "standform" },
+        { time: "1:10 PM", format: "standform" },
+        { time: "3:50 PM", format: "standform" },
+        { time: "6:30 PM", format: "imax3dform" },
+        { time: "9:10 PM", format: "standform" },
+        { time: "11:50 PM", format: "standform" }
+    ],
 
-        function createShowtimeElements(showtimes, cinemaName) {
+};
+
+function createShowtimeElements(showtimes, cinemaName) {
                 const rows = document.querySelectorAll('#shows tr');
                 const cinemaRow = Array.from(rows).find(row => row.children[0].textContent === cinemaName);
 
@@ -470,35 +534,35 @@
                 // Add the appropriate class
                 showtimeSpan.classList.add(showtime.format);
 
-            // Add the image if needed
-            if (showtime.format === "imaxform" || showtime.format === "imax3dform") { // Combined condition
-                const imageSrc = showtime.format === "imaxform" ? "Images/imax.png" : "Images/imax3d.png";
-                const imageAlt = showtime.format === "imaxform" ? "IMAX" : "IMAX 3D";
+    // Add the image if needed
+    if (showtime.format === "imaxform" || showtime.format === "imax3dform") { // Combined condition
+        const imageSrc = showtime.format === "imaxform" ? "Images/imax.png" : "Images/imax3d.png";
+        const imageAlt = showtime.format === "imaxform" ? "IMAX" : "IMAX 3D";
 
-                const image = document.createElement('img');
-                image.src = imageSrc;
-                image.alt = imageAlt;
-                image.style.width = "60px";
-                image.style.height = "10px";
+        const image = document.createElement('img');
+        image.src = imageSrc;
+        image.alt = imageAlt;
+        image.style.width = "60px";
+        image.style.height = "10px";
 
-                showtimeSpan.appendChild(image); // Append image *after* the link
+        showtimeSpan.appendChild(image); // Append image *after* the link
 
-                // Key change: Set flex-direction to column
-                showtimeSpan.style.display = "flex";
-                showtimeSpan.style.flexDirection = "column"; // Stack elements vertically
-                showtimeSpan.style.alignItems = "center"; // Center horizontally
-                showtimeSpan.style.justifyContent = "center"; // Center vertically
-                showtimeSpan.style.gap = "5px"; // Add gap between elements
-            }
+        // Key change: Set flex-direction to column
+        showtimeSpan.style.display = "flex";
+        showtimeSpan.style.flexDirection = "column"; // Stack elements vertically
+        showtimeSpan.style.alignItems = "center"; // Center horizontally
+        showtimeSpan.style.justifyContent = "center"; // Center vertically
+        showtimeSpan.style.gap = "5px"; // Add gap between elements
+    }
 
-                showtimeCell.appendChild(showtimeSpan);
-            });
-                }}
-        // Populate showtimes for each cinema
-        for (const cinema in showtimesData) {
-        const showtimes = showtimesData[cinema];
-        createShowtimeElements(showtimes, cinema); 
-        }
+        showtimeCell.appendChild(showtimeSpan);
+    });
+        }}
+// Populate showtimes for each cinema
+for (const cinema in showtimesData) {
+  const showtimes = showtimesData[cinema];
+  createShowtimeElements(showtimes, cinema); 
+}
     </script>
 </body>
 </html>

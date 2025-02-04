@@ -171,6 +171,7 @@
         .price-table{
             width: 92.5vw;
             margin-top: 50px;
+            padding: 15px;
         }
 
         .price-table td{
@@ -192,18 +193,31 @@
             text-align: center;
         }
 
-        .proceed-button {
-            width: 300px;
+        .pay-button {
+            width: 510px;
             height: 70px;
             background-color: #3c8aff;
             font-size: 20px;
             font-weight: bold;
             border: none;
             border-radius: 15px;
-            margin-top: 20px;
-            margin-left: 1220px;
+ 
         }
         
+        .payment-form{
+            margin-top: 70px;
+            margin-left: 550px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .payment-form input {
+            width: 500px;
+            height: 30px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
 
 
     </style>
@@ -270,10 +284,34 @@
             </tr>
         </table>
         <hr class="hr1">
-
+        <form class="payment-form">
+            <table>
+                <tr>
+                    <td>Contact Information</td>
+                </tr>
+                <tr>
+                    <td><input type="text" size="20" placeholder="Name"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" size="20" placeholder="Email"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" size="20" maxlength="8" placeholder="Contact Number" id="contactNumber"></td>
+                </tr>
+                <tr>
+                    <td>Payment Details</td>
+                </tr>
+                <tr>
+                    <td><input type="text" size="20" maxlength="7" placeholder="Card Number"></td>
+                </tr>
+            </table>
+            <input type="submit" class="pay-button" value="PAY" style="width: 510px;"/>    
+        </form>
+        
 
     <script>
-         function getParameters() {
+
+    function getParameters() {
     const urlParams = new URLSearchParams(window.location.search);
 
     const poster = urlParams.get('poster');
@@ -389,6 +427,19 @@
 
 
 window.addEventListener('DOMContentLoaded', getParameters);
+
+const contactNumberInput = document.getElementById('contactNumber');
+
+contactNumberInput.addEventListener('input', function (e) {
+    const inputValue = e.target.value;
+    const numericValue = inputValue.replace(/[^0-9]/g, ''); // Keep only numbers
+    e.target.value = numericValue;
+
+    // Optional: Limit length (maxlength attribute does not always work perfectly with JS manipulation)
+    if (numericValue.length > 8) {
+        e.target.value = numericValue.slice(0, 8);
+    }
+});
     </script>
 </body>
 </html>
