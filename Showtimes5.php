@@ -284,7 +284,7 @@
             </tr>
         </table>
         <hr class="hr1">
-        <form class="payment-form">
+        <form class="payment-form" action="confirmation.php">
             <table>
                 <tr>
                     <td>Contact Information</td>
@@ -397,49 +397,49 @@
         document.querySelector('.promo-quantity').textContent = promoQuantity;
         document.querySelector('.promo-total-price').textContent = totalPromo;
 
-    // Update the page content (example)
-    document.querySelector('.poster').src = decodeURIComponent(poster);
-    document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
-    document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
-    document.querySelector('.cinema-name').textContent = decodeURIComponent(cinema);
-    document.querySelector('.selected-date').textContent = decodeURIComponent(date);
-    document.querySelector('.selected-time').textContent = decodeURIComponent(time);
+        // Update the page content (example)
+        document.querySelector('.poster').src = decodeURIComponent(poster);
+        document.querySelector('.movie_name').textContent = decodeURIComponent(movieName);
+        document.querySelector('.movie_rating').innerHTML = `<img src="${decodeURIComponent(rating)}" alt="Movie Rating">`;
+        document.querySelector('.cinema-name').textContent = decodeURIComponent(cinema);
+        document.querySelector('.selected-date').textContent = decodeURIComponent(date);
+        document.querySelector('.selected-time').textContent = decodeURIComponent(time);
 
-    document.querySelector('.seats').textContent = decodeURIComponent(seats);
-    document.querySelector('.seat-price').textContent = "$" + seatPrice.toFixed(2); // Format price
-    document.querySelector('.seat-quantity').textContent = seatQuantity;
-    document.querySelector('.seat-total-price').textContent = "$" + seatTotal.toFixed(2); // Format price
+        document.querySelector('.seats').textContent = decodeURIComponent(seats);
+        document.querySelector('.seat-price').textContent = "$" + seatPrice.toFixed(2); // Format price
+        document.querySelector('.seat-quantity').textContent = seatQuantity;
+        document.querySelector('.seat-total-price').textContent = "$" + seatTotal.toFixed(2); // Format price
 
-    document.querySelector('.add-ons').textContent = decodeURIComponent(addOn1Name) + ", " + decodeURIComponent(addOn2Name);
-    document.querySelector('.add-on-price').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? decodeURIComponent(totalAddOn) : "-"; // Example
-    document.querySelector('.add-on-quantity').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? "1" : "-"; // Example
-    document.querySelector('.add-on-total-price').textContent = decodeURIComponent(totalAddOn); // Example
+        document.querySelector('.add-ons').textContent = decodeURIComponent(addOn1Name) + ", " + decodeURIComponent(addOn2Name);
+        document.querySelector('.add-on-price').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? decodeURIComponent(totalAddOn) : "-"; // Example
+        document.querySelector('.add-on-quantity').textContent = (parseFloat(decodeURIComponent(totalAddOn)) > 0) ? "1" : "-"; // Example
+        document.querySelector('.add-on-total-price').textContent = decodeURIComponent(totalAddOn); // Example
 
-    document.querySelector('.promos').textContent = decodeURIComponent(promo1Name) + ", " + decodeURIComponent(promo2Name);
-    document.querySelector('.promo-price').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? decodeURIComponent(totalPromo) : "-"; // Example
-    document.querySelector('.promo-quantity').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? "1" : "-"; // Example
-    document.querySelector('.promo-total-price').textContent = decodeURIComponent(totalPromoy); // Example
+        document.querySelector('.promos').textContent = decodeURIComponent(promo1Name) + ", " + decodeURIComponent(promo2Name);
+        document.querySelector('.promo-price').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? decodeURIComponent(totalPromo) : "-"; // Example
+        document.querySelector('.promo-quantity').textContent = (parseFloat(decodeURIComponent(totalPromo)) > 0) ? "1" : "-"; // Example
+        document.querySelector('.promo-total-price').textContent = decodeURIComponent(totalPromoy); // Example
 
-    let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + bookingFees; // Add booking fees
-    document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2);
+        let grandTotal = seatTotal + parseFloat(decodeURIComponent(totalAddOn) || 0) + parseFloat(decodeURIComponent(totalPromo) || 0) + bookingFees; // Add booking fees
+        document.querySelector('.grand-total').textContent = "$" + grandTotal.toFixed(2);
 
-}
-
-
-window.addEventListener('DOMContentLoaded', getParameters);
-
-const contactNumberInput = document.getElementById('contactNumber');
-
-contactNumberInput.addEventListener('input', function (e) {
-    const inputValue = e.target.value;
-    const numericValue = inputValue.replace(/[^0-9]/g, ''); // Keep only numbers
-    e.target.value = numericValue;
-
-    // Optional: Limit length (maxlength attribute does not always work perfectly with JS manipulation)
-    if (numericValue.length > 8) {
-        e.target.value = numericValue.slice(0, 8);
     }
-});
+
+
+    window.addEventListener('DOMContentLoaded', getParameters);
+
+    const contactNumberInput = document.getElementById('contactNumber');
+
+    contactNumberInput.addEventListener('input', function (e) {
+        const inputValue = e.target.value;
+        const numericValue = inputValue.replace(/[^0-9]/g, ''); // Keep only numbers
+        e.target.value = numericValue;
+
+        // Optional: Limit length (maxlength attribute does not always work perfectly with JS manipulation)
+        if (numericValue.length > 8) {
+            e.target.value = numericValue.slice(0, 8);
+        }
+    });
     </script>
 </body>
 </html>
